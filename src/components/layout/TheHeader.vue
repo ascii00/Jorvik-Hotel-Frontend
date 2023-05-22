@@ -1,94 +1,107 @@
 <template>
-    <header>
-        <div class="container">
-            <img src="src/assets/logo.png" alt="logo" class="logo">
-
-            <nav>
-                <ul>
-                    <li><a href="#">Booking</a></li>
-                    <li><a href="#">General</a></li>
-                    <li><a href="#">Entertainment</a></li>
-                    <li><a href="#">Restaurant</a></li>
-                    <li><a href="#">How it works</a></li>
-                </ul>
-            </nav>
-
-            <div class="login-btn">
-                <button>Login</button>
+    <header :class="{ 'scrolled-nav' : scrollPosition}">
+        <nav>
+            <div class="branding">
+                <TheLogo class="logo"></TheLogo>
             </div>
-        </div>
+            <ul v-show="!mobile" class="navigation">
+                <li><router-link class="link" :to="{name: 'Home'}">Booking</router-link></li>
+                <li><router-link class="link" :to="{name: ''}">General</router-link></li>
+                <li><router-link class="link" :to="{name: ''}">Entertainment</router-link></li>
+                <li><router-link class="link" :to="{name: ''}">Restaurant</router-link></li>
+                <li><router-link class="link" :to="{name: ''}">How it works</router-link></li>
+            </ul>
+            <div>
+                <i @click="toggleMobileNav" v-show="mobile" class="far fa-bars" :class="{'icon-active' : mobileNav}"></i>
+            </div>
+        </nav>
+        <transition name="mobile-nav">
+            <ul v-show="mobileNav" class="dropdown-nav">
+                <li><router-link class="link" :to="{name: 'Home'}">Booking</router-link></li>
+                <li><router-link class="link" :to="{name: ''}">General</router-link></li>
+                <li><router-link class="link" :to="{name: ''}">Entertainment</router-link></li>
+                <li><router-link class="link" :to="{name: ''}">Restaurant</router-link></li>
+                <li><router-link class="link" :to="{name: ''}">How it works</router-link></li>
+            </ul>
+        </transition>
+
     </header>
 </template>
 
 <script>
+import TheLogo from "@/components/layout/TheLogo.vue";
 
+export default {
+    components: {
+        TheLogo,
+    },
+
+    data() {
+        return {
+        };
+    },
+    methods: {
+
+    }
+}
 </script>
 
+
 <style scoped>
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background: #1F232C;
-}
-
-.logo {
-    height: 50px;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 60px;
-}
-
-nav ul li a {
-    text-decoration: none;
+header {
+    background-color: #1F232C;
+    z-index: 99;
+    width: 100%;
+    position: fixed;
+    transition: 0.5s ease all;
     color: white;
-    font-size: 17px;
 }
 
-nav ul li a:hover {
+nav {
+    display: flex;
+    flex-direction: row;
+    padding: 12px 0;
+    transition: .5s ease all;
+    width: 90%;
+    margin: 0 auto;
+}
+
+ul,
+.link {
+    color: white;
+    text-decoration: none;
+    list-style: none;
+}
+
+li {
+    text-transform: uppercase;
+    padding: 16px;
+    margin-left: 16px;
+}
+
+.link {
+    font-size: 14px;
+    transition: 0.5s ease all;
+    padding-bottom: 4px;
+    border-bottom: 1px solid transparent;
+}
+
+.link:hover {
     color: #FC5C65;
 }
 
-.login-btn button {
-    padding: 7px 30px;
-    border: none;
-    background-color: #FC5C65;
-    color: #1F232C;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 20px;
+.branding {
+    display: flex;
+    align-items: center;
 }
 
-.login-btn button:hover {
-    background-color: #e33840;
+.logo {
+    transition: 0.5s ease all;
 }
 
-@media (max-width: 600px) {
-    .container {
-        flex-direction: column;
-    }
-
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .login-btn {
-        margin-top: 20px;
+@media (max-width: 1140px) {
+    nav {
+        max-width: 1140px;
     }
 }
-
 </style>

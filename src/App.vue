@@ -18,13 +18,21 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;700&display=swap");
-html {
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
     font-family: "Nunito", sans-serif;
     font-weight: 300;
 }
 
-body, html {
-    margin: 0;
-    padding: 0;
+.app {
+    min-height: 100vh;
+    position: relative;
+}
+
+a {
+    text-decoration: none;
 }
 </style>
