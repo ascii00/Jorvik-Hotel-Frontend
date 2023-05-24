@@ -1,6 +1,5 @@
 <template>
     <TheHeader></TheHeader>
-    Test
     <router-view/>
 </template>
 
