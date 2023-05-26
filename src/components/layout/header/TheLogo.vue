@@ -1,6 +1,6 @@
 <template>
-    <a href="/" class="logo-area">
-        <img src="@/assets/logo.png" alt="logo" class="logo">
+    <a href="/public" class="logo-area">
+        <img src="../../../assets/logo.png" alt="logo" class="logo">
         <div class="logo-text">
             <span class="bold-text">Jorvik </span>
             <span class="light-text">Hotel</span>

@@ -74,8 +74,8 @@
 </template>
 
 <script>
-import TheLogo from "@/components/layout/TheLogo.vue";
-import TheLoginButton from "@/components/layout/TheLoginButton.vue";
+import TheLogo from "@/components/layout/header/TheLogo.vue";
+import TheLoginButton from "@/components/layout/header/TheLoginButton.vue";
 
 export default {
     components: {
@@ -289,12 +289,12 @@ i {
     width: 100%;
     background-color: #1F232C;
     font-size: 13px;
+    z-index: 900;
 }
 
 .entertainment-mobile-enter-from,
 .entertainment-mobile-leave-to {
     max-height: 0;
-
 }
 
 .entertainment-mobile-enter-active {

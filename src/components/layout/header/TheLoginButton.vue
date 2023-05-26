@@ -19,6 +19,7 @@ export default {
     font-size: 18px;
     cursor: pointer;
     border-radius: 20px;
+    font-weight: 500;
 }
 
 .login-btn button:hover {
