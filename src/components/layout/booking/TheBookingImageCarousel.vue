@@ -10,8 +10,8 @@
         <div class="content">
             <slot></slot>
         </div>
+        <div class="black-mask" :class="maskState"></div>
     </div>
-    <div class="black-mask" :class="maskState"></div>
 </template>
 
 <script>
@@ -63,8 +63,11 @@ export default {
 .background-image-container {
     position: relative;
     width: 100%;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
 }
 
 .background-image {
@@ -79,11 +82,14 @@ export default {
 
 .content {
     z-index: 10;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    padding: 1em;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .black-mask {
@@ -91,7 +97,7 @@ export default {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.4);
     transition: background-color 1.0s ease-in-out;
 }

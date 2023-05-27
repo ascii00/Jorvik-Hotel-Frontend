@@ -1,6 +1,6 @@
 <template>
     <TheHeader class="header"></TheHeader>
-    <router-view/>
+    <router-view class="content"/>
 </template>
 
 <script>
@@ -29,6 +29,10 @@ export default {
 .app {
     min-height: 100vh;
     position: relative;
+}
+
+.content {
+    padding-top: 59px;
 }
 
 a {

@@ -1,71 +1,85 @@
 <template>
-    <div class="booking-form">
-        <div class="form-section" style="position: relative;" @click="checkInSelected">
-            <button>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V192 144 128c0-35.3-28.7-64-64-64H344V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 192H400V448c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192z"/></svg>
-                Check In
+    <div class="main-form">
+        <div class="booking-form">
+            <div class="form-section" style="position: relative;" @click="checkInSelected">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V192 144 128c0-35.3-28.7-64-64-64H344V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 192H400V448c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192z"/></svg>
+                    Check In
+                </button>
+                <p>{{ formatDate(dateFrom) }}</p>
+            </div>
+
+            <div class="partition"></div>
+
+            <div class="form-section" @click="checkOutSelected">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V192 144 128c0-35.3-28.7-64-64-64H344V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 192H400V448c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192z"/></svg>
+                    Check Out
+                </button>
+                <p>{{ formatDate(dateTo) }}</p>
+            </div>
+
+            <div class="partition"></div>
+
+            <div class="form-section" @click="roomsForSelected">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/></svg>
+                    Rooms For
+                </button>
+                <p v-if="totalGuests">Guests: {{ totalGuests }}</p>
+                <p v-if="totalRooms">Rooms: {{ totalRooms }}</p>
+            </div>
+
+            <button class="search-button" @click="search">
+                <svg xmlns="http://www.w3.org/2000/svg" class="search-svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+                Search...
             </button>
-            <p>{{ formatDate(dateFrom) }}</p>
         </div>
 
-        <div class="partition"></div>
+        <transition name="datepicker">
+            <div class="datepicker-checkin" v-if="showCheckInCalendar" v-click-outside="clickedOutside">
+                <DatePicker
+                    class = "date-picker"
+                    @dayclick="handleDayClickIn"
+                    v-model="dateFrom"
+                    :min-date="new Date()"
+                    :max-date="getDatePlus(new Date(), 60)"
+                    :is-dark="true">
+                </DatePicker>
+            </div>
+        </transition>
 
-        <div class="form-section" @click="checkOutSelected">
-            <button>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V192 144 128c0-35.3-28.7-64-64-64H344V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 192H400V448c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192z"/></svg>
-                Check Out
-            </button>
-            <p>{{ formatDate(dateTo) }}</p>
-        </div>
+        <transition name="datepicker">
+            <div class="datepicker-checkout" v-if="showCheckOutCalendar" v-click-outside="clickedOutside">
+                <DatePicker
+                    class = "date-picker"
+                    @dayclick="handleDayClickOut"
+                    v-model="dateTo"
+                    :min-date="getDatePlus(this.dateFrom, 1) || getDatePlus(new Date(),1)"
+                    :max-date="getDatePlus(new Date(), 61)"
+                    :is-dark="true">
+                </DatePicker>
+            </div>
+        </transition>
 
-        <div class="partition"></div>
-
-        <div class="form-section" @click="roomsForSelected">
-            <button>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/></svg>
-                Rooms For
-            </button>
-            <p>{{ roomsFor }}</p>
-        </div>
-
-        <button class="search-button" @click="search">
-            <svg xmlns="http://www.w3.org/2000/svg" class="search-svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
-            Search...
-        </button>
+        <transition name="datepicker">
+            <ThePlusMinusComponent
+                class="plus-minus"
+                v-if="showRoomsFor"
+                v-click-outside="clickedOutside"
+                :initial-guests="totalGuests || 0"
+                :initial-rooms="totalRooms || 0"
+                @guestsUpdated="updateGuestsCount"
+                @roomsUpdated="updateRoomsCount"/>
+        </transition>
     </div>
-
-    <transition name="datepicker">
-        <div class="datepicker-checkin" v-if="showCheckInCalendar">
-            <DatePicker
-                class = "date-picker"
-                @dayclick="handleDayClickIn"
-                v-model="dateFrom"
-                :min-date="new Date()"
-                :max-date="getDatePlus(new Date(), 60)"
-                :is-dark="true">
-            </DatePicker>
-        </div>
-    </transition>
-
-    <transition name="datepicker">
-        <div class="datepicker-checkout" v-if="showCheckOutCalendar">
-            <DatePicker
-                class = "date-picker"
-                @dayclick="handleDayClickOut"
-                v-model="dateTo"
-                :min-date="getDatePlus(this.dateFrom, 1) || getDatePlus(new Date(),1)"
-                :max-date="getDatePlus(new Date(), 61)"
-                :is-dark="true">
-            </DatePicker>
-        </div>
-    </transition>
-
 </template>
 
 <script>
-import axios from 'axios'
 import { Calendar, DatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
+import ThePlusMinusComponent from "@/components/layout/booking/ThePlusMinusComponent.vue";
+import vClickOutside from "click-outside-vue3";
 
 
 export default {
@@ -73,6 +87,7 @@ export default {
     components: {
         Calendar,
         DatePicker,
+        ThePlusMinusComponent
     },
     data() {
         return {
@@ -83,7 +98,8 @@ export default {
             showRoomsFor: false,
             checkIn: null,
             checkOut: null,
-            roomsFor: null
+            totalGuests: null,
+            totalRooms: null
         }
     },
     methods: {
@@ -124,6 +140,11 @@ export default {
             this.showCheckOutCalendar = false;
             this.showRoomsFor = true;
         },
+        clickedOutside() {
+            this.showCheckOutCalendar = false;
+            this.showCheckInCalendar = false;
+            this.showRoomsFor = false;
+        },
         handleDayClickIn(day, event) {
             this.showCheckInCalendar = false;
             this.showCheckOutCalendar = false;
@@ -140,17 +161,19 @@ export default {
             if (this.dateTo > this.dateFrom) return
             this.dateFrom = null
         },
+        updateGuestsCount(count) {
+            this.totalGuests = count;
+        },
+        updateRoomsCount(count) {
+            this.totalRooms = count;
+        },
         async search() {
-            const response = await axios.post('/api/search', {
-                checkIn: this.formatDate(this.checkIn),
-                checkOut: this.formatDate(this.checkOut),
-                roomsFor: this.roomsFor
-            })
-            if (response.status === 200) {
-                this.$router.push('/results')
-            }
+
         }
-    }
+    },
+    directives: {
+        clickOutside: vClickOutside.directive
+    },
 }
 </script>
 
@@ -166,7 +189,7 @@ p {
     opacity: 0.92;
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Add this line */
+    align-items: center;
     background-color: #1F232C;
     border-radius: 50px;
     padding: 10px;
@@ -184,7 +207,7 @@ p {
 
 .partition {
     width: 0.2px;
-    height: 90%; /* adjust as needed */
+    height: 90%;
     background-color: white;
     align-self: center;
 }
@@ -214,12 +237,18 @@ p {
     left: -60px;
 }
 
+.plus-minus {
+    position: absolute;
+    width: 280px;
+    top: 80px;
+    left: 815px;
+}
+
 .date-picker {
     position: absolute;
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 10; /* Adjust as needed */
 }
 
 button {
@@ -275,8 +304,8 @@ svg {
 @media (max-width: 920px) {
     .booking-form {
         flex-direction: column; /* stack form sections vertically */
-        width: 170px; /* auto width to fit mobile screens */
-        height: 450px; /* adjust height to content */
+        width: 160px; /* auto width to fit mobile screens */
+        height: 520px; /* adjust height to content */
     }
 
     .form-section {
@@ -289,7 +318,10 @@ svg {
     }
 
     .datepicker-checkout {
-        top: 200px;
+        top: 230px;
+    }
+    .datepicker-checkin {
+        top: 100px;
     }
 
     .partition {
@@ -303,11 +335,15 @@ svg {
         left: 0;
     }
 
+    .plus-minus {
+        left: 110px;
+        top: 350px;
+    }
+
     .search-button {
         transform: scale(1.4);
-        width: 125px;
+        width: 110px;
         height: 60px;
     }
 }
-
 </style>

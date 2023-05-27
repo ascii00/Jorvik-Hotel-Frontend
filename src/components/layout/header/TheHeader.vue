@@ -135,7 +135,6 @@ header {
     transition: 0.5s ease all;
     color: white;
     position: fixed;
-    /* opacity: 0.90; */
 }
 
 nav {
