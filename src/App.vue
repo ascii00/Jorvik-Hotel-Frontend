@@ -31,10 +31,6 @@ export default {
     position: relative;
 }
 
-.content {
-    padding-top: 59px;
-}
-
 a {
     text-decoration: none;
 }

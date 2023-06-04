@@ -11,6 +11,8 @@
             'https://i.imgur.com/SkTAjLz.png',
             'https://i.imgur.com/mHSE8HS.png'
             ]"> <TheBookingForm></TheBookingForm> </TheBookingImageCarousel>
+
+
     </div>
 </template>
 

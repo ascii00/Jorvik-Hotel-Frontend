@@ -2,32 +2,32 @@
     <div class="main-form">
         <div class="booking-form">
             <div class="form-section" style="position: relative;" @click="checkInSelected">
-                <button>
+                <button class="titles">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V192 144 128c0-35.3-28.7-64-64-64H344V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 192H400V448c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192z"/></svg>
                     Check In
                 </button>
-                <p>{{ formatDate(dateFrom) }}</p>
+                <p class="subtitle">{{ formatDate(dateFrom) }}</p>
             </div>
 
             <div class="partition"></div>
 
             <div class="form-section" @click="checkOutSelected">
-                <button>
+                <button class="titles">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V192 144 128c0-35.3-28.7-64-64-64H344V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 192H400V448c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192z"/></svg>
                     Check Out
                 </button>
-                <p>{{ formatDate(dateTo) }}</p>
+                <p class="subtitle">{{ formatDate(dateTo) }}</p>
             </div>
 
             <div class="partition"></div>
 
-            <div class="form-section" @click="roomsForSelected">
-                <button>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/></svg>
-                    Rooms For
-                </button>
-                <p v-if="totalGuests">Guests: {{ totalGuests }}</p>
-                <p v-if="totalRooms">Rooms: {{ totalRooms }}</p>
+            <div class="form-section">
+                <div class="counter-component">
+                    <button class="plus-minus" @click="decrementGuests">-</button>
+                    <p class="titles-for">Rooms For</p>
+                    <button class="plus-minus" @click="incrementGuests">+</button>
+                </div>
+                <p class="subtitle" v-if="totalGuests">Guests: {{ totalGuests }}</p>
             </div>
 
             <button class="search-button" @click="search">
@@ -61,24 +61,12 @@
                 </DatePicker>
             </div>
         </transition>
-
-        <transition name="datepicker">
-            <ThePlusMinusComponent
-                class="plus-minus"
-                v-if="showRoomsFor"
-                v-click-outside="clickedOutside"
-                :initial-guests="totalGuests || 0"
-                :initial-rooms="totalRooms || 0"
-                @guestsUpdated="updateGuestsCount"
-                @roomsUpdated="updateRoomsCount"/>
-        </transition>
     </div>
 </template>
 
 <script>
 import { Calendar, DatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
-import ThePlusMinusComponent from "@/components/layout/booking/ThePlusMinusComponent.vue";
 import vClickOutside from "click-outside-vue3";
 
 
@@ -86,8 +74,7 @@ export default {
     name: "TheBookingForm",
     components: {
         Calendar,
-        DatePicker,
-        ThePlusMinusComponent
+        DatePicker
     },
     data() {
         return {
@@ -95,11 +82,9 @@ export default {
             dateTo: null,
             showCheckInCalendar: false,
             showCheckOutCalendar: false,
-            showRoomsFor: false,
             checkIn: null,
             checkOut: null,
-            totalGuests: null,
-            totalRooms: null
+            totalGuests: 1,
         }
     },
     methods: {
@@ -120,7 +105,6 @@ export default {
             }
             this.showCheckInCalendar = true;
             this.showCheckOutCalendar = false;
-            this.showRoomsFor = false;
         },
         checkOutSelected() {
             if(this.showCheckOutCalendar === true) {
@@ -129,26 +113,14 @@ export default {
             }
             this.showCheckInCalendar = false;
             this.showCheckOutCalendar = true;
-            this.showRoomsFor = false;
-        },
-        roomsForSelected() {
-            if(this.showRoomsFor === true) {
-                this.showRoomsFor = false;
-                return;
-            }
-            this.showCheckInCalendar = false;
-            this.showCheckOutCalendar = false;
-            this.showRoomsFor = true;
         },
         clickedOutside() {
             this.showCheckOutCalendar = false;
             this.showCheckInCalendar = false;
-            this.showRoomsFor = false;
         },
         handleDayClickIn(day, event) {
             this.showCheckInCalendar = false;
             this.showCheckOutCalendar = false;
-            this.showRoomsFor = false;
             if (this.dateTo === null) return
             if (this.dateTo > this.dateFrom) return
             this.dateTo = null
@@ -156,19 +128,34 @@ export default {
         handleDayClickOut(day, event) {
             this.showCheckInCalendar = false;
             this.showCheckOutCalendar = false;
-            this.showRoomsFor = false;
             if (this.dateFrom === null) return
             if (this.dateTo > this.dateFrom) return
             this.dateFrom = null
         },
-        updateGuestsCount(count) {
-            this.totalGuests = count;
+        incrementGuests() {
+            if (this.totalGuests < 6) {
+                this.totalGuests++;
+            }
         },
-        updateRoomsCount(count) {
-            this.totalRooms = count;
+        decrementGuests() {
+            if (this.totalGuests > 1) {
+                this.totalGuests--;
+            }
         },
-        async search() {
+        search() {
 
+            if(startDate === null || endDate === null) return;
+            const startDate = this.dateFrom.toISOString().split('T')[0];
+            const endDate = this.dateTo.toISOString().split('T')[0];
+
+            this.$router.push({
+                name: 'AvailableRooms',
+                query: {
+                    start: startDate,
+                    end: endDate,
+                    totalGuests: this.totalGuests,
+                },
+            });
         }
     },
     directives: {
@@ -178,7 +165,7 @@ export default {
 </script>
 
 <style scoped>
-p {
+.subtitle {
     color: white;
     font-weight: 300;
     font-size: 12px;
@@ -221,6 +208,7 @@ p {
     font-size: 17px;
     font-weight: 500;
     color: #1F232C;
+    border: none;
 }
 
 .datepicker-checkin {
@@ -237,13 +225,6 @@ p {
     left: -60px;
 }
 
-.plus-minus {
-    position: absolute;
-    width: 280px;
-    top: 80px;
-    left: 815px;
-}
-
 .date-picker {
     position: absolute;
     width: 100%;
@@ -251,7 +232,7 @@ p {
     left: 0;
 }
 
-button {
+.titles {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -262,7 +243,45 @@ button {
     background-color: transparent;
 }
 
-button:hover {
+.titles-for {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 17px;
+    border: none;
+    background-color: transparent;
+}
+
+.counter-component {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.plus-minus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 30%;
+    background-color: transparent;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+}
+
+.plus-minus:hover {
+    background-color: #FC5C65;
+    color: #1F232C;
+}
+
+.titles:hover {
     color: #FC5C65;
 }
 
@@ -333,11 +352,6 @@ svg {
 
     .datepicker-checkin, .datepicker-checkout {
         left: 0;
-    }
-
-    .plus-minus {
-        left: 110px;
-        top: 350px;
     }
 
     .search-button {
