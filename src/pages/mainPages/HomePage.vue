@@ -1,5 +1,4 @@
 <template>
-
     <div>
         <TheBookingImageCarousel :images="[
             'https://i.imgur.com/CHAkI4H.png',
@@ -11,8 +10,6 @@
             'https://i.imgur.com/SkTAjLz.png',
             'https://i.imgur.com/mHSE8HS.png'
             ]"> <TheBookingForm></TheBookingForm> </TheBookingImageCarousel>
-
-
     </div>
 </template>
 

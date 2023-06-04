@@ -1,10 +1,11 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
-import Home from '../pages/Home.vue'
-import AvailableRooms from "@/pages/AvailableRooms.vue";
+import Home from '../pages/mainPages/HomePage.vue'
+import Test from '../pages/Test.vue'
+import AvailableRooms from "@/pages/subPages/AvailableRooms.vue";
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: [
         {
             path: '/',
@@ -15,6 +16,11 @@ const router = createRouter({
             path: '/available-rooms',
             name: 'AvailableRooms',
             component: AvailableRooms
+        },
+        {
+            path: '/test',
+            name: 'Test',
+            component: Test
         }
     ]
 })

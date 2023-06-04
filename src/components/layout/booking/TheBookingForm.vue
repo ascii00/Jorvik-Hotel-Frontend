@@ -143,10 +143,9 @@ export default {
             }
         },
         search() {
-
-            if(startDate === null || endDate === null) return;
+            if(this.dateTo === null || this.dateFrom === null) return;
             const startDate = this.dateFrom.toISOString().split('T')[0];
-            const endDate = this.dateTo.toISOString().split('T')[0];
+            const endDate = this.dateFrom.toISOString().split('T')[0];
 
             this.$router.push({
                 name: 'AvailableRooms',

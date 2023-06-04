@@ -1,77 +1,41 @@
 <template>
     <teleport to="body">
-        <transition name="dialog">
-            <header>
-                <slot name="header">
-                    <h2>{{ title }}</h2>
-                </slot>
-            </header>
-            <section>
-                <slot></slot>
-            </section>
-            <menu>
-                <slot name="actions">
-                    <base-button
-                        :link="linkButtonOne"
-                        :to="toButtonOne"
-                        :onClick="buttonOneClickHandler">
-                        Close
-                    </base-button>
-                    <base-button
-                        v-if="buttonTwo"
-                        :link="linkButtonTwo"
-                        :to="toButtonTwo"
-                        :onClick="buttonTwoClickHandler">
-                        Close
-                    </base-button>
-                </slot>
-            </menu>
-        </transition>
+        <div v-if="show" @click="tryClose" class="backdrop"></div>
+            <transition name="dialog">
+                <dialog open v-if="show">
+                    <header>
+                        <slot name="header">
+                            <h2>{{ title }}</h2>
+                        </slot>
+                    </header>
+                    <section>
+                        <slot></slot>
+                    </section>
+                    <menu>
+                        <slot name="actions">
+                            <slot name="actions">
+                                <base-button @click="tryClose">Close</base-button>
+                            </slot>
+                        </slot>
+                    </menu>
+                </dialog>
+            </transition>
     </teleport>
 </template>
 
 <script>
 export default {
     props: {
+        show: {
+            type: Boolean,
+            required: true,
+        },
         title: {
             type: String,
             required: false,
-        },
-        linkButtonOne: {
-            type: Boolean,
-            required: false,
-            default: false
-        },
-        toButtonOne: {
-            type: String,
-            required: false,
-            default: '/'
-        },
-        buttonTwo: {
-            type: Boolean,
-            required: false,
-            default: false
-        },
-        linkButtonTwo: {
-            type: Boolean,
-            required: false,
-            default: false
-        },
-        toButtonTwo: {
-            type: String,
-            required: false,
-            default: '/'
         }
     },
     methods: {
-        buttonOneClickHandler() {
-            this.$emit('button-one-click');
-            this.tryClose();
-        },
-        buttonTwoClickHandler() {
-            this.$emit('button-two-click');
-            this.tryClose();
-        },
         tryClose() {
             this.$emit('close');
         }
@@ -80,6 +44,16 @@ export default {
 </script>
 
 <style scoped>
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 10;
+}
+
 dialog {
     position: fixed;
     top: 20vh;
@@ -96,7 +70,7 @@ dialog {
 }
 
 header {
-    background-color: #3a0061;
+    background-color: #1F232C;
     color: white;
     width: 100%;
     padding: 1rem;
