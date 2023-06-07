@@ -1,5 +1,8 @@
 <template>
     <div class="main-form">
+        <base-dialog :show="showDialog" title="Form is invalid" @close="closeDialog">
+            <p>Check-in and check-out date can't be empty</p>
+        </base-dialog>
         <div class="booking-form">
             <div class="form-section" style="position: relative;" @click="checkInSelected">
                 <button class="titles">
@@ -80,6 +83,7 @@ export default {
         return {
             dateFrom: null,
             dateTo: null,
+            showDialog: false,
             showCheckInCalendar: false,
             showCheckOutCalendar: false,
             checkIn: null,
@@ -88,6 +92,12 @@ export default {
         }
     },
     methods: {
+        openDialog() {
+            this.showDialog= true;
+        },
+        closeDialog() {
+            this.showDialog = false;
+        },
         getDatePlus(date, numberOfDays) {
             if (date === null) return null
             const newDate = new Date(date)
@@ -143,7 +153,11 @@ export default {
             }
         },
         search() {
-            if(this.dateTo === null || this.dateFrom === null) return;
+            if(this.dateTo === null || this.dateFrom === null){
+                this.showDialog = true;
+                return;
+            }
+
             const startDate = this.dateFrom.toISOString().split('T')[0];
             const endDate = this.dateFrom.toISOString().split('T')[0];
 

@@ -1,10 +1,17 @@
 <template>
     <div>
-      <p1>General</p1>
-      <p1>General</p1>
-      <p1>General</p1>
-      <p1>General</p1>
-      <p1>General</p1>
+      <p>General</p>
+      <p>General</p>
+      <p>General</p>
+      <p>General</p>
+      <p>General</p>
+      <p>General</p>
+      <p>General</p>
+      <p>General</p>
+      <p>General</p>
+      <p>General</p>
+      <p>General</p>
+      <p>General</p>
     </div>
 </template>
 

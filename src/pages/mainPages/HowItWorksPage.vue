@@ -1,10 +1,18 @@
 <template>
     <div>
-      <p1>How it is works</p1>
-      <p1>How it is works</p1>
-      <p1>How it is works</p1>
-      <p1>How it is works</p1>
-      <p1>How it is works</p1>
+      <p>How it is works</p>
+      <p>How it is works</p>
+      <p>How it is works</p>
+      <p>How it is works</p>
+      <p>How it is works</p>
+      <p>How it is works</p>
+      <p>How it is works</p>
+      <p>How it is works</p>
+      <p>How it is works</p>
+      <p>How it is works</p>
+      <p>How it is works</p>
+      <p>How it is works</p>
+      <p>How it is works</p>
     </div>
 </template>
 

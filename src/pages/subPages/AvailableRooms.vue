@@ -1,7 +1,8 @@
 <template>
     <div class="content">
-        <div v-if="isLoading">Loading...</div>
+        <div v-if="isLoading" class="spinner"><base-spinner/></div>
         <div v-else-if="error">{{ error.message }}</div>
+        <div v-else-if="!roomTypes.length">No room types found.</div>
         <div v-else>
             <div v-for="roomType in roomTypes" :key="roomType.id">
                 <h2>Room Type {{ roomType.id }}</h2>
@@ -43,5 +44,11 @@ export default {
 </script>
 
 <style scoped>
+.spinner {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 </style>

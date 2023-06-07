@@ -1,10 +1,17 @@
 <template>
     <div>
-      <p1>Kayaks</p1>
-      <p1>Kayaks</p1>
-      <p1>Kayaks</p1>
-      <p1>Kayaks</p1>
-      <p1>Kayaks</p1>
+      <p>Kayaks</p>
+      <p>Kayaks</p>
+      <p>Kayaks</p>
+      <p>Kayaks</p>
+      <p>Kayaks</p>
+      <p>Kayaks</p>
+      <p>Kayaks</p>
+      <p>Kayaks</p>
+      <p>Kayaks</p>
+      <p>Kayaks</p>
+      <p>Kayaks</p>
+      <p>Kayaks</p>
     </div>
 </template>
 

@@ -1,11 +1,15 @@
 <template>
     <div>
-      <p1>Tennis</p1>
-      <p1>Tennis</p1>
-      <p1>Tennis</p1>
-      <p1>Tennis</p1>
-      <p1>Tennis</p1>
-      <p1>Tennis</p1>
+      <p>Tennis</p>
+      <p>Tennis</p>
+      <p>Tennis</p>
+      <p>Tennis</p>
+      <p>Tennis</p>
+      <p>Tennis</p>
+      <p>Tennis</p>
+      <p>Tennis</p>
+      <p>Tennis</p>
+      <p>Tennis</p>
     </div>
 </template>
 

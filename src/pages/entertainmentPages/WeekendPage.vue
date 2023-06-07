@@ -1,10 +1,15 @@
 <template>
     <div>
-      <p1>Weekend</p1>
-      <p1>Weekend</p1>
-      <p1>Weekend</p1>
-      <p1>Weekend</p1>
-      <p1>Weekend</p1>
+      <p>Weekend</p>
+      <p>Weekend</p>
+      <p>Weekend</p>
+      <p>Weekend</p>
+      <p>Weekend</p>
+      <p>Weekend</p>
+      <p>Weekend</p>
+      <p>Weekend</p>
+      <p>Weekend</p>
+      <p>Weekend</p>
     </div>
 </template>
 

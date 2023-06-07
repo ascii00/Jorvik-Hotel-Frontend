@@ -6,16 +6,16 @@
                     <TheLogo class="logo"></TheLogo>
                 </div>
                 <ul v-show="!mobile" class="navigation">
-                    <li><router-link class="link" :to="{name: 'Home'}">Booking</router-link></li>
-                    <li><router-link class="link" :to="{name: ''}">General</router-link></li>
+                    <li><router-link class="link" :to="{name: 'Home'}" @click="closeEntertainment">Booking</router-link></li>
+                    <li><router-link class="link" :to="{name: 'General'}" @click="closeEntertainment">General</router-link></li>
                     <li class="position-relative">
                         <a class="link" @click="toggleEntertainment">
                             Entertainment
                             <i class="fa fa-angle-down icon-entertainment" :class="{'icon-active' : entertainment}"></i>
                         </a>
                     </li>
-                    <li><router-link class="link" :to="{name: ''}">Restaurant</router-link></li>
-                    <li><router-link class="link" :to="{name: ''}">How it works</router-link></li>
+                    <li><router-link class="link" :to="{name: 'Restaurant'}" @click="closeEntertainment">Restaurant</router-link></li>
+                    <li><router-link class="link" :to="{name: 'HowItWorks'}" @click="closeEntertainment">How it works</router-link></li>
                 </ul>
                 <TheLoginButton v-show="!mobile" class="login-button"></TheLoginButton>
                 <div class="icon">
@@ -29,29 +29,31 @@
                         <div class="branding-mobile">
                             <TheLogo class="logo"></TheLogo>
                         </div>
-                        <li><router-link class="link" :to="{name: 'Home'}">Booking</router-link></li>
-                        <li><router-link class="link" :to="{name: ''}">General</router-link></li>
-                        <li class="position-relative">
-                            <a class="link" @click="toggleEntertainment">
-                                Entertainment
-                                <i class="fa fa-angle-down icon-entertainment" :class="{'icon-active' : entertainment}"></i>
-                            </a>
-                        </li>
+                        <ul>
+                            <li><router-link class="link" :to="{name: 'Home'}" @click="closeEntertainment">Booking</router-link></li>
+                            <li><router-link class="link" :to="{name: 'General'}" @click="closeEntertainment">General</router-link></li>
+                            <li class="position-relative">
+                                <a class="link" @click="toggleEntertainment">
+                                    Entertainment
+                                    <i class="fa fa-angle-down icon-entertainment" :class="{'icon-active' : entertainment}"></i>
+                                </a>
+                            </li>
+                        </ul>
 
                         <transition name="entertainment-mobile">
                             <ul v-if="entertainment">
-                                <li><router-link class="sub-link" :to="{name: ''}">Weekend</router-link></li>
-                                <li><router-link class="sub-link" :to="{name: ''}">Tennis</router-link></li>
-                                <li><router-link class="sub-link" :to="{name: ''}">Bicycles</router-link></li>
-                                <li><router-link class="sub-link" :to="{name: ''}">Kayaks</router-link></li>
-                                <li><router-link class="sub-link" :to="{name: ''}">Eco-tours</router-link></li>
-                                <li><router-link class="sub-link" :to="{name: ''}">Ping-Pong</router-link></li>
-                                <li><router-link class="sub-link" :to="{name: ''}">Gym</router-link></li>
+                                <li><router-link class="sub-link" :to="{name: 'Weekend'}" @click="toggleMobileNav">Weekend</router-link></li>
+                                <li><router-link class="sub-link" :to="{name: 'Tennis'}" @click="toggleMobileNav">Tennis</router-link></li>
+                                <li><router-link class="sub-link" :to="{name: 'Bicycles'}" @click="toggleMobileNav">Bicycles</router-link></li>
+                                <li><router-link class="sub-link" :to="{name: 'Kayaks'}" @click="toggleMobileNav">Kayaks</router-link></li>
+                                <li><router-link class="sub-link" :to="{name: 'EcoTours'}" @click="toggleMobileNav">Eco-tours</router-link></li>
+                                <li><router-link class="sub-link" :to="{name: 'PingPong'}" @click="toggleMobileNav">Ping-Pong</router-link></li>
+                                <li><router-link class="sub-link" :to="{name: 'Gym'}" @click="toggleMobileNav">Gym</router-link></li>
                             </ul>
                         </transition>
 
-                        <li><router-link class="link" :to="{name: ''}">Restaurant</router-link></li>
-                        <li><router-link class="link" :to="{name: ''}">How it works</router-link></li>
+                        <li><router-link class="link" :to="{name: 'Restaurant'}" @click="closeEntertainment">Restaurant</router-link></li>
+                        <li><router-link class="link" :to="{name: 'HowItWorks'}" @click="closeEntertainment">How it works</router-link></li>
                         <TheLoginButton class="login-button-mobile"></TheLoginButton>
                     </div>
                 </div>
@@ -60,13 +62,13 @@
         <transition name="entertainment-nav">
             <div v-show="!mobile && entertainment" class="entertainment-navigation">
                 <ul class="navigation">
-                    <li><router-link class="link" :to="{name: ''}">Weekend</router-link></li>
-                    <li><router-link class="link" :to="{name: ''}">Tennis</router-link></li>
-                    <li><router-link class="link" :to="{name: ''}">Bicycles</router-link></li>
-                    <li><router-link class="link" :to="{name: ''}">Kayaks</router-link></li>
-                    <li><router-link class="link" :to="{name: ''}">Eco-tours</router-link></li>
-                    <li><router-link class="link" :to="{name: ''}">Ping-Pong</router-link></li>
-                    <li><router-link class="link" :to="{name: ''}">Gym</router-link></li>
+                    <li><router-link class="link" :to="{name: 'Weekend'}" @click="closeEntertainment">Weekend</router-link></li>
+                    <li><router-link class="link" :to="{name: 'Tennis'}" @click="closeEntertainment">Tennis</router-link></li>
+                    <li><router-link class="link" :to="{name: 'Bicycles'}" @click="closeEntertainment">Bicycles</router-link></li>
+                    <li><router-link class="link" :to="{name: 'Kayaks'}" @click="closeEntertainment">Kayaks</router-link></li>
+                    <li><router-link class="link" :to="{name: 'EcoTours'}" @click="closeEntertainment">Eco-tours</router-link></li>
+                    <li><router-link class="link" :to="{name: 'PingPong'}" @click="closeEntertainment">Ping-Pong</router-link></li>
+                    <li><router-link class="link" :to="{name: 'Gym'}" @click="closeEntertainment">Gym</router-link></li>
                 </ul>
             </div>
         </transition>
@@ -97,10 +99,14 @@ export default {
     },
     methods: {
         toggleMobileNav() {
+            this.entertainment = false;
             this.mobileNav = !this.mobileNav;
         },
         toggleEntertainment() {
             this.entertainment = !this.entertainment;
+        },
+        closeEntertainment() {
+            this.entertainment = false;
         },
         checkScreen() {
             this.windowWidth = window.innerWidth;
@@ -134,7 +140,7 @@ header {
     width: 100%;
     transition: 0.5s ease all;
     color: white;
-    position: fixed;
+    position: relative;
 }
 
 nav {
@@ -219,9 +225,8 @@ ul,
     justify-content: flex-end;
 }
 
-login-button-mobile {
-    padding-top: 500px;
-    margin-top: 500px;
+.login-button-mobile {
+    margin-top: 30px;
 }
 
 .icon {
@@ -283,7 +288,7 @@ i {
 }
 
 .entertainment-navigation {
-    position: fixed;
+    position: absolute;
     top: 70px;
     width: 100%;
     background-color: #1F232C;

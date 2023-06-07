@@ -35,6 +35,7 @@ export default {
             required: false,
         }
     },
+    emits: ['close'],
     methods: {
         tryClose() {
             this.$emit('close');
@@ -62,11 +63,11 @@ dialog {
     z-index: 100;
     border-radius: 12px;
     border: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     padding: 0;
     margin: 0;
     overflow: hidden;
     background-color: white;
+    opacity: 90%;
 }
 
 header {
