@@ -1,11 +1,11 @@
 <template>
-    <a href="/public" class="logo-area">
+    <router-link to="/" class="logo-area">
         <img src="../../../assets/logo.png" alt="logo" class="logo">
         <div class="logo-text">
             <span class="bold-text">Jorvik </span>
             <span class="light-text">Hotel</span>
         </div>
-    </a>
+    </router-link>
 </template>
 
 <script>

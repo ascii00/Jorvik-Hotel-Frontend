@@ -1,5 +1,4 @@
 <template>
-
     <div>
         <TheBookingImageCarousel :images="[
             'https://i.imgur.com/CHAkI4H.png',
