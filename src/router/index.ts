@@ -20,6 +20,7 @@ import EcoTours from "@/pages/entertainmentPages/EcoToursPage.vue";
 
 // Sub Pages
 import AvailableRooms from "@/pages/subPages/AvailableRooms.vue";
+import BookingResult from "@/pages/subPages/BookingResult.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -88,6 +89,11 @@ const router = createRouter({
             path: '/eco-tours',
             name: 'EcoTours',
             component: EcoTours
+        },
+        {
+            path: '/bookings-result',
+            name: 'BookingResult',
+            component: BookingResult
         },
         {
             path: '/:pathMatch(.*)*',
