@@ -4,7 +4,8 @@
     <div class="photo-container" :style="{'background-image': `url(${photoUrl})`}"></div>
     <div class="form-container">
       <div class="form-element">
-        <TheLoginForm></TheLoginForm>
+        <TheLoginForm @toggle-register-form="toggleRegisterForm" v-if="login"></TheLoginForm>
+        <TheRegisterForm @toggle-login-form="toggleLoginForm" v-else></TheRegisterForm>
       </div>
     </div>
   </div>
@@ -13,17 +14,28 @@
 <script>
 
 import TheLoginForm from "@/components/layout/login/TheLoginForm.vue";
+import TheRegisterForm from "@/components/layout/login/TheRegisterForm.vue";
 
 export default {
-  components: {TheLoginForm},
+  components: {
+    TheLoginForm,
+    TheRegisterForm,
+  },
   data() {
     return {
       photoUrl: 'https://i.imgur.com/eYg0Kem.jpg',
+      login: true,
     };
   },
   methods: {
     toggleClose() {
       this.$router.push({name: "Home"});
+    },
+    toggleRegisterForm() {
+      this.login = false;
+    },
+    toggleLoginForm() {
+      this.login = true;
     },
   }
 };

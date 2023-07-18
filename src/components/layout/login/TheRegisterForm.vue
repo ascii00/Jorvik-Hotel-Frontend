@@ -1,13 +1,21 @@
 <template>
   <div class="login-form">
 
-    <h1 class="center">Hello Again!</h1>
-    <p class="center">Welcome back you've been missed!</p>
+    <h1 class="center">Join us!</h1>
 
     <form @submit.prevent="submitForm">
 
+      <input class="name-input" type="text" v-model="name" placeholder="Name" required />
+      <p v-if="nameError" class="error">{{ nameError }}</p>
+      <input class="name-input" type="text" v-model="surname" placeholder="Surname" required />
+      <p v-if="surnameError" class="error">{{ surnameError }}</p>
+
       <input class="email-input" type="email" v-model="email" placeholder="Enter Email" required />
       <p v-if="emailError" class="error">{{ emailError }}</p>
+
+      <input class="email-input" type="text" v-model="phone" placeholder="Phone Number" required />
+
+      <p v-if="phoneError" class="error">{{ phoneError }}</p>
 
       <div class="password-container">
         <input :type="passwordFieldType" v-model="password" placeholder="Enter Password" required />
@@ -15,48 +23,68 @@
           <svg class="hide-svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c8.4-19.3 10.6-41.4 4.8-63.3c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zM373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5L373 389.9z"/></svg>
         </div>
       </div>
+      <div class="password-container">
+        <input :type="passwordFieldType" v-model="passwordTwo" placeholder="Re-Enter Password" required />
+        <div class="password-visibility-toggle" @click="togglePasswordTwoVisibility">
+          <svg class="hide-svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c8.4-19.3 10.6-41.4 4.8-63.3c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zM373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5L373 389.9z"/></svg>
+        </div>
+      </div>
       <p v-if="passwordError" class="error">{{ passwordError }}</p>
 
-      <div class="recover-password">
-        <a class="recover-password-button" href="#">Recover Password</a>
-      </div>
-
-      <button class="submit-button" type="submit">Sign In</button>
+      <button class="submit-button" type="submit">Sign Up</button>
 
     </form>
 
-    <div class="register">
-      <p>Not a member? <span class="register-button" @click="toggleRegisterForm">Register now</span></p>
+    <div class="login">
+      <p>Already have an account? <span class="login-button" @click="toggleLoginForm">Login</span></p>
     </div>
 
   </div>
 </template>
 
 <script>
+
 export default {
+  name: 'SignUp',
   data() {
     return {
+      name: '',
+      surname: '',
       email: '',
+      phone: '',
       password: '',
+      passwordTwo: '',
       passwordFieldType: 'password',
+      passwordTwoFieldType: 'password',
+      nameError: '',
+      surnameError: '',
       emailError: '',
+      phoneError: '',
       passwordError: '',
+      phoneCodes: ['+1', '+91', '+44', '+61', '+81'],
     };
   },
   methods: {
     submitForm() {
+      this.validateName(this.name);
+      this.validateSurname(this.surname);
       this.validateEmail(this.email);
+      this.validatePhone(this.phone);
       this.validatePassword(this.password);
+      this.validatePassword(this.passwordTwo);
 
-      if (!this.passwordError && !this.emailError) {
+      if (!this.passwordError && !this.emailError && !this.nameError && !this.surnameError && !this.phoneError) {
         // Form submission logic
       }
     },
     togglePasswordVisibility() {
       this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
     },
-    toggleRegisterForm() {
-      this.$emit('toggle-register-form');
+    togglePasswordTwoVisibility() {
+      this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+    },
+    toggleLoginForm() {
+      this.$emit('toggle-login-form');
     },
     validateEmail(value){
       const emailReg = /^\S+@\S+\.\S+$/;
@@ -67,11 +95,37 @@ export default {
       }
     },
     validatePassword(value){
+      if (this.passwordError) {
+        return;
+      }
       const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-      if (!passwordReg.test(value)) {
+      if (this.password !== this.passwordTwo) {
+        this.passwordError = 'Passwords do not match';
+      } else if (!passwordReg.test(value)) {
         this.passwordError = 'Password must have at least: 8 characters length, 1 upper case letter, 1 lower case letter, 1 digit, 1 special character';
       } else {
         this.passwordError = '';
+      }
+    },
+    validateName(value){
+      if (!value) {
+        this.nameError = 'Please enter your name';
+      } else {
+        this.nameError = '';
+      }
+    },
+    validateSurname(value){
+      if (!value) {
+        this.surnameError = 'Please enter your surname';
+      } else {
+        this.surnameError = '';
+      }
+    },
+    validatePhone(value){
+      if (!value) {
+        this.phoneError = 'Please enter your phone number';
+      } else {
+        this.phoneError = '';
       }
     }
   }
@@ -87,6 +141,7 @@ export default {
 
 h1 {
   font-weight: 700;
+  margin-bottom: 20px;
 }
 
 p {
@@ -115,14 +170,12 @@ h1, p{
   border-radius: 10px;
 }
 
-.email-input {
+.login-form input {
   margin-bottom: 20px;
-  margin-top: 20px;
 }
 
 .password-container {
   position: relative;
-  margin-bottom: 5px;
 }
 
 .password-container input {
@@ -140,36 +193,22 @@ h1, p{
   cursor: pointer;
 }
 
-.recover-password {
-  font-size: 13px;
-  text-align: right;
-}
-
 .submit-button {
   margin-top: 20px;
 }
 
-.recover-password-button {
-  text-decoration: none;
-  color: #cccccc;
-}
-
-.recover-password-button:hover {
-  color: #999999;
-}
-
-.register {
+.login {
   padding-top: 20px;
   text-align: right;
 }
 
-.register-button {
+.login-button {
   color: #FC5C65;
   text-decoration: none;
   cursor: pointer;
 }
 
-.register-button:hover {
+.login-button:hover {
   color: #e33840;
 }
 
@@ -187,6 +226,7 @@ h1, p{
 }
 
 .hide-svg {
+  margin-bottom: 20px;
   fill: #a2a2a2;
 }
 
