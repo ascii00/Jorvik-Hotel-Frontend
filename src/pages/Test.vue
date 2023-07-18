@@ -1,11 +1,6 @@
 <template>
     <div>
-        <h1>Test</h1>
-        <h1>Test</h1>
-        <h1>Test</h1>
-        <h1>Test</h1>
-
-        <base-room-card photo="https://i.imgur.com/wYTCtRu.jpeg"/>
+        <LoginCard></LoginCard>
     </div>
 </template>
 
@@ -13,9 +8,10 @@
 
 import BaseButton from "@/components/ui/BaseButton.vue";
 import BaseRoomCard from "@/components/ui/BaseRoomCard.vue";
+import LoginCard from "@/components/layout/login/TheLoginCard.vue";
 
 export default {
-    components: {BaseRoomCard, BaseButton},
+    components: {LoginCard, BaseRoomCard, BaseButton},
     data () {
         return {
             show: false

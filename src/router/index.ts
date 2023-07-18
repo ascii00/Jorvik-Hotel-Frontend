@@ -8,6 +8,7 @@ import Home from '../pages/mainPages/HomePage.vue'
 import General from '../pages/mainPages/GeneralPage.vue'
 import HowItWorks from "@/pages/mainPages/HowItWorksPage.vue";
 import Restaurant from "@/pages/mainPages/RestaurantPage.vue";
+import Login from "@/pages/mainPages/LoginPage.vue";
 
 // Entertainment pages
 import Bicycles from "@/pages/entertainmentPages/BicyclesPage.vue";
@@ -99,6 +100,11 @@ const router = createRouter({
             path: '/:pathMatch(.*)*',
             name: 'NotFound',
             component: NotFound
+        },
+        {
+            path: '/login',
+            name: 'Login',
+            component: Login
         }
     ]
 })

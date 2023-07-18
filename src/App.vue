@@ -1,15 +1,22 @@
 <template>
-    <TheHeader class="header"></TheHeader>
+    <TheHeader v-if="!isLoginPage" class="header"></TheHeader>
     <router-view class="content"/>
 </template>
 
 <script>
 import TheHeader from "@/components/layout/header/TheHeader.vue";
+import {mapState} from "vuex";
 
 export default {
     name: "App",
     components: {
         TheHeader,
+    },
+    computed: {
+      ...mapState('route', ['name']),
+      isLoginPage() {
+        return this.name === 'Login'
+      }
     }
 }
 

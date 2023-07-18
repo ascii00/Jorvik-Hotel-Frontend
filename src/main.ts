@@ -11,6 +11,10 @@ import BaseImageCarousel from "@/components/ui/BaseImageCarousel.vue";
 import BaseSelectBox from "@/components/ui/BaseSelectBox.vue";
 import BaseCard from "@/components/ui/BaseCard.vue";
 
+router.beforeEach((to, from, next) => {
+    store.commit('route/setName', to.name);
+    next();
+});
 
 const app = createApp(App)
 

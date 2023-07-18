@@ -57,8 +57,8 @@ button.color-one:hover {
 }
 
 button.color-two:hover {
-    background-color: #FC5C65;
-    border-color: #FC5C65;
+    background-color: #e33840;
+    border-color: #e33840;
     color: white;
 }
 </style>
