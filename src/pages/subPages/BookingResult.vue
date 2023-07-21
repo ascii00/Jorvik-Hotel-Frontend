@@ -23,8 +23,6 @@
     </div>
 </template>
 
-
-
 <script>
 import BaseCard from "@/components/ui/BaseCard.vue";
 import BaseButton from "@/components/ui/BaseButton.vue";

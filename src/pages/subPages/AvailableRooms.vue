@@ -82,7 +82,6 @@
 import BaseRoomCard from "@/components/ui/BaseRoomCard.vue";
 import BaseButton from "@/components/ui/BaseButton.vue";
 import BaseDialog from "@/components/ui/BaseDialog.vue";
-import clients from "@/store/modules/clients";
 import BaseCard from "@/components/ui/BaseCard.vue";
 
 export default {

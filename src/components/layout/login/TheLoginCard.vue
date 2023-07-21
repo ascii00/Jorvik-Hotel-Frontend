@@ -4,8 +4,9 @@
     <div class="photo-container" :style="{'background-image': `url(${photoUrl})`}"></div>
     <div class="form-container">
       <div class="form-element">
-        <TheLoginForm @toggle-register-form="toggleRegisterForm" v-if="login"></TheLoginForm>
-        <TheRegisterForm @toggle-login-form="toggleLoginForm" v-else></TheRegisterForm>
+        <TheLoginForm @toggle-register-form="toggleRegisterForm" @toggle-resetPassword-form="toggleResetPasswordForm" v-if="login && !resetPassword"></TheLoginForm>
+        <TheRegisterForm @toggle-login-form="toggleLoginForm" v-else-if="!resetPassword"></TheRegisterForm>
+        <TheResetPasswordForm @toggle-login-form="toggleLoginForm" v-if="resetPassword"></TheResetPasswordForm>
       </div>
     </div>
   </div>
@@ -15,16 +16,19 @@
 
 import TheLoginForm from "@/components/layout/login/TheLoginForm.vue";
 import TheRegisterForm from "@/components/layout/login/TheRegisterForm.vue";
+import TheResetPasswordForm from "@/components/layout/login/TheResetPasswordForm.vue";
 
 export default {
   components: {
     TheLoginForm,
     TheRegisterForm,
+    TheResetPasswordForm,
   },
   data() {
     return {
       photoUrl: 'https://i.imgur.com/eYg0Kem.jpg',
       login: true,
+      resetPassword: false,
     };
   },
   methods: {
@@ -32,11 +36,17 @@ export default {
       this.$router.push({name: "Home"});
     },
     toggleRegisterForm() {
+      this.resetPassword = false;
       this.login = false;
     },
     toggleLoginForm() {
+      this.resetPassword = false;
       this.login = true;
     },
+    toggleResetPasswordForm() {
+      this.resetPassword = true;
+      this.login = false;
+    }
   }
 };
 </script>

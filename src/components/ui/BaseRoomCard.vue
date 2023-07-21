@@ -1,10 +1,10 @@
 <template>
-  <div className="container">
+  <div class="container">
     <img :src="photo" alt="Photo" class="photo"/>
-    <div className="text">
+    <div class="text">
       <slot name="text"></slot>
     </div>
-    <div className="button">
+    <div class="button">
       <slot name="button"></slot>
     </div>
   </div>
@@ -54,7 +54,7 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   gap: 10px;
-  align-items: end; /* Added this line */
+  align-items: flex-end;
   height: 100%;
   width: 100%;
   margin-right: 15px;
