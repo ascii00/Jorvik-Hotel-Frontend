@@ -16,12 +16,16 @@
         </div>
       </div>
       <p v-if="passwordError" class="error">{{ passwordError }}</p>
+      <p v-if="error" class="error">{{ error }}</p>
 
       <div class="recover-password">
         <p class="recover-password-button" @click="toggleResetPasswordForm">Recover Password</p>
       </div>
 
-      <button class="submit-button" type="submit">Sign In</button>
+      <button class="submit-button" type="submit">
+        <svg v-if="isLoading" class="rotating-svg" xmlns="http://www.w3.org/2000/svg" height="1.3em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M304 48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zm0 416a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM48 304a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm464-48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM142.9 437A48 48 0 1 0 75 369.1 48 48 0 1 0 142.9 437zm0-294.2A48 48 0 1 0 75 75a48 48 0 1 0 67.9 67.9zM369.1 437A48 48 0 1 0 437 369.1 48 48 0 1 0 369.1 437z"/></svg>
+        <span v-else>Sign In</span>
+      </button>
 
     </form>
 
@@ -44,12 +48,21 @@ export default {
     };
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       this.validateEmail(this.email);
       this.validatePassword(this.password);
 
-      if (!this.passwordError && !this.emailError) {
-        // Form submission logic
+      if (this.passwordError || this.emailError) {
+        return;
+      }
+
+      await this.$store.dispatch('auth/login', {
+        email: this.email,
+        password: this.password
+      })
+
+      if (!this.error) {
+        this.$router.replace({name: "Home"});
       }
     },
     togglePasswordVisibility() {
@@ -77,6 +90,14 @@ export default {
         this.passwordError = '';
       }
     }
+  },
+  computed: {
+    isLoading() {
+      return this.$store.getters['auth/isLoading'];
+    },
+    error() {
+      return this.$store.getters['auth/error'];
+    },
   }
 };
 </script>
@@ -196,5 +217,18 @@ h1, p{
 
 .hide-svg:hover {
   fill: #646464;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.rotating-svg {
+  animation: rotation 0.8s infinite linear;
 }
 </style>

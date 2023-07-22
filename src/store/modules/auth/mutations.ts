@@ -5,7 +5,7 @@ export default {
     setError(state: any, error: any) {
         state.error = error;
     },
-    setToken(state: any, payload: any) {
-        state.token = payload.token;
+    setToken(state: any, token: string) {
+        state.token = token;
     }
 };

@@ -85,6 +85,10 @@ export default {
         phoneNumber: this.phone,
         password: this.password,
       })
+
+      if (!this.error) {
+        this.$router.replace({name: "Home"});
+      }
     },
     togglePasswordVisibility() {
       this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';

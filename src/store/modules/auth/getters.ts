@@ -5,4 +5,10 @@ export default {
     error(state: any) {
         return state.error;
     },
+    token(state: any) {
+        return state.token;
+    },
+    isAuthenticated(state: any) {
+        return !!state.token;
+    }
 }
