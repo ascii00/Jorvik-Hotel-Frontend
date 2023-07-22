@@ -2,12 +2,14 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 import Test from '../pages/Test.vue'
 import NotFound from "@/pages/NotFound.vue";
+import store from "@/store";
 
 // Main Pages
 import Home from '../pages/mainPages/HomePage.vue'
 import General from '../pages/mainPages/GeneralPage.vue'
 import HowItWorks from "@/pages/mainPages/HowItWorksPage.vue";
 import Restaurant from "@/pages/mainPages/RestaurantPage.vue";
+import Login from "@/pages/mainPages/LoginPage.vue";
 
 // Entertainment pages
 import Bicycles from "@/pages/entertainmentPages/BicyclesPage.vue";
@@ -17,6 +19,11 @@ import PingPong from "@/pages/entertainmentPages/PingPongPage.vue";
 import Tennis from "@/pages/entertainmentPages/TennisPage.vue";
 import Weekend from "@/pages/entertainmentPages/WeekendPage.vue";
 import EcoTours from "@/pages/entertainmentPages/EcoToursPage.vue";
+
+// Account pages
+import Bookings from "@/pages/accountPages/BookingsPage.vue";
+import MyAccountPage from "@/pages/accountPages/MyAccountPage.vue";
+import RoomsPage from "@/pages/accountPages/RoomsPage.vue";
 
 // Sub Pages
 import AvailableRooms from "@/pages/subPages/AvailableRooms.vue";
@@ -99,8 +106,41 @@ const router = createRouter({
             path: '/:pathMatch(.*)*',
             name: 'NotFound',
             component: NotFound
+        },
+        {
+            path: '/login',
+            name: 'Login',
+            component: Login,
+            meta: { requiresUnAuth: true }
+        },
+        {
+            path: '/my-bookings',
+            name: 'MyBookings',
+            component: Bookings,
+            meta: { requiresAuth: true }
+        },
+        {
+            path: '/my-account',
+            name: 'MyAccount',
+            component: MyAccountPage,
+            meta: { requiresAuth: true }
+        },
+        {
+            path: '/my-rooms',
+            name: 'MyRooms',
+            component: RoomsPage,
         }
     ]
+})
+
+router.beforeEach(function (to, from, next) {
+    if (to.meta.requiresAuth && !store.getters["auth/isAuthenticated"]) {
+        next('/login');
+    } else if (to.meta.requiresUnAuth && store.getters["auth/isAuthenticated"]) {
+        next('/');
+    } else {
+        next();
+    }
 })
 
 export default router

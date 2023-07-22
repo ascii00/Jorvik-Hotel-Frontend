@@ -7,13 +7,8 @@
             :style="{backgroundImage: `url(${image})`}"
             v-show="currentImageIndex === index">
         </div>
-        <div class="title">
-            <h1>
-                Unwind, rejuvenate, and <br>
-                discover <span>adventure</span> in the <br>
-                heart of nature <br>
-            </h1>
-            <p>645 Rue De Bellecote, Courchevel, France</p>
+        <div v-if="$slots.title" class="title">
+          <slot name="title"></slot>
         </div>
         <div class="content">
             <slot></slot>
@@ -24,17 +19,23 @@
 
 
 <script>
+import {mapState} from "vuex";
+
 export default {
-    props: {
-        images: {
-            type: Array,
-            required: true,
-        },
-    },
     data() {
         return {
             currentImageIndex: 0,
-            maskState: ''
+            maskState: '',
+            images: [
+              'https://i.imgur.com/CHAkI4H.png',
+              'https://i.imgur.com/CB9F3H3.png',
+              'https://i.imgur.com/xOzoplN.png',
+              'https://i.imgur.com/QIhEK5g.png',
+              'https://i.imgur.com/KVrLkwX.png',
+              'https://i.imgur.com/JES8i7a.png',
+              'https://i.imgur.com/SkTAjLz.png',
+              'https://i.imgur.com/mHSE8HS.png'
+            ]
         };
     },
     methods: {
@@ -109,24 +110,6 @@ export default {
     padding: 1em;
     box-sizing: border-box;
     opacity: 70%;
-}
-
-.title h1 {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 600;
-    font-size: 2.5em;
-}
-
-.title h1 span {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 600;
-    color: #ff6b6b;
-}
-
-.title p {
-    font-family: "Montserrat", sans-serif;
-    margin-top: 25px;
-    font-weight: 400;
 }
 
 .background-image {
