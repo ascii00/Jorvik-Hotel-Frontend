@@ -1,12 +1,19 @@
 <template>
     <div class="login-btn">
-        <button>Login</button>
+        <button @click="toggleLogin">Login</button>
     </div>
 </template>
 
 <script>
+import {mapActions} from "vuex";
+
 export default {
-    name: "TheLoginButton"
+    name: "TheLoginButton",
+    methods: {
+      toggleLogin() {
+        this.$router.push({name: "Login"});
+      },
+    }
 }
 </script>
 
