@@ -2,10 +2,10 @@
   <div class="login-form">
 
     <h1 class="center">Success!</h1>
-    <p class="center">If you have entered the correct email, then link to password reset has been sent.</p>
+    <p class="center">Password has been changed</p>
 
-    <button class="submit-button" @click="toggleBackToHome">
-        Back to home page
+    <button class="submit-button" @click="toggleLoginForm">
+      Proceed
     </button>
   </div>
 </template>
@@ -14,8 +14,8 @@
 
 export default {
   methods: {
-    toggleBackToHome() {
-      this.$router.push({name: "Home"});
+    toggleLoginForm() {
+      this.$emit('toggle-login-form');
     },
   },
   created() {

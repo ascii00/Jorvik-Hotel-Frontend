@@ -9,7 +9,10 @@
       <input class="email-input" type="email" v-model="email" placeholder="Enter Email" required />
       <p v-if="emailError" class="error">{{ emailError }}</p>
 
-      <button class="submit-button" type="submit">Reset</button>
+      <button class="submit-button" type="submit">
+        <base-button-spinner :isLoading="!!isLoading"></base-button-spinner>
+        <span v-if="!isLoading">Reset</span>
+      </button>
 
     </form>
 
@@ -61,6 +64,9 @@ export default {
     error() {
       return this.$store.getters['auth/error'];
     },
+  },
+  created() {
+    this.$store.commit('auth/setError', null);
   }
 };
 </script>

@@ -18,7 +18,7 @@ export default {
     computed: {
       ...mapState('route', ['name']),
       isLoginPage() {
-        return this.name === 'Login'
+        return this.name === 'Login' || this.name === 'EmailConfirmation';
       }
     }
 }

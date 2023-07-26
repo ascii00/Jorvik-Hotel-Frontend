@@ -8,7 +8,10 @@ export default {
         return {
             isLoading: false,
             error: null,
-            userInfo: null
+            isEmailVerificationLoading: false,
+            emailVerificationError: null,
+            userInfo: null,
+            isUserVerified: false
         }
     },
     mutations,

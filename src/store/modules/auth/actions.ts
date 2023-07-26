@@ -1,10 +1,12 @@
 import axios from "axios";
 
+const baseURL = process.env.VUE_APP_BACKEND_URL;
+
 export default {
     async login(context: any, payload: any) {
         context.commit('setLoading', true);
         try {
-            const response = await axios.post(`http://localhost:8080/api/v1/auth/authenticate`, {
+            const response = await axios.post(`${baseURL}/api/v1/auth/authenticate`, {
                 email: payload.email,
                 password: payload.password
             });
@@ -33,7 +35,7 @@ export default {
     async signUp(context: any, payload: any) {
         context.commit('setLoading', true);
         try {
-            const response = await axios.post(`http://localhost:8080/api/v1/auth/register`, {
+            const response = await axios.post(`${baseURL}/api/v1/auth/register`, {
                 firstName: payload.firstName,
                 lastName: payload.lastName,
                 phoneNumber: payload.phoneNumber,
@@ -73,7 +75,7 @@ export default {
     async logout(context: any) {
         context.commit('setLoading', true);
         try {
-            await axios.post(`http://localhost:8080/api/v1/auth/logout`);
+            await axios.get(`${baseURL}/api/v1/auth/logout`);
 
             localStorage.removeItem('token');
             delete axios.defaults.headers.common['Authorization'];
@@ -97,10 +99,53 @@ export default {
     async restorePassword(context: any, payload: any) {
         context.commit('setLoading', true);
         try {
-            await axios.post(`http://localhost:8080/api/v1/auth/password-reset`, {
+            await axios.post(`${baseURL}/api/v1/auth/password-reset`, {
                 email: payload.email,
             });
         } catch (error) {
+        } finally {
+            context.commit('setLoading', false);
+        }
+    },
+    async changePassword(context: any, payload: any) {
+        context.commit('setLoading', true);
+        try {
+            const response = await axios.post(`${baseURL}/api/v1/auth/password-reset-confirm/${payload.token}`, {
+                password: payload.password
+            });
+
+            context.commit('setError', null);
+        } catch (error) {
+            let errorMessage: string;
+            // @ts-ignore
+            if (error.response && error.response.data && error.response.data.data) {
+                // @ts-ignore
+                errorMessage = error.response.data.data;
+            } else {
+                // @ts-ignore
+                errorMessage = error.message || "Unknown error occurred.";
+            }
+            context.commit('setError', errorMessage);
+        } finally {
+            context.commit('setLoading', false);
+        }
+    },
+    async confirmEmail(context: any, payload: any) {
+        context.commit('setLoading', true);
+        try {
+            await axios.get(`${baseURL}/api/v1/auth/email-confirmation/${payload.token}`);
+            context.commit('setError', null);
+        } catch (error) {
+            let errorMessage: string;
+            // @ts-ignore
+            if (error.response && error.response.data && error.response.data.data) {
+                // @ts-ignore
+                errorMessage = error.response.data.data;
+            } else {
+                // @ts-ignore
+                errorMessage = error.message || "Unknown error occurred.";
+            }
+            context.commit('setError', errorMessage);
         } finally {
             context.commit('setLoading', false);
         }

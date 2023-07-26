@@ -1,25 +1,49 @@
 <template>
-  <div class="login-form">
+  <base-spinner v-if="isLoading"></base-spinner>
+  <div v-else class="login-form">
 
-    <h1 class="center">Success!</h1>
-    <p class="center">If you have entered the correct email, then link to password reset has been sent.</p>
-
-    <button class="submit-button" @click="toggleBackToHome">
-        Back to home page
+    <p v-if="error" class="error">{{ error }}</p>
+    <div v-else>
+      <h1 class="center">Success!</h1>
+      <p class="center">Email has been confirmed</p>
+    </div>
+    <button class="submit-button" @click="toggleLoginForm">
+      Proceed
     </button>
   </div>
 </template>
 
 <script>
 
+import BaseSpinner from "@/components/ui/BaseSpinner.vue";
+
 export default {
+  components: {BaseSpinner},
+  props: {
+    token: {
+      type: String,
+      required: true,
+      default: false
+    },
+  },
   methods: {
-    toggleBackToHome() {
-      this.$router.push({name: "Home"});
+    toggleLoginForm() {
+      this.$router.replace({name: "Home"});
     },
   },
   created() {
     this.$store.commit('auth/setError', null);
+    this.$store.dispatch('auth/confirmEmail', {
+      token: this.token,
+    })
+  },
+  computed: {
+    isLoading() {
+      return this.$store.getters['auth/isLoading'];
+    },
+    error() {
+      return this.$store.getters['auth/error'];
+    }
   }
 };
 </script>
@@ -78,5 +102,11 @@ h1, p{
 
 .submit-button:hover {
   background-color: #e33840;
+}
+
+.error {
+  color: #fd8a8a;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 </style>

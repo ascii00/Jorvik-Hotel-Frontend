@@ -61,4 +61,10 @@ button.color-two:hover {
     border-color: #e33840;
     color: white;
 }
+
+@media screen and (max-width: 800px) {
+  button {
+    width: 100%;
+  }
+}
 </style>

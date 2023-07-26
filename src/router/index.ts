@@ -22,8 +22,9 @@ import EcoTours from "@/pages/entertainmentPages/EcoToursPage.vue";
 
 // Account pages
 import Bookings from "@/pages/accountPages/BookingsPage.vue";
-import MyAccountPage from "@/pages/accountPages/MyAccountPage.vue";
-import RoomsPage from "@/pages/accountPages/RoomsPage.vue";
+import MyAccount from "@/pages/accountPages/MyAccountPage.vue";
+import Rooms from "@/pages/accountPages/RoomsPage.vue";
+import EmailConfirmation from "@/pages/mainPages/EmailConfirmation.vue";
 
 // Sub Pages
 import AvailableRooms from "@/pages/subPages/AvailableRooms.vue";
@@ -114,6 +115,11 @@ const router = createRouter({
             meta: { requiresUnAuth: true }
         },
         {
+            path: '/email-confirmation',
+            name: 'EmailConfirmation',
+            component: EmailConfirmation,
+        },
+        {
             path: '/my-bookings',
             name: 'MyBookings',
             component: Bookings,
@@ -122,13 +128,13 @@ const router = createRouter({
         {
             path: '/my-account',
             name: 'MyAccount',
-            component: MyAccountPage,
+            component: MyAccount,
             meta: { requiresAuth: true }
         },
         {
             path: '/my-rooms',
             name: 'MyRooms',
-            component: RoomsPage,
+            component: Rooms,
         }
     ]
 })
