@@ -14,12 +14,14 @@
                     <h3>Booking Success!</h3>
                     <p>Your room number is: {{ roomNumber }}</p>
                     <p>Your access code is: {{ accessCode }}</p>
+                    <p>RoomType: {{ roomType }}</p>
                 </div>
             </base-card>
             <div class="card-container">
                 <base-button class="back-button" link to="/">Back to Home</base-button>
             </div>
         </div>
+
     </div>
 </template>
 
@@ -31,42 +33,33 @@ export default {
     components: {BaseButton, BaseCard},
     data() {
         return {
-            startDate: null,
-            endDate: null,
-            clientId: null,
-            roomId: null,
+
         };
     },
     created() {
-        this.bookRoom(this.$route.query);
+      this.getRoomInfo();
     },
     methods: {
-        bookRoom() {
-            this.roomId = this.$route.query.roomId;
-            this.clientId = this.$route.query.clientId;
-            this.startDate = this.$route.query.start;
-            this.endDate = this.$route.query.end;
-            this.$store.dispatch('bookings/bookRoom', {
-                clientId: this.clientId,
-                roomId: this.roomId,
-                startDate: this.startDate,
-                endDate: this.endDate
-            });
+        async getRoomInfo() {
+            await this.$store.dispatch('bookings/fetchLastBooking');
         }
     },
     computed: {
         isLoading() {
-            return this.$store.getters['bookings/isLoading']
+            return this.$store.getters['bookings/lastBookingIsLoading']
         },
         error() {
-            return this.$store.getters['bookings/error']
+            return this.$store.getters['bookings/lastBookingError']
         },
         roomNumber() {
-            return this.$store.getters['bookings/roomNumber']
+          return this.$store.getters['bookings/lastBookingRoomNumber'];
         },
         accessCode() {
-            return this.$store.getters['bookings/accessCode']
-        }
+          return this.$store.getters['bookings/lastBookingAccessCode'];
+        },
+        roomType() {
+          return this.$store.getters['bookings/lastBookingRoomType'];
+        },
     }
 };
 </script>

@@ -5,10 +5,19 @@ export default {
     error(state: any) {
         return state.error;
     },
-    roomNumber(state: any) {
-        return state.roomNumber;
+    lastBookingRoomNumber(state: any) {
+        return state.lastBookingRoomNumber;
     },
-    accessCode(state: any) {
-        return state.accessCode;
+    lastBookingAccessCode(state: any) {
+        return state.lastBookingAccessCode;
+    },
+    lastBookingRoomType(state: any) {
+        return state.lastBookingRoomType;
+    },
+    lastBookingIsLoading(state: any) {
+        return state.lastBookingIsLoading;
+    },
+    lastBookingError(state: any) {
+        return state.lastBookingError;
     }
 };

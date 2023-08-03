@@ -9,7 +9,25 @@ export default {
         state.isEmailVerificationLoading = isEmailVerificationLoading;
     },
     setEmailVerificationError(state: any, isEmailVerificationError: any) {
-        state.isEmailVerificationError = isEmailVerificationError;
+        state.emailVerificationError = isEmailVerificationError;
+    },
+    setEmailEditLoading(state: any, isEmailEditLoading: boolean) {
+        state.isEmailEditLoading = isEmailEditLoading;
+    },
+    setEmailEditError(state: any, emailEditError: any) {
+        state.emailEditError = emailEditError;
+    },
+    setPhoneEditLoading(state: any, isPhoneEditLoading: boolean) {
+        state.isPhoneEditLoading = isPhoneEditLoading;
+    },
+    setPhoneEditError(state: any, phoneEditError: any) {
+        state.phoneEditError = phoneEditError;
+    },
+    setPasswordEditLoading(state: any, isPasswordEditLoading: boolean) {
+        state.isPasswordEditLoading = isPasswordEditLoading;
+    },
+    setPasswordEditError(state: any, passwordEditError: any) {
+        state.passwordEditError = passwordEditError;
     },
     setUserInfo(state: any, userInfo: any) {
         state.userInfo = userInfo;

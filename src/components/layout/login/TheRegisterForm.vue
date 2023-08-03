@@ -130,8 +130,9 @@ export default {
       }
     },
     validatePhone(value){
-      if (!value) {
-        this.phoneError = 'Please enter your phone number';
+      const phoneReg = /^\d{7,11}$/;
+      if (!phoneReg.test(value)) {
+        this.phoneError = 'Please enter a valid phone number';
       } else {
         this.phoneError = '';
       }

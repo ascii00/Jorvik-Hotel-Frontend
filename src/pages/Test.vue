@@ -1,39 +1,35 @@
 <template>
-
-  <BaseButton class="action-button" @click="closeEmailEditDialog" mode="color-two">Cancel</BaseButton>
-  <BaseDialog :show="showEmailEditDialog" @close="closeEmailEditDialog" title="Edit email">
-    <p>Enter your new email address</p>
-    <template v-slot:actions>
-      <BaseButton class="action-button" @click="closeEmailEditDialog" mode="color-two">Cancel</BaseButton>
-      <BaseButton @click="editEmail">Edit</BaseButton>
-    </template>
-  </BaseDialog>
-
+  <div>
+    <button @click="toggle">Toggle</button>
+    <transition name="fade" mode="out-in">
+      <div :key="currentElement">
+        <div v-if="currentElement === 'element1'">Element 1</div>
+        <div v-if="currentElement === 'element2'">Element 2</div>
+      </div>
+    </transition>
+  </div>
 </template>
 
 <script>
-
-import {defineComponent} from "vue";
-import BaseDialog from "@/components/ui/BaseDialog.vue";
-import BaseButton from "@/components/ui/BaseButton.vue";
-
-export default defineComponent({
-  components: {BaseButton, BaseDialog},
+export default {
   data() {
     return {
-      showEmailEditDialog: true,
-    }
+      currentElement: 'element1',
+    };
   },
   methods: {
-    editEmailDialogOpen() {
-      this.showEmailEditDialog = true;
+    toggle() {
+      this.currentElement = this.currentElement === 'element1' ? 'element2' : 'element1';
     },
-    closeEmailEditDialog() {
-      this.showEmailEditDialog = false;
-    },
-    editEmail() {
-      this.closeEmailEditDialog();
-    }
-  }
-})
+  },
+};
 </script>
+
+<style>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0;
+}
+</style>

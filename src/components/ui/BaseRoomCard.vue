@@ -1,13 +1,13 @@
 <template>
-  <div class="container">
-    <img :src="photo" alt="Photo" class="photo"/>
-    <div class="text">
-      <slot name="text"></slot>
+    <div class="container">
+      <img :src="photo" alt="Photo" class="photo"/>
+      <div class="text">
+        <slot name="text"></slot>
+      </div>
+      <div class="button">
+        <slot name="button"></slot>
+      </div>
     </div>
-    <div class="button">
-      <slot name="button"></slot>
-    </div>
-  </div>
 </template>
 
 
@@ -17,7 +17,7 @@ export default {
     photo: {
       type: String,
       required: true
-    }
+    },
   }
 }
 </script>
@@ -58,5 +58,23 @@ export default {
   height: 100%;
   width: 100%;
   margin-right: 15px;
+}
+
+@media (max-width: 768px) {
+  .photo {
+    margin-right: 10px;
+  }
+  .text {
+    font-size: 14px;
+    text-align: center;
+  }
+  .button {
+    margin-top: 15px;
+    flex-direction: row;
+    margin-right: 0;
+  }
+  .container {
+    flex-direction: column;
+  }
 }
 </style>

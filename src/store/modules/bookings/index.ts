@@ -8,8 +8,11 @@ export default {
         return {
             isLoading: false,
             error: null,
-            roomNumber: null,
-            accessCode: null,
+            lastBookingRoomNumber: null,
+            lastBookingAccessCode: null,
+            lastBookingRoomType: null,
+            lastBookingIsLoading: false,
+            lastBookingError: null,
         }
     },
     mutations,

@@ -5,8 +5,15 @@ export default {
     setError(state: any, error: any) {
         state.error = error;
     },
-    setBookingInfo(state: any, bookingInfo: any) {
-        state.roomNumber = bookingInfo.number;
-        state.accessCode = bookingInfo.accessCode;
+    setLastBookingInfo(state: any, bookingInfo: any) {
+        state.lastBookingRoomNumber = bookingInfo.number;
+        state.lastBookingAccessCode = bookingInfo.accessCode;
+        state.lastBookingRoomType = bookingInfo.roomType;
     },
+    setLastBookingLoading(state: any, isLoading: boolean) {
+        state.lastBookingIsLoading = isLoading;
+    },
+    setLastBookingError(state: any, error: any) {
+        state.lastBookingError = error;
+    }
 };

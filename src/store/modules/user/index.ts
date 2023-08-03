@@ -10,6 +10,12 @@ export default {
             error: null,
             isEmailVerificationLoading: false,
             emailVerificationError: null,
+            isEmailEditLoading: false,
+            emailEditError: null,
+            isPhoneEditLoading: false,
+            phoneEditError: null,
+            isPasswordEditLoading: false,
+            passwordEditError: null,
             userInfo: null,
             isUserVerified: false
         }

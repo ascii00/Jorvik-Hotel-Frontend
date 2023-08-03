@@ -45,7 +45,7 @@
             class = "date-picker"
             @dayclick="handleDayClickIn"
             v-model="dateFrom"
-            :min-date="new Date()"
+            :min-date="getDatePlus(new Date(), 1)"
             :max-date="getDatePlus(new Date(), 60)"
             :is-dark="true">
         </DatePicker>
@@ -58,7 +58,7 @@
             class = "date-picker"
             @dayclick="handleDayClickOut"
             v-model="dateTo"
-            :min-date="getDatePlus(this.dateFrom, 1) || getDatePlus(new Date(),1)"
+            :min-date="getDatePlus(this.dateFrom, 1) || getDatePlus(new Date(),2)"
             :max-date="getDatePlus(new Date(), 61)"
             :is-dark="true">
         </DatePicker>
@@ -92,9 +92,6 @@ export default {
     }
   },
   methods: {
-    openDialog() {
-      this.showDialog= true;
-    },
     closeDialog() {
       this.showDialog = false;
     },
@@ -158,8 +155,8 @@ export default {
         return;
       }
 
-      const startDate = this.dateFrom.toISOString().split('T')[0];
-      const endDate = this.dateFrom.toISOString().split('T')[0];
+      const startDate = this.getDatePlus(this.dateFrom, 1).toISOString().split('T')[0];
+      const endDate = this.getDatePlus(this.dateTo, 1).toISOString().split('T')[0];
 
       this.$router.push({
         name: 'AvailableRooms',
@@ -350,7 +347,7 @@ svg {
   }
 
   .datepicker-checkout {
-    top: 230px;
+    top: 250px;
   }
   .datepicker-checkin {
     top: 100px;
