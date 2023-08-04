@@ -4,6 +4,11 @@
     </div>
 </template>
 
+<script>
+export default {
+}
+</script>
+
 <style scoped>
 .card {
     border-radius: 12px;
@@ -13,5 +18,3 @@
     max-width: 50rem;
 }
 </style>
-<script setup lang="ts">
-</script>

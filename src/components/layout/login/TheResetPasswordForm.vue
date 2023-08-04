@@ -9,7 +9,10 @@
       <input class="email-input" type="email" v-model="email" placeholder="Enter Email" required />
       <p v-if="emailError" class="error">{{ emailError }}</p>
 
-      <button class="submit-button" type="submit">Reset</button>
+      <button class="submit-button" type="submit">
+        <base-button-spinner :isLoading="!!isLoading"></base-button-spinner>
+        <span v-if="!isLoading">Reset</span>
+      </button>
 
     </form>
 
@@ -29,12 +32,18 @@ export default {
     };
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       this.validateEmail(this.email);
-
-      if (!this.passwordError && !this.emailError) {
-        // Form submission logic
+      if (this.emailError) {
+        return
       }
+      await this.$store.dispatch('auth/restorePassword', {
+        email: this.email,
+      })
+      this.toggleResetConfirmationForm();
+    },
+    toggleResetConfirmationForm() {
+      this.$emit('toggle-reset-confirmation');
     },
     toggleLoginForm() {
       this.$emit('toggle-login-form');
@@ -47,6 +56,17 @@ export default {
         this.emailError = '';
       }
     }
+  },
+  computed: {
+    isLoading() {
+      return this.$store.getters['auth/isLoading'];
+    },
+    error() {
+      return this.$store.getters['auth/error'];
+    },
+  },
+  created() {
+    this.$store.commit('auth/setError', null);
   }
 };
 </script>

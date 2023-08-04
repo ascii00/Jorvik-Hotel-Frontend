@@ -2,7 +2,7 @@
     <teleport to="body">
         <div v-if="show" @click="tryClose" class="backdrop"></div>
             <transition name="dialog">
-                <dialog open v-if="show">
+                <dialog v-bind="$attrs" open v-if="show">
                     <header>
                         <slot name="header">
                             <h2>{{ title }}</h2>
@@ -13,9 +13,7 @@
                     </section>
                     <menu>
                         <slot name="actions">
-                            <slot name="actions">
-                                <base-button @click="tryClose">Close</base-button>
-                            </slot>
+                          <base-button @click="tryClose">Close</base-button>
                         </slot>
                     </menu>
                 </dialog>
