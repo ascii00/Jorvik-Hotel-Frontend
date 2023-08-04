@@ -6,7 +6,7 @@ import axios from 'axios'
 
 import BaseDialog from "@/components/ui/BaseDialog.vue";
 import BaseButton from "@/components/ui/BaseButton.vue";
-import BaseRoomCard from "@/components/ui/BaseRoomCard.vue";
+import BaseBookingCard from "@/components/ui/BaseBookingCard.vue";
 import BaseSpinner from "@/components/ui/BaseSpinner.vue";
 import BaseImageCarousel from "@/components/ui/BaseImageCarousel.vue";
 import BaseSelectBox from "@/components/ui/BaseSelectBox.vue";
@@ -42,7 +42,7 @@ app.use(router)
 
 app.component('base-dialog', BaseDialog)
 app.component('base-button', BaseButton)
-app.component('base-room-card', BaseRoomCard)
+app.component('base-booking-card', BaseBookingCard)
 app.component('base-spinner', BaseSpinner)
 app.component('base-image-carousel', BaseImageCarousel)
 app.component('base-select-box', BaseSelectBox)

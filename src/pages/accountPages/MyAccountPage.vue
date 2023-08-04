@@ -76,56 +76,60 @@
 
     <div v-if="isLoading" class="spinner"><base-spinner/></div>
     <div class="content" v-else>
-      <h1>Hey,</h1>
-      <h1>{{firstName}}</h1>
-      <h2>Profile Basics</h2>
-
-      <div class="info-block">
-        <p class="info-title">Name</p>
-        <div class="user-data">
-          <p class="info-value">{{ firstName }} {{ lastName }}</p>
-        </div>
+      <div class="profile-title">
+        <h1>Hey,</h1>
+        <h1>{{firstName}}</h1>
       </div>
 
-      <div class="info-block">
-        <p class="info-title">Email address</p>
-        <div class="user-data">
-          <p class="info-value">{{ email }}</p>
-          <p class="verification-true" v-if="isUserVerified">Verified</p>
-          <p class="verification-false" v-else>Not verified</p>
-          <BaseButton v-if="!isUserVerified" @click="resendVerification" mode="color-two">
-            <div>
-              <base-button-spinner :isLoading="!!isEmailVerificationLoading"></base-button-spinner>
-              <p v-if="!isEmailVerificationLoading">Resend verification</p>
-            </div>
-          </BaseButton>
-          <base-button @click="editEmailDialogOpen">Edit</base-button>
-        </div>
-      </div>
+      <base-card>
+        <h2 class="info-block">Profile Basics</h2>
 
-      <div class="info-block">
-        <p class="info-title">Phone</p>
-        <div class="user-data">
-          <p class="info-value">{{ phone }}</p>
-          <base-button @click="editPhoneDialogOpen">Edit</base-button>
+        <div class="info-block">
+          <p class="info-title">Name</p>
+          <div class="user-data">
+            <p class="info-value">{{ firstName }} {{ lastName }}</p>
+          </div>
         </div>
-      </div>
 
-      <div class="info-block">
-        <p class="info-title">Discount</p>
-        <div class="user-data">
-          <p class="info-value">{{ discount }}</p>
+        <div class="info-block">
+          <p class="info-title">Email address</p>
+          <div class="user-data">
+            <p class="info-value">{{ email }}</p>
+            <p class="verification-true" v-if="isUserVerified">Verified</p>
+            <p class="verification-false" v-else>Not verified</p>
+            <BaseButton v-if="!isUserVerified" @click="resendVerification" mode="color-two">
+              <div>
+                <base-button-spinner :isLoading="!!isEmailVerificationLoading"></base-button-spinner>
+                <p v-if="!isEmailVerificationLoading">Resend verification</p>
+              </div>
+            </BaseButton>
+            <base-button @click="editEmailDialogOpen">Edit</base-button>
+          </div>
         </div>
-      </div>
 
-      <div class="info-block">
-        <p class="info-title">Password</p>
-        <div class="user-data">
-          <base-button @click="editPasswordDialogOpen">Change Password</base-button>
+        <div class="info-block">
+          <p class="info-title">Phone</p>
+          <div class="user-data">
+            <p class="info-value">{{ phone }}</p>
+            <base-button @click="editPhoneDialogOpen">Edit</base-button>
+          </div>
         </div>
-      </div>
 
-    </div>
+        <div class="info-block">
+          <p class="info-title">Discount</p>
+          <div class="user-data">
+            <p class="info-value">{{ discount }}</p>
+          </div>
+        </div>
+
+        <div class="info-block-line">
+          <p class="info-title">Password</p>
+          <div class="user-data">
+            <base-button @click="editPasswordDialogOpen">Change Password</base-button>
+          </div>
+        </div>
+      </base-card>
+      </div>
   </div>
 
 </template>
@@ -135,9 +139,10 @@ import BaseDialog from "@/components/ui/BaseDialog.vue";
 import BaseButton from "@/components/ui/BaseButton.vue";
 import BaseInput from "@/components/ui/BaseInput.vue";
 import BaseButtonSpinner from "@/components/ui/BaseButtonSpinner.vue";
+import BaseCard from "@/components/ui/BaseCard.vue";
 
 export default {
-  components: {BaseButtonSpinner, BaseButton, BaseDialog, BaseInput},
+  components: {BaseCard, BaseButtonSpinner, BaseButton, BaseDialog, BaseInput},
   data() {
     return {
       firstName: '',
@@ -373,12 +378,19 @@ export default {
   padding-bottom: 30px;
 }
 
+.info-block-line {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-bottom: 30px;
+}
+
 .info-title {
   font-weight: bold;
 }
 
 h1 {
-  font-size: 50px;
+  font-size: 40px;
   font-weight: 700;
 }
 
@@ -386,6 +398,11 @@ h2 {
   margin-top: 20px;
   margin-bottom: 40px;
   font-weight: 700;
+}
+
+.profile-title {
+  margin-top: 20px;
+  margin-left: 20px;
 }
 
 p {
@@ -440,13 +457,23 @@ p {
   font-size: 14px;
 }
 
+.card {
+  max-width: 60rem;
+}
+
 @media (max-width: 1000px) {
   .content {
-    margin: 0 20px;
+    margin: 0 5px;
   }
 
   h1 {
+    font-weight: 700;
     font-size: 30px;
+  }
+
+  .profile-title {
+    margin-top: 10px;
+    margin-left: 10px;
   }
 
   h2 {
@@ -459,7 +486,7 @@ p {
   }
 
   .password-title {
-    font-size: 13px;
+    font-size: 11px;
   }
 
   #password-requirements ul {

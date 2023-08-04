@@ -19,5 +19,23 @@ export default {
     },
     lastBookingError(state: any) {
         return state.lastBookingError;
+    },
+    allBookings(state: any) {
+        return state.allBookings;
+    },
+    allBookingsIsLoading(state: any) {
+        return state.allBookingsIsLoading;
+    },
+    allBookingsError(state: any) {
+        return state.allBookingsError;
+    },
+    allCurrentRooms(state: any) {
+        return state.allCurrentRooms;
+    },
+    allCurrentRoomsIsLoading(state: any) {
+        return state.allCurrentRoomsIsLoading;
+    },
+    allCurrentRoomsError(state: any) {
+        return state.allCurrentRoomsError;
     }
 };

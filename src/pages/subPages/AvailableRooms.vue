@@ -15,7 +15,6 @@
           <div class="content">
 
             <div v-if="isLoading" class="spinner"><base-spinner/></div>
-            <div v-if="error" class="error-text">{{ error }}</div>
             <div v-else-if="!roomTypes.length">No available rooms matching your criteria were found.</div>
 
 
@@ -23,7 +22,7 @@
               <div v-for="roomType in roomTypes" :key="roomType.id">
 
                 <div v-if="roomType.id === 1" class="card">
-                  <base-room-card photo="https://i.imgur.com/ba7Ptwm.jpg">
+                  <base-booking-card photo="https://i.imgur.com/ba7Ptwm.jpg">
                     <template v-slot:text>
                       <div class="description">
                         <h3>Apartment One</h3>
@@ -36,11 +35,11 @@
                       <base-button @click="bookRoomClicked(1)">Book</base-button>
                       <base-button @click="roomDescriptionClicked(1)" mode="color-two">Room Description</base-button>
                     </template>
-                  </base-room-card>
+                  </base-booking-card>
                 </div>
 
                 <div v-else-if="roomType.id === 2" class="card">
-                  <base-room-card photo="https://i.imgur.com/K3OrwDE.jpg">
+                  <base-booking-card photo="https://i.imgur.com/K3OrwDE.jpg">
                     <template v-slot:text>
                       <div class="description">
                         <h3>Apartment Two</h3>
@@ -53,11 +52,11 @@
                       <base-button @click="bookRoomClicked(2)">Book</base-button>
                       <base-button @click="roomDescriptionClicked(2)" mode="color-two">Room Description</base-button>
                     </template>
-                  </base-room-card>
+                  </base-booking-card>
                 </div>
 
                 <div v-else>
-                  <base-room-card photo="https://i.imgur.com/ElXyXiO.jpg">
+                  <base-booking-card photo="https://i.imgur.com/ElXyXiO.jpg">
                     <template v-slot:text>
                       <div class="description">
                         <h3>Apartment Three</h3>
@@ -70,7 +69,7 @@
                       <base-button @click="bookRoomClicked(3)">Book</base-button>
                       <base-button @click="roomDescriptionClicked(3)" mode="color-two">Room Description</base-button>
                     </template>
-                  </base-room-card>
+                  </base-booking-card>
                 </div>
 
               </div>
@@ -121,6 +120,10 @@
 
     </transition>
 
+    <BaseDialog :show="!!error" @close="closeErrorFetchDialog" title="An error occurred">
+      <p class="error-text">{{ error }}</p>
+    </BaseDialog>
+
     <base-dialog :show="showDialog" title="Booking" @close="closeDialog">
       <p>Are you sure you want to book this apartment?</p>
 
@@ -147,7 +150,7 @@
 </template>
 
 <script>
-import BaseRoomCard from "@/components/ui/BaseRoomCard.vue";
+import BaseRoomCard from "@/components/ui/BaseBookingCard.vue";
 import BaseButton from "@/components/ui/BaseButton.vue";
 import BaseDialog from "@/components/ui/BaseDialog.vue";
 import BaseCard from "@/components/ui/BaseCard.vue";
@@ -216,6 +219,9 @@ export default {
     },
     closeErrorDialog() {
       this.showErrorDialog = false;
+    },
+    closeErrorFetchDialog() {
+      this.$router.push({name: 'Home'});
     },
     bookRoomClicked(type) {
       if (!this.$store.getters['auth/isAuthenticated']) {

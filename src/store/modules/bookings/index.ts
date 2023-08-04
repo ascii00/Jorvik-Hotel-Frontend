@@ -13,6 +13,12 @@ export default {
             lastBookingRoomType: null,
             lastBookingIsLoading: false,
             lastBookingError: null,
+            allBookings: [],
+            allBookingsIsLoading: false,
+            allBookingsError: null,
+            allCurrentRooms: [],
+            allCurrentRoomsIsLoading: false,
+            allCurrentRoomsError: null,
         }
     },
     mutations,
