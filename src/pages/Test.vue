@@ -1,93 +1,237 @@
 <template>
-  <div class="container">
-    <div class="description-container">
-
-      <ul class="schedule-list">
-        <li><h3 class="schedule-type">Breakfast:</h3></li>
-        <li><p class="schedule-time">from 07:00 until 10:00</p></li>
-        <li><h3 class="schedule-type">Lunch:</h3></li>
-        <li><p class="schedule-time">from 13:00 until 15:00</p></li>
-        <li><h3 class="schedule-type">Dinner:</h3></li>
-        <li><p class="schedule-time">from 18:00 until 21:00</p></li>
-      </ul>
-
-      <p class="description-text">Our hotel offers three meals a day, and you have the flexibility to choose the number of meals you'd like to order to suit your schedule and preferences.
-        <br><br>
-        In addition to the meals included in your accommodation package, our on-site restaurant provides a variety of delicious dishes to cater to all tastes and dietary requirements. Our experienced chefs use only the freshest, locally sourced ingredients to prepare mouth-watering meals that are sure to satisfy your hunger.
-        <br><br>
-        If you prefer, you can also order your meals directly at the restaurant for an additional fee according to the menu. Our restaurant offers a diverse range of options, including appetizers, entrees, desserts, and beverages, so you can tailor your meal to your liking.</p>
-
+  <!-- Display a payment form -->
+  <form @submit.prevent="handlePayment" id="payment-form">
+    <div id="card-element">
+      <!--Stripe.js injects the Card Element-->
     </div>
-    <div class="image-container">
-      <BaseImageCarousel :images="slides" class="images-slider"></BaseImageCarousel>
-    </div>
-  </div>
+    <button type="submit">
+      <div class="spinner hidden" id="spinner"></div>
+      <span id="button-text">Pay now</span>
+    </button>
+    <div id="payment-message" class="hidden"></div>
+  </form>
 </template>
 
 <script>
-import BaseRoomCard from "@/components/ui/BaseBookingCard.vue";
-import BaseButton from "@/components/ui/BaseButton.vue";
-import BaseImageCarousel from "@/components/ui/BaseImageCarousel.vue";
-
 export default {
-  components: {BaseImageCarousel, BaseButton, BaseRoomCard},
+  props: {
+    paymentType: {
+      type: String,
+      required: true,
+    },
+    dateFrom: {
+      type: String,
+      required: false,
+    },
+    dateTo: {
+      type: String,
+      required: false,
+    },
+    roomTypeId: {
+      type: Number,
+      required: false,
+    },
+    timestampFrom: {
+      type: String,
+      required: false,
+    },
+  },
   data() {
     return {
-      slides: [
-        'https://i.imgur.com/Ab55X0J.jpg',
-        'https://i.imgur.com/cITXy9A.jpg',
-        'https://i.imgur.com/SUvBrTV.jpg',
-        'https://i.imgur.com/IpHijtK.jpg'
-      ],
+      stripe: null,
+      elements: null,
+      card: null,
     };
   },
+  mounted() {
+    const stripePublicKey = 'pk_test_51NbngTHS0naySBre3iFpsECfTFh45ulH6KKPLMALmtTE5jhQ92KLjshnmJHhqnDeZrMP4T3HugpVPYFwVkqVj4sN00hZmzLXed';
+    if (window.Stripe) {
+      this.stripe = window.Stripe(stripePublicKey);
+      this.elements = this.stripe.elements();
+      this.card = this.elements.create('card');
+      this.card.mount('#card-element');
+    }
+  },
   methods: {
+    async handlePayment() {
+      await this.$store.dispatch('payment/createPaymentIntent', {
+        paymentType: 'ROOM_PAYMENT',
+        dateFrom: '2021-05-01',
+        dateTo: '2021-05-02',
+        roomTypeId: 3
+      });
 
+      const result = await this.stripe.confirmCardPayment(this.paymentIntent.clientSecret, {
+        payment_method: {
+          card: this.card
+        }
+      });
+
+      if (result.error) {
+        console.error(result.error.message);
+      } else {
+        // Payment succeeded, you can redirect or inform the user
+        if (result.paymentIntent.status === 'succeeded') {
+          console.log('Payment successful!', result.paymentIntent);
+        }
+      }
+    },
+  },
+  computed: {
+    isLoading() {
+      return this.$store.getters['payment/isLoading'];
+    },
+    error() {
+      return this.$store.getters['payment/error'];
+    },
+    paymentIntent() {
+      return this.$store.getters['payment/paymentIntent'];
+    },
   },
 };
 </script>
 
 <style scoped>
-.container {
+/* Variables */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
   display: flex;
-  align-items: stretch;
+  justify-content: center;
+  align-content: center;
+  height: 100vh;
+  width: 100vw;
 }
 
-.description-container {
-  padding: 40px 40px 100px 40px;
-  color: white;
-  flex: 1;
-  background-color: #1F232C;
+form {
+  width: 30vw;
+  min-width: 500px;
+  align-self: center;
+  box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
+  0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
+  border-radius: 7px;
+  padding: 40px;
 }
 
-.image-container {
-  flex: 1.5;
+.hidden {
+  display: none;
+}
+
+#payment-message {
+  color: rgb(105, 115, 134);
+  font-size: 16px;
+  line-height: 20px;
+  padding-top: 12px;
+  text-align: center;
+}
+
+#payment-element {
+  margin-bottom: 24px;
+}
+
+/* Buttons and links */
+button {
+  background: #5469d4;
+  font-family: Arial, sans-serif;
+  color: #ffffff;
+  border-radius: 4px;
+  border: 0;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: block;
+  transition: all 0.2s ease;
+  box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+  width: 100%;
+}
+button:hover {
+  filter: contrast(115%);
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* spinner/processing state, errors */
+.spinner,
+.spinner:before,
+.spinner:after {
+  border-radius: 50%;
+}
+.spinner {
+  color: #ffffff;
+  font-size: 22px;
+  text-indent: -99999px;
+  margin: 0px auto;
   position: relative;
-  display: flex;
-  align-items: stretch;
+  width: 20px;
+  height: 20px;
+  box-shadow: inset 0 0 0 2px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.spinner:before,
+.spinner:after {
+  position: absolute;
+  content: "";
+}
+.spinner:before {
+  width: 10.4px;
+  height: 20.4px;
+  background: #5469d4;
+  border-radius: 20.4px 0 0 20.4px;
+  top: -0.2px;
+  left: -0.2px;
+  -webkit-transform-origin: 10.4px 10.2px;
+  transform-origin: 10.4px 10.2px;
+  -webkit-animation: loading 2s infinite ease 1.5s;
+  animation: loading 2s infinite ease 1.5s;
+}
+.spinner:after {
+  width: 10.4px;
+  height: 10.2px;
+  background: #5469d4;
+  border-radius: 0 10.2px 10.2px 0;
+  top: -0.1px;
+  left: 10.2px;
+  -webkit-transform-origin: 0px 10.2px;
+  transform-origin: 0px 10.2px;
+  -webkit-animation: loading 2s infinite ease;
+  animation: loading 2s infinite ease;
 }
 
-.images-slider {
-  flex-grow: 1;
+@-webkit-keyframes loading {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes loading {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
-.schedule-list {
-  list-style: none;
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-row-gap: 10px;
-  font-size: 14px;
+@media only screen and (max-width: 600px) {
+  form {
+    width: 80vw;
+    min-width: initial;
+  }
 }
-
-.schedule-type {
-  font-weight: 700;
-  font-size: 15px;
-  margin-right: 10px;
-}
-
-.description-text {
-  margin-top: 50px;
-  font-size: 14px;
-}
-
 </style>
