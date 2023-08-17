@@ -45,6 +45,24 @@ a {
     text-decoration: none;
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: #1F232C;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(136, 136, 136, 0.6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(85, 85, 85, 0.7);
+}
+
 .vc-title, .vc-nav-title{
     background-color: #1F232C;
 }

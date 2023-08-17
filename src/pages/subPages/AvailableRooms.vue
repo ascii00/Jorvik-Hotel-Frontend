@@ -5,7 +5,7 @@
       <div :key="transitionKey">
         <div v-if="allRoomsShown">
           <div class="title">
-            <base-card v-if="!error">
+            <base-card v-if="!error && !isLoading">
               <p class="title-one">Available rooms</p>
               <p class="title-two">From <b>{{ startDate }}</b> to <b>{{ endDate }}</b></p>
               <p class="title-two">for <b>{{ totalGuests }}</b> guests</p>
@@ -116,6 +116,16 @@
           </ApartmentCard>
         </div>
 
+        <base-payment
+            v-else-if="payment"
+            payment-type="ROOM_PAYMENT"
+            :date-from="startDate"
+            :date-to="endDate"
+            :room-type-id="roomTypeId"
+            @closePayment="closePayment"
+        >
+        </base-payment>
+
       </div>
 
     </transition>
@@ -124,12 +134,16 @@
       <p class="error-text">{{ error }}</p>
     </BaseDialog>
 
+    <BaseDialog :show="!!isRoomBookingError" @close="closeErrorFetchDialog" title="An error occurred">
+      <p class="error-text">{{ isRoomBookingError }}</p>
+    </BaseDialog>
+
     <base-dialog :show="showDialog" title="Booking" @close="closeDialog">
-      <p>Are you sure you want to book this apartment?</p>
+      <p>Reservation is confirmed. Would you like to pay now or later?</p>
 
       <template v-slot:actions>
-        <base-button class="button-dialog" @click="closeDialog" mode="color-two">Cancel</base-button>
-        <base-button class="button-dialog" @click="onContinueClicked">Continue</base-button>
+        <base-button class="button-dialog" @click="payLaterClicked" mode="color-two">Pay later</base-button>
+        <base-button class="button-dialog" @click="payNowClicked">Pay now</base-button>
       </template>
     </base-dialog>
 
@@ -139,6 +153,10 @@
       <template v-slot:actions>
         <base-button class="button-dialog" @click="routeToLogin" mode="color-one">Log in</base-button>
       </template>
+    </base-dialog>
+
+    <base-dialog :show="showReservationsCountDialog" title="You already have 5 reservations" @close="closeReservationsCountDialog">
+      <p>You are not allowed to make more than 5 room reservations.</p>
     </base-dialog>
 
     <base-dialog :show="showErrorDialog" title="Error" @close="closeErrorDialog">
@@ -155,9 +173,10 @@ import BaseButton from "@/components/ui/BaseButton.vue";
 import BaseDialog from "@/components/ui/BaseDialog.vue";
 import BaseCard from "@/components/ui/BaseCard.vue";
 import ApartmentCard from "@/components/layout/roomDescription/ApartmentCard.vue";
+import BasePayment from "@/components/ui/BasePayment.vue";
 
 export default {
-  components: {ApartmentCard, BaseCard, BaseDialog, BaseButton, BaseRoomCard},
+  components: {BasePayment, ApartmentCard, BaseCard, BaseDialog, BaseButton, BaseRoomCard},
   data() {
     return {
       startDate: null,
@@ -166,11 +185,13 @@ export default {
       showDialog: false,
       showAuthDialog: false,
       showErrorDialog: false,
-      roomId: null,
+      showReservationsCountDialog: false,
+      roomTypeId: null,
       allRoomsShown: true,
       roomOneDescription: false,
       roomTwoDescription: false,
       roomThreeDescription: false,
+      payment: false,
       capacity: null,
       area: null,
       price: null,
@@ -220,12 +241,22 @@ export default {
     closeErrorDialog() {
       this.showErrorDialog = false;
     },
+    closeReservationsCountDialog() {
+      this.showReservationsCountDialog = false;
+    },
     closeErrorFetchDialog() {
       this.$router.push({name: 'Home'});
     },
-    bookRoomClicked(type) {
+    async bookRoomClicked(type) {
       if (!this.$store.getters['auth/isAuthenticated']) {
         this.showAuthDialog = true;
+        return;
+      }
+
+      await this.$store.dispatch('user/fetchUserReservationsCount');
+
+      if (this.$store.getters['user/userReservationAmount'] >= 5) {
+        this.showReservationsCountDialog = true;
         return;
       }
 
@@ -246,18 +277,26 @@ export default {
       }
       this.allRoomsShown = false;
     },
-    async onContinueClicked() {
+    async payNowClicked() {
+      this.closeRoomDescription();
+      this.allRoomsShown = false;
+      this.showDialog = false;
+      this.payment = true;
+    },
+    async payLaterClicked() {
       await this.$store.dispatch('bookings/bookRoom', {
         startDate: this.startDate,
         endDate: this.endDate,
         roomTypeId: this.roomTypeId
       });
-      if (this.$store.getters['bookings/error']) {
-        this.showDialog = false;
-        this.showErrorDialog = true;
-      } else {
-        this.$router.push({name: 'BookingResult'});
+      if(this.isRoomBookingError) {
+        this.closeDialog();
+        return;
       }
+      this.$router.push({
+        name: 'BookingResult',
+        query: { isNotPayed: 'true' }
+      });
     },
     routeToLogin() {
       this.$router.push({name: 'Login'});
@@ -266,6 +305,10 @@ export default {
       this.roomOneDescription = false;
       this.roomTwoDescription = false;
       this.roomThreeDescription = false;
+      this.allRoomsShown = true;
+    },
+    closePayment() {
+      this.payment = false;
       this.allRoomsShown = true;
     }
   },
@@ -279,11 +322,15 @@ export default {
     error() {
       return this.$store.getters['roomTypes/error'];
     },
+    isRoomBookingError() {
+      return this.$store.getters['bookings/error'];
+    },
     transitionKey() {
       if (this.allRoomsShown) return 'allRoomsShown';
       if (this.roomOneDescription) return 'roomOneDescription';
       if (this.roomTwoDescription) return 'roomTwoDescription';
       if (this.roomThreeDescription) return 'roomThreeDescription';
+      if (this.payment) return 'payment';
     }
   },
 }

@@ -33,5 +33,11 @@ export default {
     },
     setAllCurrentRoomsError(state: any, error: any) {
         state.allCurrentRoomsError = error;
+    },
+    setBookingDeleteLoading(state: any, isLoading: boolean) {
+        state.bookingDeleteIsLoading = isLoading;
+    },
+    setBookingDeleteError(state: any, error: any) {
+        state.bookingDeleteError = error;
     }
 };

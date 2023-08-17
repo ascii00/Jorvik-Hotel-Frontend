@@ -17,7 +17,10 @@ export default {
             isPasswordEditLoading: false,
             passwordEditError: null,
             userInfo: null,
-            isUserVerified: false
+            isUserVerified: false,
+            isUserReservationAmountLoading: false,
+            userReservationAmountError: null,
+            userReservationAmount: null,
         }
     },
     mutations,

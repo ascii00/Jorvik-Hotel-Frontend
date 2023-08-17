@@ -6,6 +6,7 @@ import bookingModule from "@/store/modules/bookings";
 import routeModule from "@/store/modules/route";
 import authModule from "@/store/modules/auth";
 import userModule from "@/store/modules/user";
+import paymentModule from "@/store/modules/payment";
 
 const store = createStore({
     modules: {
@@ -15,6 +16,7 @@ const store = createStore({
         route: routeModule,
         auth: authModule,
         user: userModule,
+        payment: paymentModule
     }
 })
 

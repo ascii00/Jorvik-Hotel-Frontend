@@ -101,7 +101,8 @@ const router = createRouter({
         {
             path: '/bookings-result',
             name: 'BookingResult',
-            component: BookingResult
+            component: BookingResult,
+            props: route => ({ isNotPayed: route.query.isNotPayed === 'true' })
         },
         {
             path: '/:pathMatch(.*)*',

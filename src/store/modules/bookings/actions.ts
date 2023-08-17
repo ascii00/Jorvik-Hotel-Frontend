@@ -23,6 +23,26 @@ export default {
             context.commit('setLoading', false);
         }
     },
+    async deleteBookingByBookingId(context: any, payload: any) {
+        context.commit('setBookingDeleteLoading', true);
+      try {
+            await axios.delete(`${baseURL}/api/v1/bookings/deleteBooking/${payload}`);
+            context.commit('setBookingDeleteError', null);
+      } catch (error) {
+            let errorMessage: string;
+            // @ts-ignore
+            if (error.response && error.response.data && error.response.data.data) {
+                // @ts-ignore
+                errorMessage = error.response.data.data;
+            } else {
+                // @ts-ignore
+                errorMessage = error.message || "Unknown error occurred.";
+            }
+            context.commit('setBookingDeleteError', errorMessage);
+      } finally {
+            context.commit('setBookingDeleteLoading', false);
+      }
+    },
     async fetchLastBooking(context: any) {
         context.commit('setLastBookingLoading', true);
         try {

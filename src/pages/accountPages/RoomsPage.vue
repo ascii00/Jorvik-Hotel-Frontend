@@ -9,7 +9,8 @@
 
       <h1>Active Rooms</h1>
 
-      <base-card v-if="!currentRooms.length">No active rooms were found.</base-card>
+      <base-card v-if="!currentRooms.length">Currently, no active rooms are found. In this section, you will see rooms
+        with reservation periods that include today's date. </base-card>
 
       <div v-for="room in currentRooms" :key="room.id">
 
@@ -114,7 +115,7 @@ h1 {
 }
 
 .card {
-  max-width: 60rem;
+  max-width: 100%;
 }
 
 .spinner {

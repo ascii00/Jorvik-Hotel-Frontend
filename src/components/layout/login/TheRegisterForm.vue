@@ -5,15 +5,15 @@
 
     <form @submit.prevent="submitForm">
 
-      <input class="name-input" type="text" v-model="name" placeholder="Name" required />
+      <input class="name-input" type="text" v-model="name" placeholder="Name" autocomplete="given-name" required />
       <p v-if="nameError" class="error">{{ nameError }}</p>
-      <input class="name-input" type="text" v-model="surname" placeholder="Surname" required />
+      <input class="name-input" type="text" v-model="surname" placeholder="Surname" autocomplete="family-name" required />
       <p v-if="surnameError" class="error">{{ surnameError }}</p>
 
       <input class="email-input" type="email" v-model="email" placeholder="Enter Email" autocomplete="username" required />
       <p v-if="emailError" class="error">{{ emailError }}</p>
 
-      <input type="tel" v-model="phone" placeholder="Phone Number" pattern="[0-9]{7,11}" required />
+      <input type="tel" v-model="phone" placeholder="Phone Number" pattern="[0-9]{7,11}" autocomplete="off" required />
 
       <p v-if="phoneError" class="error">{{ phoneError }}</p>
 

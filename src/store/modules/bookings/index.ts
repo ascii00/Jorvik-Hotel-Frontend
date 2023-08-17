@@ -19,6 +19,8 @@ export default {
             allCurrentRooms: [],
             allCurrentRoomsIsLoading: false,
             allCurrentRoomsError: null,
+            bookingDeleteIsLoading: false,
+            bookingDeleteError: null,
         }
     },
     mutations,

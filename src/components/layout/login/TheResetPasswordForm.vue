@@ -6,7 +6,7 @@
 
     <form @submit.prevent="submitForm">
 
-      <input class="email-input" type="email" v-model="email" placeholder="Enter Email" required />
+      <input class="email-input" type="email" v-model="email" placeholder="Enter Email" autocomplete="username" required />
       <p v-if="emailError" class="error">{{ emailError }}</p>
 
       <button class="submit-button" type="submit">

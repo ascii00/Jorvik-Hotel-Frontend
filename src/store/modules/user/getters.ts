@@ -34,5 +34,14 @@ export default {
     },
     isUserVerified(state: any) {
         return state.isUserVerified;
+    },
+    isUserReservationAmountLoading(state: any) {
+        return state.isUserReservationAmountLoading;
+    },
+    userReservationAmountError(state: any) {
+        return state.userReservationAmountError;
+    },
+    userReservationAmount(state: any) {
+        return state.userReservationAmount;
     }
 };
