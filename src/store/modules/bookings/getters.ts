@@ -37,5 +37,11 @@ export default {
     },
     allCurrentRoomsError(state: any) {
         return state.allCurrentRoomsError;
+    },
+    bookingDeleteIsLoading(state: any) {
+        return state.bookingDeleteIsLoading;
+    },
+    bookingDeleteError(state: any) {
+        return state.bookingDeleteError;
     }
 };

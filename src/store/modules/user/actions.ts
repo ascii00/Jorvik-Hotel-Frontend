@@ -123,5 +123,25 @@ export default {
         } finally {
             context.commit('setPasswordEditLoading', false);
         }
+    },
+    async fetchUserReservationsCount(context: any, payload: any) {
+        context.commit('setUserReservationAmountLoading', true);
+        try {
+            const response = await axios.get(`${baseURL}/api/v1/user/get-user-room-reservations-count`);
+            context.commit('setUserReservationAmount', response.data.data);
+        } catch (error) {
+            let errorMessage: string;
+            // @ts-ignore
+            if (error.response && error.response.data && error.response.data.data) {
+                // @ts-ignore
+                errorMessage = error.response.data.data;
+            } else {
+                // @ts-ignore
+                errorMessage = error.message || "Unknown error occurred.";
+            }
+            context.commit('setUserReservationAmountError', errorMessage);
+        } finally {
+            context.commit('setUserReservationAmountLoading', false);
+        }
     }
 };

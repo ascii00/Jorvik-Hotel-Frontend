@@ -458,7 +458,7 @@ p {
 }
 
 .card {
-  max-width: 60rem;
+  max-width: 100%;
 }
 
 @media (max-width: 1000px) {
