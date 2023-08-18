@@ -32,7 +32,7 @@
                     <p class="reservation-date-right" v-if="booking.toDate">{{ booking.toDate }}</p>
                   </div>
                   <div v-if="!booking.paymentId">
-                    <base-button class="reservation-buttons" mode="color-two" @click="cancelReservation(booking.id)">
+                    <base-button class="reservation-buttons" mode="color-two" @click="reservationCancelClicked(booking.id)">
                       <div>
                         <base-button-spinner :is-loading="!!deleteBookingLoading"></base-button-spinner>
                         Cancel
@@ -62,6 +62,16 @@
       </transition>
     </div>
 
+    <BaseDialog :show="isReservationCancelShown" @close="closeReservationCancelDialog" title="Cancel reservation">
+      <div>
+        <p>Are you sure you want to cancel this reservation?</p>
+      </div>
+      <template v-slot:actions>
+        <BaseButton class="action-button" @click="closeReservationCancelDialog" mode="color-two">No</BaseButton>
+        <BaseButton @click="cancelReservation">Yes</BaseButton>
+      </template>
+    </BaseDialog>
+
     <BaseDialog :show="!!allBookingsError" @close="closeErrorDialog" title="An error occurred">
       <p class="error-text">{{ allBookingsError }}</p>
     </BaseDialog>
@@ -78,13 +88,15 @@ import BaseDialog from "@/components/ui/BaseDialog.vue";
 import BaseButton from "@/components/ui/BaseButton.vue";
 import BaseCard from "@/components/ui/BaseCard.vue";
 import BasePayment from "@/components/ui/BasePayment.vue";
+import BaseInput from "@/components/ui/BaseInput.vue";
 
 export default {
-  components: {BasePayment, BaseCard, BaseButton, BaseDialog, BaseSpinner},
+  components: {BaseInput, BasePayment, BaseCard, BaseButton, BaseDialog, BaseSpinner},
   data() {
     return {
       isPaymentShown: false,
       isBookingsShown: true,
+      isReservationCancelShown: false,
       showAllBookings: false,
       paymentDateFrom: null,
       paymentDateTo: null,
@@ -101,8 +113,16 @@ export default {
       this.isBookingsShown = false;
       this.isPaymentShown = true;
     },
-    async cancelReservation(reservationId) {
-      await this.$store.dispatch('bookings/deleteBookingByBookingId', reservationId);
+    reservationCancelClicked(reservationId){
+      this.reservationId = reservationId;
+      this.isReservationCancelShown = true;
+    },
+    closeReservationCancelDialog(){
+      this.isReservationCancelShown = false;
+    },
+    async cancelReservation() {
+      await this.$store.dispatch('bookings/deleteBookingByBookingId', this.reservationId);
+      this.closeReservationCancelDialog();
       this.fetchBookings();
     },
     fetchBookings(){
@@ -195,6 +215,10 @@ export default {
 
 .container {
   max-width: 100%
+}
+
+.action-button {
+  margin-right: 10px;
 }
 
 .spinner {
