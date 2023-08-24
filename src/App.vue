@@ -51,7 +51,7 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1F232C;
+
 }
 
 ::-webkit-scrollbar-thumb {
@@ -102,4 +102,18 @@ a {
     --vc-accent-900: #fc2630 !important;
 }
 
+.dp__theme_light {
+  --dp-primary-color: #FC5C65 !important;
+}
+
+.dp__input {
+  border-radius: 10px !important;
+  height: 50px !important;
+  font-family: "Nunito", sans-serif !important;
+}
+
+.dp__action_select:disabled {
+  background-color: #ddd !important;
+  cursor: not-allowed !important;
+}
 </style>

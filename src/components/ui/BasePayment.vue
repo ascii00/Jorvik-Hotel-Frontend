@@ -66,13 +66,26 @@ export default {
       type: Number,
       required: false,
     },
-    timestampFrom: {
+    timeFrom: {
       type: String,
+      required: false,
+    },
+    timeTo: {
+      type: String,
+      required: false,
+    },
+    entertainmentId: {
+      type: Number,
       required: false,
     },
     bookedReservationId: {
       type: Number,
       required: false,
+    },
+    redirectUrl: {
+      type: String,
+      required: false,
+      default: '/bookings-result',
     },
   },
   data() {
@@ -94,34 +107,23 @@ export default {
   },
   async mounted() {
     try {
-      if (this.paymentType === 'ROOM_PAYMENT') {
+      if (this.paymentType === 'Room') {
         this.paymentFor = 'Room type ' + this.roomTypeId;
         await this.$store.dispatch('payment/createPaymentIntent', {
-          paymentType: 'ROOM_PAYMENT',
+          paymentType: 'Room',
           dateFrom: this.dateFrom,
           dateTo: this.dateTo,
           roomTypeId: this.roomTypeId,
           reservationId: this.bookedReservationId,
         });
-      } else if (this.paymentType === 'BICYCLE_PAYMENT') {
-        this.paymentFor = 'Bicycle';
+      } else {
         await this.$store.dispatch('payment/createPaymentIntent', {
-          paymentType: 'BICYCLE_PAYMENT',
-          timestampFrom: this.timestampFrom,
-          reservationId: this.bookedReservationId,
-        });
-      } else if (this.paymentType === 'TENNIS_PAYMENT') {
-        this.paymentFor = 'Tennis court';
-        await this.$store.dispatch('payment/createPaymentIntent', {
-          paymentType: 'TENNIS_PAYMENT',
-          timestampFrom: this.timestampFrom,
-          reservationId: this.bookedReservationId,
-        });
-      } else if (this.paymentType === 'KAYAK_PAYMENT') {
-        this.paymentFor = 'Kayak';
-        await this.$store.dispatch('payment/createPaymentIntent', {
-          paymentType: 'KAYAK_PAYMENT',
-          timestampFrom: this.timestampFrom,
+          paymentType: this.paymentType,
+          dateFrom: this.dateFrom,
+          dateTo: this.dateTo,
+          timeFrom: this.timeFrom,
+          timeTo: this.timeTo,
+          entertainmentId: this.entertainmentId,
           reservationId: this.bookedReservationId,
         });
       }
@@ -155,8 +157,10 @@ export default {
   },
   methods: {
     toggleClose() {
-      if (this.bookedReservationId == null) {
+      if (this.bookedReservationId == null && this.paymentType === 'Room') {
         this.$store.dispatch('bookings/deleteBookingByBookingId', this.reservationId);
+      } else if (this.bookedReservationId == null) {
+        this.$store.dispatch('bookings/deleteEntertainmentBookingByBookingId', this.reservationId);
       }
       this.$emit('closePayment');
     },
@@ -166,7 +170,7 @@ export default {
       const result = await this.stripe.confirmPayment( {
         elements: this.elements,
         confirmParams: {
-          return_url: `${this.baseURL}/bookings-result`
+          return_url: `${this.baseURL}${this.redirectUrl}`
         },
       });
 

@@ -5,16 +5,11 @@ export default {
     setError(state: any, error: any) {
         state.error = error;
     },
-    setLastBookingInfo(state: any, bookingInfo: any) {
-        state.lastBookingRoomNumber = bookingInfo.number;
-        state.lastBookingAccessCode = bookingInfo.accessCode;
-        state.lastBookingRoomType = bookingInfo.roomType;
+    setEntertainmentLoading(state: any, isEntertainmentLoading: boolean) {
+        state.isEntertainmentLoading = isEntertainmentLoading;
     },
-    setLastBookingLoading(state: any, isLoading: boolean) {
-        state.lastBookingIsLoading = isLoading;
-    },
-    setLastBookingError(state: any, error: any) {
-        state.lastBookingError = error;
+    setEntertainmentError(state: any, entertainmentError: any) {
+        state.entertainmentError = entertainmentError;
     },
     setAllBookings(state: any, bookings: any) {
         state.allBookings = bookings;
@@ -39,5 +34,11 @@ export default {
     },
     setBookingDeleteError(state: any, error: any) {
         state.bookingDeleteError = error;
+    },
+    setEntertainmentBookingDeleteLoading(state: any, isLoading: boolean) {
+        state.entertainmentBookingDeleteIsLoading = isLoading;
+    },
+    setEntertainmentBookingDeleteError(state: any, error: any) {
+        state.entertainmentBookingDeleteError = error;
     }
 };

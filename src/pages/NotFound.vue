@@ -13,7 +13,6 @@
 </script>
 
 <style scoped>
-
   .content {
     margin: 0 20px;
   }

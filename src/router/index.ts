@@ -29,6 +29,8 @@ import EmailConfirmation from "@/pages/mainPages/EmailConfirmation.vue";
 // Sub Pages
 import AvailableRooms from "@/pages/subPages/AvailableRooms.vue";
 import BookingResult from "@/pages/subPages/BookingResult.vue";
+import BookingEntertainmentResult from "@/pages/subPages/BookingEntertainmentResult.vue";
+import EntertainmentReservation from "@/pages/subPages/EntertainmentReservation.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -60,7 +62,7 @@ const router = createRouter({
         },
         {
             path: '/restaurant',
-            name: 'Restaurant',
+            name: 'restaurant',
             component: Restaurant
         },
         {
@@ -105,6 +107,12 @@ const router = createRouter({
             props: route => ({ isNotPayed: route.query.isNotPayed === 'true' })
         },
         {
+            path: '/bookings-entertainment-result',
+            name: 'BookingEntertainmentResult',
+            component: BookingEntertainmentResult,
+            props: route => ({ isNotPayed: route.query.isNotPayed === 'true' })
+        },
+        {
             path: '/:pathMatch(.*)*',
             name: 'NotFound',
             component: NotFound
@@ -136,6 +144,12 @@ const router = createRouter({
             path: '/my-rooms',
             name: 'MyRooms',
             component: Rooms,
+        },
+        {
+            path: '/entertainment-reservation',
+            name: 'EntertainmentReservation',
+            component: EntertainmentReservation,
+            meta: { requiresAuth: true }
         }
     ]
 })

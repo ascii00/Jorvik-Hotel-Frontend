@@ -72,7 +72,6 @@ import { Calendar, DatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
 import vClickOutside from "click-outside-vue3";
 
-
 export default {
   name: "TheBookingForm",
   components: {
