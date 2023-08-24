@@ -23,32 +23,11 @@ export default {
             context.commit('setLoading', false);
         }
     },
-    async deleteBookingByBookingId(context: any, payload: any) {
-        context.commit('setBookingDeleteLoading', true);
-      try {
-            await axios.delete(`${baseURL}/api/v1/bookings/deleteBooking/${payload}`);
-            context.commit('setBookingDeleteError', null);
-      } catch (error) {
-            let errorMessage: string;
-            // @ts-ignore
-            if (error.response && error.response.data && error.response.data.data) {
-                // @ts-ignore
-                errorMessage = error.response.data.data;
-            } else {
-                // @ts-ignore
-                errorMessage = error.message || "Unknown error occurred.";
-            }
-            context.commit('setBookingDeleteError', errorMessage);
-      } finally {
-            context.commit('setBookingDeleteLoading', false);
-      }
-    },
-    async fetchLastBooking(context: any) {
-        context.commit('setLastBookingLoading', true);
+    async bookEntertainment(context: any, payload: any) {
+        context.commit('setEntertainmentLoading', true);
         try {
-            const response = await axios.get(`${baseURL}/api/v1/bookings/room/getLastBooking`);
-            context.commit('setLastBookingInfo', response.data.data);
-            context.commit('setLastBookingError', null);
+            await axios.get(`${baseURL}/api/v1/bookings/entertainment/${payload.paymentType}/${payload.dateFrom}/${payload.dateTo}/${payload.timeFrom}/${payload.timeTo}/${payload.entertainmentId}`);
+            context.commit('setEntertainmentError', null);
         } catch (error) {
             let errorMessage: string;
             // @ts-ignore
@@ -59,9 +38,49 @@ export default {
                 // @ts-ignore
                 errorMessage = error.message || "Unknown error occurred.";
             }
-            context.commit('setLastBookingError', errorMessage);
+            context.commit('setEntertainmentError', errorMessage);
         } finally {
-            context.commit('setLastBookingLoading', false);
+            context.commit('setEntertainmentLoading', false);
+        }
+    },
+    async deleteBookingByBookingId(context: any, payload: any) {
+        context.commit('setBookingDeleteLoading', true);
+          try {
+                await axios.delete(`${baseURL}/api/v1/bookings/deleteBooking/${payload}`);
+                context.commit('setBookingDeleteError', null);
+          } catch (error) {
+                let errorMessage: string;
+                // @ts-ignore
+                if (error.response && error.response.data && error.response.data.data) {
+                    // @ts-ignore
+                    errorMessage = error.response.data.data;
+                } else {
+                    // @ts-ignore
+                    errorMessage = error.message || "Unknown error occurred.";
+                }
+                context.commit('setBookingDeleteError', errorMessage);
+          } finally {
+                context.commit('setBookingDeleteLoading', false);
+          }
+    },
+    async deleteEntertainmentBookingByBookingId(context: any, payload: any) {
+        context.commit('setBookingDeleteLoading', true);
+        try {
+            await axios.delete(`${baseURL}/api/v1/bookings/deleteEntertainmentBooking/${payload}`);
+            context.commit('setBookingDeleteError', null);
+        } catch (error) {
+            let errorMessage: string;
+            // @ts-ignore
+            if (error.response && error.response.data && error.response.data.data) {
+                // @ts-ignore
+                errorMessage = error.response.data.data;
+            } else {
+                // @ts-ignore
+                errorMessage = error.message || "Unknown error occurred.";
+            }
+            context.commit('setBookingDeleteError', errorMessage);
+        } finally {
+            context.commit('setBookingDeleteLoading', false);
         }
     },
     async fetchAllBookings(context: any) {

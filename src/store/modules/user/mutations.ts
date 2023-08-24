@@ -43,5 +43,14 @@ export default {
     },
     setUserReservationAmount(state: any, userReservationAmount: any) {
         state.userReservationAmount = userReservationAmount;
+    },
+    setUserEntertainmentReservationAmount(state: any, userEntertainmentReservationAmount: any) {
+        state.userEntertainmentReservationAmount = userEntertainmentReservationAmount;
+    },
+    setUserEntertainmentReservationAmountLoading(state: any, isUserEntertainmentReservationAmountLoading: boolean) {
+        state.isUserEntertainmentReservationAmountLoading = isUserEntertainmentReservationAmountLoading;
+    },
+    setUserEntertainmentReservationAmountError(state: any, userEntertainmentReservationAmountError: any) {
+        state.userEntertainmentReservationAmountError = userEntertainmentReservationAmountError;
     }
 };

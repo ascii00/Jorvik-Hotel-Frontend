@@ -14,6 +14,7 @@ import BaseCard from "@/components/ui/BaseCard.vue";
 import BaseButtonSpinner from "@/components/ui/BaseButtonSpinner.vue";
 import BaseInput from "@/components/ui/BaseInput.vue";
 import BasePayment from "@/components/ui/BasePayment.vue";
+import BaseDateSelectBox from "@/components/ui/BaseDateSelectBox.vue";
 
 axios.interceptors.response.use(
     response => {
@@ -51,5 +52,6 @@ app.component('base-card', BaseCard)
 app.component('base-button-spinner', BaseButtonSpinner)
 app.component('base-input', BaseInput)
 app.component('base-payment', BasePayment)
+app.component('base-date-select-box', BaseDateSelectBox)
 
 app.mount('#app')

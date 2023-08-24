@@ -8,6 +8,8 @@ export default {
         return {
             isLoading: false,
             error: null,
+            isEntertainmentLoading: false,
+            entertainmentError: null,
             lastBookingRoomNumber: null,
             lastBookingAccessCode: null,
             lastBookingRoomType: null,
@@ -21,6 +23,8 @@ export default {
             allCurrentRoomsError: null,
             bookingDeleteIsLoading: false,
             bookingDeleteError: null,
+            entertainmentBookingDeleteIsLoading: false,
+            entertainmentBookingDeleteError: null,
         }
     },
     mutations,

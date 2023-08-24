@@ -14,7 +14,7 @@
                             <i class="fa fa-angle-down icon-entertainment" :class="{'icon-active' : entertainment}"></i>
                         </a>
                     </li>
-                    <li><router-link active-class="link-active" class="link" :to="{name: 'Restaurant'}" @click="closeAll">Restaurant</router-link></li>
+                    <li><router-link active-class="link-active" class="link" :to="{name: 'restaurant'}" @click="closeAll">Restaurant</router-link></li>
                     <li><router-link active-class="link-active" class="link" :to="{name: 'HowItWorks'}" @click="closeAll">How it works</router-link></li>
                 </ul>
                 <TheLoginButton v-if="!mobile && !isLoggedIn" class="login-button"></TheLoginButton>
@@ -43,7 +43,6 @@
 
                         <transition name="submenu-mobile">
                             <ul v-if="entertainment">
-                                <li><router-link active-class="link-active" class="sub-link" :to="{name: 'Weekend'}" @click="toggleMobileNav">Weekend</router-link></li>
                                 <li><router-link active-class="link-active" class="sub-link" :to="{name: 'Tennis'}" @click="toggleMobileNav">Tennis</router-link></li>
                                 <li><router-link active-class="link-active" class="sub-link" :to="{name: 'Bicycles'}" @click="toggleMobileNav">Bicycles</router-link></li>
                                 <li><router-link active-class="link-active" class="sub-link" :to="{name: 'Kayaks'}" @click="toggleMobileNav">Kayaks</router-link></li>
@@ -53,7 +52,7 @@
                             </ul>
                         </transition>
 
-                        <li><router-link active-class="link-active" class="link" :to="{name: 'Restaurant'}" @click="toggleMobileNav">Restaurant</router-link></li>
+                        <li><router-link active-class="link-active" class="link" :to="{name: 'restaurant'}" @click="toggleMobileNav">Restaurant</router-link></li>
                         <li><router-link active-class="link-active" class="link" :to="{name: 'HowItWorks'}" @click="toggleMobileNav">How it works</router-link></li>
                         <TheLoginButton v-if="!isLoggedIn" class="login-button-mobile"></TheLoginButton>
                         <li v-else-if="isLoggedIn"><svg @click="toggleUserinfo" class="account-svg-mobile" :class="{ 'svg-active': isUserinfoRoute }" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/></svg></li>
@@ -74,7 +73,6 @@
         <transition name="submenu-nav">
             <div v-if="!mobile && entertainment" class="submenu-navigation">
                 <ul class="navigation">
-                    <li><router-link active-class="link-active" class="link" :to="{name: 'Weekend'}" @click="closeAll">Weekend</router-link></li>
                     <li><router-link active-class="link-active" class="link" :to="{name: 'Tennis'}" @click="closeAll">Tennis</router-link></li>
                     <li><router-link active-class="link-active" class="link" :to="{name: 'Bicycles'}" @click="closeAll">Bicycles</router-link></li>
                     <li><router-link active-class="link-active" class="link" :to="{name: 'Kayaks'}" @click="closeAll">Kayaks</router-link></li>
@@ -174,7 +172,7 @@ export default {
       },
       isEntertainmentRoute() {
         const route = this.$route.name;
-        return route === 'Weekend' || route === 'Tennis' || route === 'Bicycles' || route === 'Kayaks' || route === 'EcoTours' || route === 'PingPong' || route === 'Gym';
+        return route === 'Tennis' || route === 'Bicycles' || route === 'Kayaks' || route === 'EcoTours' || route === 'PingPong' || route === 'Gym';
       },
       isUserinfoRoute() {
         const route = this.$route.name;

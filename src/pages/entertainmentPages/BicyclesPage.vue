@@ -6,9 +6,13 @@
       </div>
 
       <div class="description-container">
-        <p class="description-text">At our hotel, you have the option to rent mountain bikes and explore the beautiful surroundings. Whether you're an experienced mountain biker or a beginner, we offer a range of bike sizes and styles to suit your needs.
+        <p class="description-text">At our hotel, you have the option to rent mountain bikes and explore the beautiful
+          surroundings. Whether you're an experienced mountain biker or a beginner, we offer a range of bike sizes and
+          styles to suit your needs.
           <br><br>
-          Renting a mountain bike is a fun and active way to stay healthy during your stay at our hotel. It's also a great opportunity to bond with friends and family and create unforgettable memories. So why not add a little adventure to your trip and explore the great outdoors on one of our rental mountain bikes?
+          Renting a mountain bike is a fun and active way to stay healthy during your stay at our hotel. It's also a
+          great opportunity to bond with friends and family and create unforgettable memories. So why not add a little
+          adventure to your trip and explore the great outdoors on one of our rental mountain bikes?
         </p>
 
         <p class="important-text">Important</p>
@@ -18,7 +22,7 @@
           <li class="description-list-element">Each bike has a code lock, which you will receive after payment</li>
           <li class="description-list-element">After the trip, please, return the bike to its place and lock it</li>
         </ul>
-        <base-button class="reservation-button" mode="color-two">Reserve a bike</base-button>
+        <base-button class="reservation-button" mode="color-two" @click="reservationHandler">Reserve a bike</base-button>
       </div>
 
     </div>
@@ -46,7 +50,9 @@ export default {
     };
   },
   methods: {
-
+    reservationHandler() {
+      this.$router.push({name: "EntertainmentReservation"})
+    },
   },
 };
 </script>
@@ -81,10 +87,12 @@ export default {
 }
 
 .description-list {
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .description-list-element {
+  margin-top: 3px;
+  margin-bottom: 3px;
   margin-left: 15px;
 }
 

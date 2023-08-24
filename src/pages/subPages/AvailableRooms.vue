@@ -118,7 +118,7 @@
 
         <base-payment
             v-else-if="payment"
-            payment-type="ROOM_PAYMENT"
+            payment-type="Room"
             :date-from="startDate"
             :date-to="endDate"
             :room-type-id="roomTypeId"
@@ -218,8 +218,8 @@ export default {
       ]
     }
   },
-  created() {
-    this.fetchRoomTypes(this.$route.query);
+  async created() {
+    await this.fetchRoomTypes(this.$route.query);
   },
   methods: {
     async fetchRoomTypes(query) {

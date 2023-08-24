@@ -1,25 +1,36 @@
 <template>
-  <div class="container">
-    <div class="description-container">
+  <div class="page-wrapper">
+    <div class="container">
 
-      <ul class="schedule-list">
-        <li><h3 class="schedule-type">Breakfast:</h3></li>
-        <li><p class="schedule-time">from 07:00 until 10:00</p></li>
-        <li><h3 class="schedule-type">Lunch:</h3></li>
-        <li><p class="schedule-time">from 13:00 until 15:00</p></li>
-        <li><h3 class="schedule-type">Dinner:</h3></li>
-        <li><p class="schedule-time">from 18:00 until 21:00</p></li>
-      </ul>
+      <div class="description-container">
 
-      <p class="description-text">Our hotel offers three meals a day, and you have the flexibility to choose the number of meals you'd like to order to suit your schedule and preferences.
-        <br><br>
-        In addition to the meals included in your accommodation package, our on-site restaurant provides a variety of delicious dishes to cater to all tastes and dietary requirements. Our experienced chefs use only the freshest, locally sourced ingredients to prepare mouth-watering meals that are sure to satisfy your hunger.
-        <br><br>
-        If you prefer, you can also order your meals directly at the restaurant for an additional fee according to the menu. Our restaurant offers a diverse range of options, including appetizers, entrees, desserts, and beverages, so you can tailor your meal to your liking.</p>
+        <ul class="schedule-list">
+          <li><h3 class="schedule-type">Breakfast:</h3></li>
+          <li><p class="schedule-time">from 07:00 until 10:00</p></li>
+          <li><h3 class="schedule-type">Lunch:</h3></li>
+          <li><p class="schedule-time">from 13:00 until 15:00</p></li>
+          <li><h3 class="schedule-type">Dinner:</h3></li>
+          <li><p class="schedule-time">from 18:00 until 21:00</p></li>
+        </ul>
 
-    </div>
-    <div class="image-container">
-      <BaseImageCarousel :images="slides" class="images-slider"></BaseImageCarousel>
+        <p class="description-text">
+          Our hotel offers three meals a day, and you have the flexibility to choose the number of meals you'd like to
+          order to suit your schedule and preferences.
+          <br><br>
+          In addition to the meals included in your accommodation package, our on-site restaurant provides a variety of
+          delicious dishes to cater to all tastes and dietary requirements. Our experienced chefs use only the freshest,
+          locally sourced ingredients to prepare mouth-watering meals that are sure to satisfy your hunger.
+          <br><br>
+          If you prefer, you can also order your meals directly at the restaurant for an additional fee according to the
+          menu. Our restaurant offers a diverse range of options, including appetizers, entrees, desserts, and beverages,
+          so you can tailor your meal to your liking.
+        </p>
+
+      </div>
+
+      <div class="image-container">
+        <BaseImageCarousel :images="slides" class="images-slider"></BaseImageCarousel>
+      </div>
     </div>
   </div>
 </template>
@@ -90,4 +101,23 @@ export default {
   font-size: 14px;
 }
 
+@media (max-width: 1000px) {
+  .container {
+    display: flex;
+    flex-direction: column-reverse;
+    flex: 0 0 auto;
+  }
+
+  .images-slider {
+    height: 300px;
+  }
+
+  .description-text {
+    font-size: 13px;
+  }
+
+  .description-container {
+    padding: 40px 40px 50px 40px;
+  }
+}
 </style>

@@ -43,5 +43,14 @@ export default {
     },
     userReservationAmount(state: any) {
         return state.userReservationAmount;
+    },
+    userEntertainmentReservationAmount(state: any) {
+        return state.userEntertainmentReservationAmount;
+    },
+    isUserEntertainmentReservationAmountLoading(state: any) {
+        return state.isUserEntertainmentReservationAmountLoading;
+    },
+    userEntertainmentReservationAmountError(state: any) {
+        return state.userEntertainmentReservationAmountError;
     }
 };

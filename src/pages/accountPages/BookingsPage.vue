@@ -27,18 +27,19 @@
                 <template v-slot:right>
                   <h3 class="booking-element-title">{{ booking.price }} {{ getPriceType(booking.bookingType) }}</h3>
                   <div class="reservation-date">
-                    <p class="reservation-date-left">{{ booking.fromDate }}</p>
-                    <p v-if="booking.toDate">-</p>
-                    <p class="reservation-date-right" v-if="booking.toDate">{{ booking.toDate }}</p>
+                    <p class="reservation-date-left">{{ convertDate(booking.fromDate) }}</p>
+                    <p>-</p>
+                    <p class="reservation-date-right">{{ convertDate(booking.toDate) }}</p>
                   </div>
-                  <div v-if="!booking.paymentId">
-                    <base-button class="reservation-buttons" mode="color-two" @click="reservationCancelClicked(booking.id)">
+                  <div v-if="!booking.paymentId" class="buttons-container">
+                    <base-button class="reservation-buttons" mode="color-two" @click="reservationCancelClicked(booking.id, booking.bookingType)">
                       <div>
                         <base-button-spinner :is-loading="!!deleteBookingLoading"></base-button-spinner>
                         Cancel
                       </div>
                     </base-button>
-                    <base-button @click="payForRoom(booking.fromDate, booking.toDate, booking.roomTypeId, booking.id)">Pay</base-button>
+                    <base-button v-if="isRoomBooking(booking.bookingType)" @click="payForRoom(booking.fromDate, booking.toDate, booking.roomTypeId, booking.id)">Pay</base-button>
+                    <base-button v-else @click="payForEntertainment(booking.bookingType, booking.fromDate, booking.toDate, booking.id)">Pay</base-button>
                   </div>
                 </template>
               </base-booking-card>
@@ -50,15 +51,27 @@
           </div>
 
           <base-payment
-              v-else-if="isPaymentShown"
-              payment-type="ROOM_PAYMENT"
+              v-else-if="isPaymentShown && isRoomBooking(bookingType)"
+              payment-type="Room"
               :date-from="paymentDateFrom"
               :date-to="paymentDateTo"
               :room-type-id="paymentDateRoomTypeId"
               :booked-reservation-id="reservationId"
               @closePayment="closePayment"
-          >
-          </base-payment>
+          ></base-payment>
+
+          <base-payment
+              v-else-if="isPaymentShown && !isRoomBooking(bookingType)"
+              :payment-type="bookingType"
+              :date-from="dateFrom"
+              :date-to="dateTo"
+              :time-from="timeFrom"
+              :time-to="timeTo"
+              :booked-reservation-id="reservationId"
+              redirect-url="/bookings-entertainment-result"
+              @closePayment="closePayment"
+          ></base-payment>
+
       </transition>
     </div>
 
@@ -98,13 +111,21 @@ export default {
       isBookingsShown: true,
       isReservationCancelShown: false,
       showAllBookings: false,
+      bookingType: null,
       paymentDateFrom: null,
       paymentDateTo: null,
+      dateFrom: null,
+      dateTo: null,
+      timeFrom: null,
+      timeTo: null,
       paymentDateRoomTypeId: null,
       reservationId: null,
     };
   },
   methods: {
+    isRoomBooking(bookingType) {
+      return bookingType === 'Room';
+    },
     payForRoom(fromDate, toDate, roomTypeId, reservationId) {
       this.paymentDateFrom = fromDate;
       this.paymentDateTo = toDate;
@@ -113,15 +134,37 @@ export default {
       this.isBookingsShown = false;
       this.isPaymentShown = true;
     },
-    reservationCancelClicked(reservationId){
+    extractTime(date) {
+      let timeParts = date.split(" ")[1].split(":");
+      return  timeParts[0] + "-" + timeParts[1];
+    },
+    extractDate(date) {
+      return date.split(" ")[0];
+    },
+    payForEntertainment(bookingType, fromDate, toDate, reservationId) {
+      this.dateFrom = this.extractDate(fromDate);
+      this.dateTo = this.extractDate(toDate);
+      this.timeFrom = this.extractTime(fromDate);
+      this.timeTo = this.extractTime(toDate);
+      this.bookingType = bookingType;
       this.reservationId = reservationId;
+      this.isBookingsShown = false;
+      this.isPaymentShown = true;
+    },
+    reservationCancelClicked(reservationId, bookingType){
+      this.reservationId = reservationId;
+      this.bookingType = bookingType;
       this.isReservationCancelShown = true;
     },
     closeReservationCancelDialog(){
       this.isReservationCancelShown = false;
     },
     async cancelReservation() {
-      await this.$store.dispatch('bookings/deleteBookingByBookingId', this.reservationId);
+      if (this.isRoomBooking(this.bookingType)) {
+        await this.$store.dispatch('bookings/deleteBookingByBookingId', this.reservationId);
+      } else {
+        await this.$store.dispatch('bookings/deleteEntertainmentBookingByBookingId', this.reservationId);
+      }
       this.closeReservationCancelDialog();
       this.fetchBookings();
     },
@@ -152,6 +195,18 @@ export default {
         return 'https://i.imgur.com/gFLRzZI.jpg';
       }
     },
+    convertDate(inputDate){
+      const date = new Date(inputDate);
+      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+      const day = date.getDate();
+      const month = monthNames[date.getMonth()];
+      const year = date.getFullYear();
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      
+      return `${day} ${month} ${year} ${hours}:${minutes}`;
+    },
     getPriceType(bookingType){
       if (bookingType === 'Room') {
         return 'euro / night';
@@ -166,7 +221,7 @@ export default {
       this.$router.push({name: 'Home'});
     },
     closeDeleteErrorDialog() {
-      this.allBookingsError = null;
+      this.$router.push({name: 'Home'});
     },
     showAll() {
       this.showAllBookings = true;
@@ -178,6 +233,7 @@ export default {
     transitionKey() {
       if (this.isPaymentShown) return 'isPaymentShown';
       if (this.isBookingsShown) return 'isBookingsShown';
+      if (this.isRoomBooking(this.bookingType)) return 'isRoomBooking';
     }
   },
   created() {
@@ -263,6 +319,10 @@ h1 {
 
 .reservation-buttons {
   margin-right: 5px;
+}
+
+.buttons-container {
+  display: flex;
 }
 
 .reservation-date {

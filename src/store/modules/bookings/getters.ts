@@ -5,6 +5,12 @@ export default {
     error(state: any) {
         return state.error;
     },
+    isEntertainmentLoading(state: any) {
+        return state.isEntertainmentLoading;
+    },
+    entertainmentError(state: any) {
+        return state.entertainmentError;
+    },
     lastBookingRoomNumber(state: any) {
         return state.lastBookingRoomNumber;
     },
@@ -43,5 +49,11 @@ export default {
     },
     bookingDeleteError(state: any) {
         return state.bookingDeleteError;
+    },
+    entertainmentBookingDeleteIsLoading(state: any) {
+        return state.entertainmentBookingDeleteIsLoading;
+    },
+    entertainmentBookingDeleteError(state: any) {
+        return state.entertainmentBookingDeleteError;
     }
 };
