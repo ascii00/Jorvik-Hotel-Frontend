@@ -32,6 +32,55 @@
         <BaseImageCarousel :images="slides" class="images-slider"></BaseImageCarousel>
       </div>
     </div>
+
+    <section class="menu-section">
+      <h1 class="menu-title">Today's menu</h1>
+      <h3 class="menu-subtitle">Breakfast</h3>
+      <div class="menu-type">
+        <div v-if="isBreakfastMenuLoading"><base-spinner></base-spinner></div>
+        <div v-else-if="breakfastError" class="error">{{ breakfastError }}</div>
+        <div v-else-if="breakfastMenu" v-for="menuItem in breakfastMenu" :key="menuItem.id">
+          <MenuItem
+              class="menu-item"
+              :title="menuItem.name"
+              :description="menuItem.description"
+              :image="menuItem.photoDirectory"
+          ></MenuItem>
+        </div>
+        <div v-else>Breakfast menu is not ready yet. Check later.</div>
+      </div>
+
+      <h3 class="menu-subtitle">Lunch</h3>
+      <div class="menu-type">
+        <div v-if="isLunchMenuLoading"><base-spinner></base-spinner></div>
+        <div v-else-if="lunchError" class="error">{{ lunchError }}</div>
+        <div v-else-if="lunchMenu" v-for="menuItem in lunchMenu" :key="menuItem.id">
+          <MenuItem
+              class="menu-item"
+              :title="menuItem.name"
+              :description="menuItem.description"
+              :image="menuItem.photoDirectory"
+          ></MenuItem>
+        </div>
+        <div v-else>Lunch menu is not ready yet. Check later.</div>
+      </div>
+
+      <h3 class="menu-subtitle">Dinner</h3>
+      <div class="menu-type">
+        <div v-if="isDinnerMenuLoading"><base-spinner></base-spinner></div>
+        <div v-else-if="dinnerError" class="error">{{ dinnerError }}</div>
+        <div v-else-if="dinnerMenu" v-for="menuItem in dinnerMenu" :key="menuItem.id">
+          <MenuItem
+              class="menu-item"
+              :title="menuItem.name"
+              :description="menuItem.description"
+              :image="menuItem.photoDirectory"
+          ></MenuItem>
+        </div>
+        <div v-else>Dinner menu is not ready yet. Check later.</div>
+      </div>
+
+    </section>
   </div>
 </template>
 
@@ -39,9 +88,11 @@
 import BaseRoomCard from "@/components/ui/BaseBookingCard.vue";
 import BaseButton from "@/components/ui/BaseButton.vue";
 import BaseImageCarousel from "@/components/ui/BaseImageCarousel.vue";
+import MenuItem from "@/components/layout/restaurant/MenuItem.vue";
+import BaseSpinner from "@/components/ui/BaseSpinner.vue";
 
 export default {
-  components: {BaseImageCarousel, BaseButton, BaseRoomCard},
+  components: {BaseSpinner, MenuItem, BaseImageCarousel, BaseButton, BaseRoomCard},
   data() {
     return {
       slides: [
@@ -52,9 +103,45 @@ export default {
       ],
     };
   },
-  methods: {
-
+  async created() {
+    await this.fetchMenu();
   },
+  methods: {
+    async fetchMenu(){
+      await this.$store.dispatch('menu/fetchBreakfastMenu');
+      await this.$store.dispatch('menu/fetchLunchMenu');
+      await this.$store.dispatch('menu/fetchDinnerMenu');
+    }
+  },
+  computed: {
+    isBreakfastMenuLoading() {
+      return this.$store.getters['menu/isLoadingBreakfast'];
+    },
+    isLunchMenuLoading() {
+      return this.$store.getters['menu/isLunchLoading'];
+    },
+    isDinnerMenuLoading() {
+      return this.$store.getters['menu/isDinnerLoading'];
+    },
+    breakfastError() {
+      return this.$store.getters['menu/breakFastError'];
+    },
+    lunchError() {
+      return this.$store.getters['menu/lunchError'];
+    },
+    dinnerError() {
+      return this.$store.getters['menu/dinnerError'];
+    },
+    breakfastMenu() {
+      return this.$store.getters['menu/getBreakfastMenu'];
+    },
+    lunchMenu() {
+      return this.$store.getters['menu/getLunchMenu'];
+    },
+    dinnerMenu() {
+      return this.$store.getters['menu/getDinnerMenu'];
+    }
+  }
 };
 </script>
 
@@ -101,6 +188,36 @@ export default {
   font-size: 14px;
 }
 
+.menu-section {
+  margin: 2rem auto;
+  max-width: 80rem;
+}
+
+.menu-title {
+  font-weight: 700;
+  font-size: 22px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.menu-subtitle {
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 40px;
+  margin-left: 40px;
+}
+
+.menu-type {
+  display: flex;
+  flex-direction: row;
+  flex-flow: wrap;
+
+}
+
+.menu-item {
+  margin: 20px;
+}
+
 @media (max-width: 1000px) {
   .container {
     display: flex;
@@ -118,6 +235,16 @@ export default {
 
   .description-container {
     padding: 40px 40px 50px 40px;
+  }
+
+  .menu-title {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  .menu-subtitle {
+    font-size: 15px;
+    margin-top: 20px;
   }
 }
 </style>
