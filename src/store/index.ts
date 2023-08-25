@@ -8,6 +8,7 @@ import authModule from "@/store/modules/auth";
 import userModule from "@/store/modules/user";
 import paymentModule from "@/store/modules/payment";
 import entertainmentModule from "@/store/modules/entertainment";
+import MenuModule from "@/store/modules/menu";
 
 const store = createStore({
     modules: {
@@ -18,7 +19,8 @@ const store = createStore({
         auth: authModule,
         user: userModule,
         payment: paymentModule,
-        entertainment: entertainmentModule
+        entertainment: entertainmentModule,
+        menu: MenuModule
     }
 })
 
