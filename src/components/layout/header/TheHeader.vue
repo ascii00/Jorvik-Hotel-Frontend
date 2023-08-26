@@ -20,7 +20,6 @@
                 <TheLoginButton v-if="!mobile && !isLoggedIn" class="login-button"></TheLoginButton>
                 <svg v-else-if="!mobile && isLoggedIn" @click="toggleUserinfo" class="account-svg" :class="{ 'svg-active': isUserinfoRoute }" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/></svg>
               <div class="icon">
-
                     <i @click="toggleMobileNav" v-show="mobile" class="fa fa-bars" :class="{'icon-active' : mobileNav}"></i>
                 </div>
             </nav>
@@ -194,8 +193,8 @@ export default {
 
 .icon-entertainment {
     position: absolute;
-    top: 15px;
-    left: 128px;
+    top: 17px;
+    left: 118px;
 }
 
 header {
@@ -212,7 +211,7 @@ nav {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 12px 0;
+    padding: 7px 0;
     transition: 0.5s ease all;
     width: 97%;
     margin: 0 auto;
@@ -233,7 +232,7 @@ li {
 }
 
 .link {
-    font-size: 17px;
+    font-size: 15px;
     padding-bottom: 4px;
     border-bottom: 1px solid transparent;
 }
@@ -252,7 +251,7 @@ ul,
 }
 
 .sub-link {
-    font-size: 14px;
+    font-size: 13px;
     transition: 0.2s ease all;
     padding-bottom: 4px;
     border-bottom: 1px solid transparent;
@@ -277,7 +276,7 @@ ul,
 }
 
 .logo {
-    transition: 0.5s ease all;
+  transition: 0.5s ease all;
 }
 
 .navigation {
@@ -304,8 +303,12 @@ ul,
   align-items: center;
   fill: white;
   cursor: pointer;
-  height: 1.5em;
+  height: 1.2em;
   margin-right: 10px;
+}
+
+.account-svg:hover {
+  fill: #FC5C65;
 }
 
 
@@ -314,6 +317,10 @@ ul,
   cursor: pointer;
   margin-top: 20px;
   height: 1.3em;
+}
+
+.account-svg-mobile:hover {
+  fill: #FC5C65;
 }
 
 .svg-active {
@@ -329,9 +336,13 @@ ul,
     height: 100%;
 }
 
+.icon:hover {
+  color: #FC5C65;
+}
+
 i {
     cursor: pointer;
-    font-size: 24px;
+    font-size: 20px;
     transition: transform 0.4s ease;
 }
 
@@ -376,7 +387,7 @@ i {
 
 .submenu-navigation {
     position: absolute;
-    top: 70px;
+    top: 60px;
     width: 100%;
     background-color: #1F232C;
     font-size: 13px;
@@ -412,11 +423,11 @@ i {
 }
 
 .submenu-nav-enter-active {
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.2s ease-in-out;
 }
 
 .submenu-nav-leave-active {
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.2s ease-in-out;
 }
 
 .submenu-nav-enter-to,

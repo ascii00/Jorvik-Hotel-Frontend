@@ -17,7 +17,6 @@ import Gym from "@/pages/entertainmentPages/GymPage.vue";
 import Kayaks from "@/pages/entertainmentPages/KayaksPage.vue";
 import PingPong from "@/pages/entertainmentPages/PingPongPage.vue";
 import Tennis from "@/pages/entertainmentPages/TennisPage.vue";
-import Weekend from "@/pages/entertainmentPages/WeekendPage.vue";
 import EcoTours from "@/pages/entertainmentPages/EcoToursPage.vue";
 
 // Account pages
@@ -89,11 +88,6 @@ const router = createRouter({
             path: '/tennis',
             name: 'Tennis',
             component: Tennis
-        },
-        {
-            path: '/weekend',
-            name: 'Weekend',
-            component: Weekend
         },
         {
             path: '/eco-tours',

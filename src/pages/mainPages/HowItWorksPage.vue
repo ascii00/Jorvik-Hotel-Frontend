@@ -1,68 +1,230 @@
 <template>
-  <div class="container">
-    <div class="left-side">
-      <div class="description" v-for="desc in descriptions" :key="desc.id">
-        <p>{{ desc.text }}</p>
+  <div class="page-wrapper">
+
+    <div class="container">
+      <div class="description-container">
+        <p class="description-text">
+          <a href="/" class="titled-text">Select</a> your desired check-in and check-out dates for the hotel.
+        </p>
+      </div>
+      <div class="image-container">
+        <img class="images" src="https://i.imgur.com/Rqol1Zj.png" alt="Description 1">
       </div>
     </div>
-    <div class="right-side">
-      <img v-for="img in images" :src="img.src" :key="img.id" alt="Image description">
+
+    <div class="container">
+      <div class="description-container">
+        <p class="description-text">
+          Choose the room that suits your needs based on the number of guests.
+        </p>
+      </div>
+      <div class="image-container">
+        <img class="images" src="https://i.imgur.com/9mmMmoE.png" alt="Description 1">
+      </div>
     </div>
+
+    <div class="container">
+      <div class="description-container">
+        <p class="description-text">
+          Proceed to payment. You can pay immediately, or postpone for later. Please note that payment must be made
+          no later than 1 day before check-in. We accept major credit cards and online payment methods.
+        </p>
+      </div>
+      <div class="image-container">
+        <img class="images" src="https://i.imgur.com/pLKHsi1.png" alt="Description 1">
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="description-container">
+        <p class="description-text">
+          On the day of check-in, use the 4-digit access code provided to enter your room. You will receive this code
+          via email a few hours before check-in, and it will also be available in your personal account on our website.
+        </p>
+      </div>
+      <div class="image-container">
+        <img class="images" src="https://i.imgur.com/F512GTe.png" alt="Description 1">
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="description-container">
+        <p class="description-text">
+          Enjoy your stay at our hotel! Please note that cleaning services are scheduled every day at 11 am.
+        </p>
+      </div>
+      <div class="image-container">
+        <img class="images" src="https://i.imgur.com/QNuyBKZ.png" alt="Description 1">
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="description-container">
+        <p class="description-text">
+          Our hotel offers 3 meals a day included in the price of your stay. You can find the current menu in the
+          <a href="/restaurant" class="titled-text">restaurant section</a> of our website. In addition to the included meals, you can
+          order any dish from the menu for an additional price directly in our restaurant.
+        </p>
+      </div>
+      <div class="image-container">
+        <img class="images" src="https://i.imgur.com/3MZG0Sz.png" alt="Description 1">
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="description-container">
+        <p class="description-text">
+          Our hotel boasts 4 high-quality <a href="/tennis" class="titled-text">tennis courts.</a> Any guest of our hotel can reserve a court
+          by appointment and payment. Please note that we do not rent tennis equipment, so you will need
+          to bring your own.
+        </p>
+      </div>
+      <div class="image-container">
+        <img class="images" src="https://i.imgur.com/kVZySs5.png" alt="Description 1">
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="description-container">
+        <p class="description-text">
+          <a href="/bicycles" class="titled-text">Bicycle rentals</a> are available, including mountain bikes, children's bikes, and urban bikes.
+          Bikes must be reserved in advance and paid for.
+        </p>
+      </div>
+      <div class="image-container">
+        <img class="images" src="https://i.imgur.com/spF9SHz.png" alt="Description 1">
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="description-container">
+        <p class="description-text">
+          If you're interested in kayaking, we offer kayak rentals as well. You can find the rules, rental fees,
+          and booking information <a href="/kayaks" class="titled-text">here.</a>
+        </p>
+      </div>
+      <div class="image-container">
+        <img class="images" src="https://i.imgur.com/IsnKi3i.png" alt="Description 1">
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="description-container">
+        <p class="description-text">
+          We have prepared several <a href="/eco-tours" class="titled-text">forest paths</a> for you to explore during your stay. Each path is marked with
+          special signs to help you navigate.
+        </p>
+      </div>
+      <div class="image-container">
+        <img class="images" src="https://i.imgur.com/hSDuypL.png" alt="Description 1">
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="description-container">
+        <p class="description-text">
+          Each guest can use the <a href="/gym" class="titled-text">gym</a> for free. No pre-registration is required, and the hall is
+          available for use at any time during your stay. This is a great option for rainy days or for indoor activities.
+        </p>
+      </div>
+      <div class="image-container">
+        <img class="images" src="https://i.imgur.com/kmoF3HG.png" alt="Description 1">
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="description-container">
+        <p class="description-text">
+          Additionally, we provide free <a href="/ping-pong" class="titled-text">ping pong</a> tables on the first, second, and fifth floors, as
+          well as near the tennis courts. You can play at your leisure, and we encourage you to have fun
+          and make new friends during your stay.
+        </p>
+      </div>
+      <div class="image-container">
+        <img class="images" src="https://i.imgur.com/e1m3O0H.png" alt="Description 1">
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
+import BaseImageCarousel from "@/components/ui/BaseImageCarousel.vue";
+
 export default {
-  name: "HowItWorksPage",
+  components: {BaseImageCarousel},
   data() {
     return {
-      descriptions: [
-        { id: 1, text: "Description for Image 1" },
-        { id: 2, text: "Description for Image 2" },
-        // ... add more descriptions
+      slides: [
+        'https://i.imgur.com/Ab55X0J.jpg',
+        'https://i.imgur.com/cITXy9A.jpg',
+        'https://i.imgur.com/SUvBrTV.jpg',
+        'https://i.imgur.com/IpHijtK.jpg'
       ],
-      images: [
-        { id: 1, src: "https://i.imgur.com/OLIQOdC.jpg" },
-        { id: 2, src: "https://i.imgur.com/uYyzruL.jpg" },
-        { id: 3, src: "https://i.imgur.com/PJgWREo.jpg" },
-        // ... add more images
-      ]
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <style scoped>
+
+.images {
+  height: 500px;
+}
+
 .container {
   display: flex;
-  height: 100vh;
-  overflow: hidden;
+  align-items: stretch;
 }
 
-.left-side,
-.right-side {
+.image-container {
   flex: 1;
-  overflow-y: scroll;
-}
-
-.left-side {
-  background-color: #f4f4f4;
   position: relative;
-}
-
-.description {
-  min-height: 100vh; /* Adjust this value for desired effect */
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 40px;
 }
 
-.right-side {
-  /* Adjust styles as necessary */
+.description-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px;
+  height: 600px;
+  color: white;
+  background-color: #1F232C;
 }
 
-.right-side img {
-  width: 100%;
-  /* Add any other styles you'd like for your images */
+.description-text {
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.titled-text {
+  font-weight: 700;
+  color: #FC5C65;
+}
+
+.titled-text:hover {
+  color: #ff2c35;
+}
+
+@media (max-width: 1000px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+  }
+
+  .description-text {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .images {
+    height: 300px;
+  }
 }
 </style>
