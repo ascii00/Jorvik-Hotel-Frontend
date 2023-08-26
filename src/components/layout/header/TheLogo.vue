@@ -14,7 +14,7 @@ export default {}
 
 <style scoped>
 .logo {
-    height: 2.2rem;
+    height: 2rem;
 }
 
 .logo-area {
@@ -22,6 +22,10 @@ export default {}
     align-items: center;
     gap: 10px;
     color: white;
+}
+
+.logo-text {
+  font-size: 15px;
 }
 
 .bold-text {

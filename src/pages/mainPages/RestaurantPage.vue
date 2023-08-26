@@ -37,9 +37,9 @@
       <h1 class="menu-title">Today's menu</h1>
       <h3 class="menu-subtitle">Breakfast</h3>
       <div class="menu-type">
-        <div v-if="isBreakfastMenuLoading"><base-spinner></base-spinner></div>
+        <div v-if="isBreakfastMenuLoading"><base-spinner class="spinner-menu"></base-spinner></div>
         <div v-else-if="breakfastError" class="error">{{ breakfastError }}</div>
-        <div v-else-if="breakfastMenu" v-for="menuItem in breakfastMenu" :key="menuItem.id">
+        <div v-else-if="breakfastMenu.length !== 0" v-for="menuItem in breakfastMenu" :key="menuItem.id">
           <MenuItem
               class="menu-item"
               :title="menuItem.name"
@@ -47,14 +47,14 @@
               :image="menuItem.photoDirectory"
           ></MenuItem>
         </div>
-        <div v-else>Breakfast menu is not ready yet. Check later.</div>
+        <div v-else class="menu-not-ready">Breakfast menu is not ready yet. Check later.</div>
       </div>
 
       <h3 class="menu-subtitle">Lunch</h3>
       <div class="menu-type">
-        <div v-if="isLunchMenuLoading"><base-spinner></base-spinner></div>
+        <div v-if="isLunchMenuLoading"><base-spinner class="spinner-menu"></base-spinner></div>
         <div v-else-if="lunchError" class="error">{{ lunchError }}</div>
-        <div v-else-if="lunchMenu" v-for="menuItem in lunchMenu" :key="menuItem.id">
+        <div v-else-if="lunchMenu.length !== 0" v-for="menuItem in lunchMenu" :key="menuItem.id">
           <MenuItem
               class="menu-item"
               :title="menuItem.name"
@@ -62,14 +62,14 @@
               :image="menuItem.photoDirectory"
           ></MenuItem>
         </div>
-        <div v-else>Lunch menu is not ready yet. Check later.</div>
+        <div v-else class="menu-not-ready">Lunch menu is not ready yet. Check later.</div>
       </div>
 
       <h3 class="menu-subtitle">Dinner</h3>
       <div class="menu-type">
-        <div v-if="isDinnerMenuLoading"><base-spinner></base-spinner></div>
+        <div v-if="isDinnerMenuLoading"><base-spinner class="spinner-menu"></base-spinner></div>
         <div v-else-if="dinnerError" class="error">{{ dinnerError }}</div>
-        <div v-else-if="dinnerMenu" v-for="menuItem in dinnerMenu" :key="menuItem.id">
+        <div v-else-if="dinnerMenu.length !== 0" v-for="menuItem in dinnerMenu" :key="menuItem.id">
           <MenuItem
               class="menu-item"
               :title="menuItem.name"
@@ -77,7 +77,7 @@
               :image="menuItem.photoDirectory"
           ></MenuItem>
         </div>
-        <div v-else>Dinner menu is not ready yet. Check later.</div>
+        <div v-else class="menu-not-ready">Dinner menu is not ready yet. Check later.</div>
       </div>
 
     </section>
@@ -152,6 +152,7 @@ export default {
 }
 
 .description-container {
+  line-height: 150%;
   padding: 40px 40px 100px 40px;
   color: white;
   flex: 1;
@@ -216,6 +217,22 @@ export default {
 
 .menu-item {
   margin: 20px;
+}
+
+.spinner-menu {
+  margin-left: 40px;
+  margin-top: 20px;
+}
+
+.menu-not-ready {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.error {
+  color: red;
+  margin-top: 20px;
+  margin-left: 20px;
 }
 
 @media (max-width: 1000px) {

@@ -65,6 +65,7 @@ export default {
 }
 
 .description-container {
+  line-height: 150%;
   padding: 20px 40px 50px 40px;
   color: white;
   background-color: #1F232C;
