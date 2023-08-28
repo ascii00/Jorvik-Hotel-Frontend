@@ -8,7 +8,10 @@ export default {
     token(state: any) {
         return state.token;
     },
+    roles(state: any) {
+        return state.roles;
+    },
     isAuthenticated(state: any) {
-        return !!state.token;
+        return !!state.token && state.roles.length > 0;
     }
 }

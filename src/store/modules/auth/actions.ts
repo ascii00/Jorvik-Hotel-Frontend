@@ -12,9 +12,12 @@ export default {
             });
 
             const token = response.data.data.token;
+            const roles = response.data.data.roles;
             localStorage.setItem('token', token);
+            localStorage.setItem('roles', JSON.stringify(roles));
 
             context.commit('setToken', token);
+            context.commit('setRoles', roles);
             context.commit('setError', null);
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         } catch (error) {
@@ -44,9 +47,12 @@ export default {
             });
 
             const token = response.data.data.token;
+            const roles = response.data.data.roles;
             localStorage.setItem('token', token);
+            localStorage.setItem('roles', JSON.stringify(roles));
 
             context.commit('setToken', token);
+            context.commit('setRoles', roles);
             context.commit('setError', null);
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         } catch (error) {
@@ -66,10 +72,14 @@ export default {
     },
     autoLogin(context: any) {
         const token = localStorage.getItem('token');
+        const roles = localStorage.getItem('roles');
 
-        if(token) {
+        // @ts-ignore
+        if(token && roles.length > 0) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             context.commit('setToken', token);
+            // @ts-ignore
+            context.commit('setRoles', JSON.parse(roles));
         }
     },
     async logout(context: any) {
@@ -78,8 +88,10 @@ export default {
             await axios.get(`${baseURL}/api/v1/auth/logout`);
 
             localStorage.removeItem('token');
+            localStorage.removeItem('roles');
             delete axios.defaults.headers.common['Authorization'];
             context.commit('setToken', null);
+            context.commit('setRoles', []);
             context.commit('setError', null);
         } catch (error) {
             let errorMessage: string;

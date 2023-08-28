@@ -76,60 +76,63 @@
 
     <div v-if="isLoading" class="spinner"><base-spinner/></div>
     <div class="content" v-else>
-      <div class="profile-title">
-        <h1>Hey,</h1>
-        <h1>{{firstName}}</h1>
+
+        <base-card>
+
+          <div class="profile-title">
+            <h1>Hey,</h1>
+            <h1>{{firstName}}</h1>
+          </div>
+
+          <h2 class="info-block">Profile Basics</h2>
+
+          <div class="info-block">
+            <p class="info-title">Name</p>
+            <div class="user-data">
+              <p class="info-value">{{ firstName }} {{ lastName }}</p>
+            </div>
+          </div>
+
+          <div class="info-block">
+            <p class="info-title">Email address</p>
+            <div class="user-data">
+              <p class="info-value">{{ email }}</p>
+              <p class="verification-true" v-if="isUserVerified">Verified</p>
+              <p class="verification-false" v-else>Not verified</p>
+              <BaseButton v-if="!isUserVerified" @click="resendVerification" mode="color-two" :disabled="buttonsBlocked">
+                <div>
+                  <base-button-spinner :isLoading="!!isEmailVerificationLoading"></base-button-spinner>
+                </div>
+                <span class="transition-off" v-if="!isEmailVerificationLoading">Resend verification</span>
+              </BaseButton>
+              <base-button @click="editEmailDialogOpen" :disabled="buttonsBlocked">Edit</base-button>
+            </div>
+          </div>
+
+          <div class="info-block">
+            <p class="info-title">Phone</p>
+            <div class="user-data">
+              <p class="info-value">{{ phone }}</p>
+              <base-button @click="editPhoneDialogOpen" :disabled="buttonsBlocked">Edit</base-button>
+            </div>
+          </div>
+
+          <div class="info-block">
+            <p class="info-title">Discount</p>
+            <div class="user-data">
+              <p class="info-value">{{ discount }}</p>
+            </div>
+          </div>
+
+          <div class="info-block-line">
+            <p class="info-title">Password</p>
+            <div class="user-data">
+              <base-button @click="editPasswordDialogOpen" :disabled="buttonsBlocked">Change Password</base-button>
+            </div>
+          </div>
+        </base-card>
       </div>
 
-      <base-card>
-        <h2 class="info-block">Profile Basics</h2>
-
-        <div class="info-block">
-          <p class="info-title">Name</p>
-          <div class="user-data">
-            <p class="info-value">{{ firstName }} {{ lastName }}</p>
-          </div>
-        </div>
-
-        <div class="info-block">
-          <p class="info-title">Email address</p>
-          <div class="user-data">
-            <p class="info-value">{{ email }}</p>
-            <p class="verification-true" v-if="isUserVerified">Verified</p>
-            <p class="verification-false" v-else>Not verified</p>
-            <BaseButton v-if="!isUserVerified" @click="resendVerification" mode="color-two">
-              <div>
-                <base-button-spinner :isLoading="!!isEmailVerificationLoading"></base-button-spinner>
-                <p v-if="!isEmailVerificationLoading">Resend verification</p>
-              </div>
-            </BaseButton>
-            <base-button @click="editEmailDialogOpen">Edit</base-button>
-          </div>
-        </div>
-
-        <div class="info-block">
-          <p class="info-title">Phone</p>
-          <div class="user-data">
-            <p class="info-value">{{ phone }}</p>
-            <base-button @click="editPhoneDialogOpen">Edit</base-button>
-          </div>
-        </div>
-
-        <div class="info-block">
-          <p class="info-title">Discount</p>
-          <div class="user-data">
-            <p class="info-value">{{ discount }}</p>
-          </div>
-        </div>
-
-        <div class="info-block-line">
-          <p class="info-title">Password</p>
-          <div class="user-data">
-            <base-button @click="editPasswordDialogOpen">Change Password</base-button>
-          </div>
-        </div>
-      </base-card>
-      </div>
   </div>
 
 </template>
@@ -167,6 +170,7 @@ export default {
       newPassword: '',
       confirmNewPassword: '',
       passwordsError: '',
+      buttonsBlocked: false,
     }
   },
   created() {
@@ -195,8 +199,10 @@ export default {
       this.$router.push({name: 'Home'});
     },
     async resendVerification() {
+      this.buttonsBlocked = true;
       await this.$store.dispatch('user/resendEmailVerification');
       this.showEmailVerificationDialog = true;
+      this.buttonsBlocked = false;
     },
     closeEmailVerificationDialog() {
       this.showEmailVerificationDialog = false;
@@ -208,12 +214,14 @@ export default {
       this.showEmailEditDialog = true;
     },
     async editEmail() {
+      this.buttonsBlocked = true;
       this.emailsError = '';
       if (this.newEmail !== this.confirmEmail) {
         this.emailsError = 'Emails do not match';
         return;
       }
       if (this.validateEmail(this.newEmail) || this.validateEmail(this.confirmEmail)) {
+        this.buttonsBlocked = false;
         return;
       }
 
@@ -223,14 +231,17 @@ export default {
 
       this.closeEmailEditDialog();
       this.showEmailEditSuccessDialog = true;
+      this.buttonsBlocked = false;
     },
     editPhoneDialogOpen() {
       this.showPhoneEditDialog = true;
     },
     async editPhone() {
+      this.buttonsBlocked = true;
       this.phoneError = '';
 
       if (this.validatePhone(this.newPhone)) {
+        this.buttonsBlocked = false;
         return;
       }
 
@@ -240,6 +251,7 @@ export default {
 
       this.closePhoneEditDialog();
       this.showPhoneEditSuccessDialog = true;
+      this.buttonsBlocked = false;
     },
     closeEmailEditDialog() {
       this.emailsError = '';
@@ -256,12 +268,15 @@ export default {
       this.showPasswordEditDialog = true;
     },
     async editPassword(){
+      this.buttonsBlocked = true;
       this.passwordsError = '';
       if (this.newPassword !== this.confirmNewPassword) {
+        this.buttonsBlocked = false;
         this.passwordsError = 'Passwords do not match';
         return;
       }
       if (this.validatePasswords(this.newPassword) || this.validatePasswords(this.confirmNewPassword)) {
+        this.buttonsBlocked = false;
         return;
       }
 
@@ -272,6 +287,7 @@ export default {
 
       this.closePasswordEditDialog()
       this.showPasswordEditSuccessDialog = true;
+      this.buttonsBlocked = false;
     },
     closePasswordEditDialog() {
       this.passwordsError = '';
@@ -349,6 +365,11 @@ export default {
 
 
 <style scoped>
+
+.transition-off {
+  transition: color 0.0s;
+}
+
 .error-text {
   color: red;
 }
@@ -357,11 +378,6 @@ export default {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.content {
-  margin-left: 100px;
-  margin-right: 100px;
 }
 
 .user-data {
@@ -400,9 +416,14 @@ h2 {
   font-weight: 700;
 }
 
+.content {
+  margin-top: 150px;
+}
+
 .profile-title {
-  margin-top: 20px;
-  margin-left: 20px;
+  margin-top: -150px;
+  margin-left: 10px;
+  position: absolute;
 }
 
 p {
@@ -457,23 +478,19 @@ p {
   font-size: 14px;
 }
 
-.card {
-  max-width: 100%;
-}
-
 @media (max-width: 1000px) {
   .content {
-    margin: 0 5px;
+    margin: 110px 10px 10px;
+  }
+
+  .profile-title {
+    margin-top: -110px;
+    margin-left: -15px;
   }
 
   h1 {
     font-weight: 700;
     font-size: 30px;
-  }
-
-  .profile-title {
-    margin-top: 10px;
-    margin-left: 10px;
   }
 
   h2 {

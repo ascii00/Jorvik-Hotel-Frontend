@@ -7,6 +7,7 @@ export default {
     state() {
         return {
             token: null,
+            roles: [],
             isLoading: false,
             error: null,
         }

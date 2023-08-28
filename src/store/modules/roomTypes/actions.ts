@@ -30,5 +30,26 @@ export default {
         } finally {
             context.commit('setLoading', false);
         }
+    },
+    async fetchAllRoomTypes(context: any) {
+        context.commit('setLoading', true);
+        try {
+            const response = await axios.get(`${baseURL}/api/v1/room/all-room-type`);
+            context.commit('setRoomTypes', response.data.data);
+            context.commit('setError', null);
+        } catch (error) {
+            let errorMessage: string;
+            // @ts-ignore
+            if (error.response && error.response.data && error.response.data.data) {
+                // @ts-ignore
+                errorMessage = error.response.data.data;
+            } else {
+                // @ts-ignore
+                errorMessage = error.message || "Unknown error occurred.";
+            }
+            context.commit('setError', errorMessage);
+        } finally {
+            context.commit('setLoading', false);
+        }
     }
 };

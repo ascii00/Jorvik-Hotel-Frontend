@@ -35,8 +35,8 @@
                     <base-button class="reservation-buttons" mode="color-two" @click="reservationCancelClicked(booking.id, booking.bookingType)">
                       <div>
                         <base-button-spinner :is-loading="!!deleteBookingLoading"></base-button-spinner>
-                        Cancel
                       </div>
+                      <span class="transition-off" v-if="!deleteBookingLoading">Cancel</span>
                     </base-button>
                     <base-button v-if="isRoomBooking(booking.bookingType)" @click="payForRoom(booking.fromDate, booking.toDate, booking.roomTypeId, booking.id)">Pay</base-button>
                     <base-button v-else @click="payForEntertainment(booking.bookingType, booking.fromDate, booking.toDate, booking.id)">Pay</base-button>
@@ -127,6 +127,7 @@ export default {
       return bookingType === 'Room';
     },
     payForRoom(fromDate, toDate, roomTypeId, reservationId) {
+      this.bookingType = 'Room';
       this.paymentDateFrom = fromDate;
       this.paymentDateTo = toDate;
       this.paymentDateRoomTypeId = roomTypeId;

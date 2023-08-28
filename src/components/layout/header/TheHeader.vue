@@ -59,7 +59,7 @@
                         <transition name="submenu-mobile">
                           <ul v-if="userinfo">
                             <li><router-link active-class="link-active" class="sub-link" :to="{name: 'MyAccount'}" @click="toggleMobileNav">My account</router-link></li>
-                            <li><router-link active-class="link-active" class="sub-link" :to="{name: 'MyBookings'}" @click="toggleMobileNav">Bookings</router-link></li>
+                            <li><router-link active-class="link-active" class="sub-link" :to="{name: 'MyBookings'}" @click="toggleMobileNav">My Bookings</router-link></li>
                             <li><router-link active-class="link-active" class="sub-link" :to="{name: 'MyRooms'}" @click="toggleMobileNav">Rooms</router-link></li>
                             <li><p class="sub-link" @click="logout">Log out</p></li>
                           </ul>
@@ -86,7 +86,7 @@
         <div v-if="!mobile && userinfo" class="submenu-navigation">
           <ul class="navigation">
             <li><router-link active-class="link-active" class="link" :to="{name: 'MyAccount'}" @click="closeAll">My account</router-link></li>
-            <li><router-link active-class="link-active" class="link" :to="{name: 'MyBookings'}" @click="closeAll">Bookings</router-link></li>
+            <li><router-link active-class="link-active" class="link" :to="{name: 'MyBookings'}" @click="closeAll">My Bookings</router-link></li>
             <li><router-link active-class="link-active" class="link" :to="{name: 'MyRooms'}" @click="closeAll">Rooms</router-link></li>
             <li><p class="link" @click="logout">Log out</p></li>
           </ul>

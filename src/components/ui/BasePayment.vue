@@ -8,7 +8,7 @@
     </div>
     <div v-else-if="globalError || error">
       <p class="error">{{ globalError || error }}</p>
-      <base-button link to="/" >Back</base-button>
+      <base-button link to="/">Back</base-button>
     </div>
     <!-- Display a payment form -->
     <form v-else @submit.prevent="handlePayment" id="payment-form">
@@ -34,7 +34,7 @@
         <p v-if="paymentFailed" class="error">{{ paymentFailedMessage }}</p>
       </div>
 
-      <base-button type="submit" :disabled="!!isPaymentLoading">
+      <base-button type="submit" :disabled="!!isPaymentLoading || buttonsBlocked">
         <base-button-spinner :isLoading="!!isPaymentLoading"></base-button-spinner>
         <span v-if="!isPaymentLoading">Pay now</span>
       </base-button>
@@ -103,6 +103,7 @@ export default {
       paymentFor: null,
       paymentAmount: null,
       reservationId: null,
+      buttonsBlocked: false,
     };
   },
   async mounted() {

@@ -140,8 +140,8 @@ export default {
 
 .amenity-svg {
   fill: #494949;
-  width: 25px;
-  height: 25px;
+  width: 18px;
+  height: 18px;
 }
 
 .elements-row {
@@ -150,7 +150,7 @@ export default {
 }
 
 .amenity-text {
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 500;
   margin-left: 15px;
 }
@@ -161,7 +161,7 @@ export default {
   margin-bottom: 20px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 15px;
+  grid-gap: 13px;
   color: #656565;
 }
 
@@ -176,6 +176,10 @@ export default {
   }
   .amenity-text {
     font-size: 12px;
+  }
+
+  .three-row-list {
+    grid-gap: 3px;
   }
 }
 
