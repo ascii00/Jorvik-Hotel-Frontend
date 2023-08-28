@@ -24,6 +24,7 @@
     "vue-router": "^4.0.3",
     "vue3-carousel": "^0.3.1",
     "vue3-datepicker": "^0.3.4",
+    "vue3-google-map": "^0.17.0",
     "vuesax": "^3.12.2",
     "vuesax3": "^4.1.1",
     "vuex": "^4.0.0"

@@ -1,26 +1,28 @@
 <template>
 
   <base-card>
-  <MenuItem>
-
-  </MenuItem>
+    <Map
+    name="test"></Map>
   </base-card>
 
 </template>
 
 <script>
 
-import MenuItem from "@/components/layout/restaurant/MenuItem.vue";
 import BaseCard from "@/components/ui/BaseCard.vue";
+import Map from "@/components/layout/general/Map.vue"
 
 export default {
-  components: {BaseCard, MenuItem}
+  components: {BaseCard, Map}
 
 }
 
 </script>
 
 <style scoped>
-
+.card {
+  border-radius: 0;
+  padding: 0;
+}
 
 </style>

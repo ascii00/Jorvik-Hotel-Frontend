@@ -79,15 +79,15 @@ h3 {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 5px;
   color: #2c2c2c;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .bathroom-rules {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 10px;
+  grid-gap: 7px;
   color: #2c2c2c;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .rules-element-title {
@@ -105,6 +105,13 @@ h3 {
 
 .bathroom-element {
   margin-left: 10px;
+}
+
+.bathroom-rules h3 {
+  font-size: 15px;
+}
+.bathroom-element-title {
+  font-size: 15px;
 }
 
 @media (max-width: 768px) {

@@ -44,7 +44,6 @@ button,
     cursor: pointer;
     padding: 5px 10px;
     text-decoration: none;
-    transition: background-color 0.15s, color 0.15s;
     font-weight: 500;
     font-size: 15px;
 }

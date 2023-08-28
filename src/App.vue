@@ -34,7 +34,7 @@ export default {
     box-sizing: border-box;
     font-family: "Nunito", sans-serif;
     font-weight: 300;
-    transition: color 0.13s, fill 0.13s, background-color 0.3s;
+    transition: color 0.2s, fill 0.2s, background-color 0.3s, border-color 0.3s;
 }
 
 .app {

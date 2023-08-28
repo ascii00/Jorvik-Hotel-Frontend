@@ -7,5 +7,8 @@ export default {
     },
     setToken(state: any, token: string) {
         state.token = token;
+    },
+    setRoles(state: any, roles: string[]) {
+        state.roles = roles;
     }
 };

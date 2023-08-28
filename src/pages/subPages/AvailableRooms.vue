@@ -32,8 +32,8 @@
                       </div>
                     </template>
                     <template v-slot:button>
-                      <base-button @click="bookRoomClicked(1)">Book</base-button>
-                      <base-button @click="roomDescriptionClicked(1)" mode="color-two">Room Description</base-button>
+                      <base-button :disabled="buttonsBlocked" @click="bookRoomClicked(1)">Book</base-button>
+                      <base-button :disabled="buttonsBlocked" @click="roomDescriptionClicked(1)" mode="color-two">Room Description</base-button>
                     </template>
                   </base-booking-card>
                 </div>
@@ -49,8 +49,8 @@
                       </div>
                     </template>
                     <template v-slot:button>
-                      <base-button @click="bookRoomClicked(2)">Book</base-button>
-                      <base-button @click="roomDescriptionClicked(2)" mode="color-two">Room Description</base-button>
+                      <base-button :disabled="buttonsBlocked" @click="bookRoomClicked(2)">Book</base-button>
+                      <base-button :disabled="buttonsBlocked" @click="roomDescriptionClicked(2)" mode="color-two">Room Description</base-button>
                     </template>
                   </base-booking-card>
                 </div>
@@ -66,8 +66,8 @@
                       </div>
                     </template>
                     <template v-slot:button>
-                      <base-button @click="bookRoomClicked(3)">Book</base-button>
-                      <base-button @click="roomDescriptionClicked(3)" mode="color-two">Room Description</base-button>
+                      <base-button :disabled="buttonsBlocked" @click="bookRoomClicked(3)">Book</base-button>
+                      <base-button :disabled="buttonsBlocked" @click="roomDescriptionClicked(3)" mode="color-two">Room Description</base-button>
                     </template>
                   </base-booking-card>
                 </div>
@@ -142,8 +142,8 @@
       <p>Reservation is confirmed. Would you like to pay now or later?</p>
 
       <template v-slot:actions>
-        <base-button class="button-dialog" @click="payLaterClicked" mode="color-two">Pay later</base-button>
-        <base-button class="button-dialog" @click="payNowClicked">Pay now</base-button>
+        <base-button :disabled="buttonsBlocked" class="button-dialog" @click="payLaterClicked" mode="color-two">Pay later</base-button>
+        <base-button :disabled="buttonsBlocked" class="button-dialog" @click="payNowClicked">Pay now</base-button>
       </template>
     </base-dialog>
 
@@ -151,7 +151,7 @@
       <p>To be able to book a room, you need to log in first</p>
 
       <template v-slot:actions>
-        <base-button class="button-dialog" @click="routeToLogin" mode="color-one">Log in</base-button>
+        <base-button :disabled="buttonsBlocked" class="button-dialog" @click="routeToLogin" mode="color-one">Log in</base-button>
       </template>
     </base-dialog>
 
@@ -195,6 +195,7 @@ export default {
       capacity: null,
       area: null,
       price: null,
+      buttonsBlocked: false,
       slidesRoomOne: [
         'https://i.imgur.com/EhlS4Gv.jpg',
         'https://i.imgur.com/cAC902a.jpg',
@@ -248,8 +249,10 @@ export default {
       this.$router.push({name: 'Home'});
     },
     async bookRoomClicked(type) {
+      this.buttonsBlocked = true;
       if (!this.$store.getters['auth/isAuthenticated']) {
         this.showAuthDialog = true;
+        this.buttonsBlocked = false;
         return;
       }
 
@@ -257,13 +260,16 @@ export default {
 
       if (this.$store.getters['user/userReservationAmount'] >= 5) {
         this.showReservationsCountDialog = true;
+        this.buttonsBlocked = false;
         return;
       }
 
       this.roomTypeId = type;
       this.showDialog = true;
+      this.buttonsBlocked = false;
     },
     roomDescriptionClicked(roomNumber){
+      this.buttonsBlocked = true;
       this.price = this.roomTypes[roomNumber-1].price;
       this.area = this.roomTypes[roomNumber-1].roomArea;
       this.capacity = this.roomTypes[roomNumber-1].roomOccupancy;
@@ -276,14 +282,18 @@ export default {
         this.roomThreeDescription = !this.roomThreeDescription;
       }
       this.allRoomsShown = false;
+      this.buttonsBlocked = false;
     },
     async payNowClicked() {
+      this.buttonsBlocked = true;
       this.closeRoomDescription();
       this.allRoomsShown = false;
       this.showDialog = false;
       this.payment = true;
+      this.buttonsBlocked = false;
     },
     async payLaterClicked() {
+      this.buttonsBlocked = true;
       await this.$store.dispatch('bookings/bookRoom', {
         startDate: this.startDate,
         endDate: this.endDate,
@@ -291,12 +301,14 @@ export default {
       });
       if(this.isRoomBookingError) {
         this.closeDialog();
+        this.buttonsBlocked = false;
         return;
       }
       this.$router.push({
         name: 'BookingResult',
         query: { isNotPayed: 'true' }
       });
+      this.buttonsBlocked = false;
     },
     routeToLogin() {
       this.$router.push({name: 'Login'});

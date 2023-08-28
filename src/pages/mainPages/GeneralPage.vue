@@ -4,8 +4,9 @@
 
       <div class="description-container">
 
-        <h1>Jorvik Hotel - Courchevel 1850</h1>
+        <h1 class="title">Jorvik Hotel - Courchevel 1850</h1>
         <p class="sub-title">ex. Résidence Les Sapins - Courchevel 1850</p>
+        <p class="sub-title">645 Rue De Bellecote, Courchevel, France</p>
         <p class="description-text">
           Residence Les Sapins - Courchevel 1850 apartment offers a 1-bedroom accommodation with views of mountain
           from a balcony.
@@ -21,6 +22,52 @@
         <BaseImageCarousel :images="slides" class="images-slider"></BaseImageCarousel>
       </div>
     </div>
+
+    <div class="elements-container">
+
+      <section>
+        <h1 class="title-description">Map</h1>
+        <p class="inner-description-text">
+          Check out the carefully selected restaurants and attractions near the hotel
+        </p>
+        <base-card>
+          <Map name="test"></Map>
+        </base-card>
+      </section>
+
+      <section>
+        <h1 class="title-description">Rooms Overview</h1>
+        <p class="inner-description-text">
+          You will find a flat-screen TV with satellite channels, a writing table and a
+          sofa in the room. It features a terrace and a fully furnished kitchen. Beds with a pillow-top mattress,
+          hypoallergenic pillows and down pillows are available for use. There is 1 bathroom
+        </p>
+
+        <div v-if="isLoading"><base-spinner></base-spinner></div>
+        <div v-else-if="error">
+          <base-card>
+            <p class="error">Error occurred: {{ error }}</p>
+          </base-card>
+        </div>
+        <div v-else v-for="roomType in roomTypes" :key="roomType.id">
+          <ApartmentCard
+              :closeable="false"
+              :price="roomType.price"
+              :area="roomType.roomArea"
+              :capacity="roomType.roomOccupancy"
+              :slides="getSlides(roomType.id)"
+              :apartment-number="roomType.id"
+              parking bathroom balcony coffee tv view air wifi pets
+          ></ApartmentCard>
+        </div>
+      </section>
+
+      <section>
+        <h1 class="title-description">Good to know</h1>
+        <GoodToKnow></GoodToKnow>
+      </section>
+
+    </div>
   </div>
 </template>
 
@@ -30,9 +77,13 @@ import BaseButton from "@/components/ui/BaseButton.vue";
 import BaseImageCarousel from "@/components/ui/BaseImageCarousel.vue";
 import MenuItem from "@/components/layout/restaurant/MenuItem.vue";
 import BaseSpinner from "@/components/ui/BaseSpinner.vue";
+import Map from "@/components/layout/general/Map.vue";
+import BaseCard from "@/components/ui/BaseCard.vue";
+import ApartmentCard from "@/components/layout/roomDescription/ApartmentCard.vue";
+import GoodToKnow from "@/components/layout/general/GoodToKnow.vue";
 
 export default {
-  components: {BaseSpinner, MenuItem, BaseImageCarousel, BaseButton, BaseRoomCard},
+  components: {ApartmentCard, BaseCard, Map, BaseSpinner, MenuItem, BaseImageCarousel, BaseButton, BaseRoomCard, GoodToKnow},
   data() {
     return {
       slides: [
@@ -45,51 +96,75 @@ export default {
         'https://i.imgur.com/08N49mp.jpg',
         'https://i.imgur.com/o3CN8Pq.jpg'
       ],
+      slidesRoomOne: [
+        'https://i.imgur.com/EhlS4Gv.jpg',
+        'https://i.imgur.com/cAC902a.jpg',
+        'https://i.imgur.com/9D6R70C.jpg',
+        'https://i.imgur.com/icOtlBD.jpg',
+        'https://i.imgur.com/6eM5o9J.jpg',
+      ],
+      slidesRoomTwo: [
+        'https://i.imgur.com/B3zndtT.jpg',
+        'https://i.imgur.com/pc21LAt.jpg',
+        'https://i.imgur.com/owUZrCr.jpg',
+        'https://i.imgur.com/GCLhZ9k.jpg',
+      ],
+      slidesRoomThree: [
+        'https://i.imgur.com/mvl9UfP.jpg',
+        'https://i.imgur.com/zdxFxV6.jpg',
+        'https://i.imgur.com/besTOtM.jpg',
+        'https://i.imgur.com/3OlCqt0.jpg',
+      ]
     };
   },
   async created() {
-    await this.fetchMenu();
+    await this.fetchRoomTypes();
   },
   methods: {
-    async fetchMenu(){
-      await this.$store.dispatch('menu/fetchBreakfastMenu');
-      await this.$store.dispatch('menu/fetchLunchMenu');
-      await this.$store.dispatch('menu/fetchDinnerMenu');
-    }
+    async fetchRoomTypes(){
+      await this.$store.dispatch('roomTypes/fetchAllRoomTypes');
+    },
+    getSlides(roomNumber) {
+      switch (roomNumber) {
+        case 1:
+          return this.slidesRoomOne;
+        case 2:
+          return this.slidesRoomTwo;
+        case 3:
+          return this.slidesRoomThree;
+      }
+    },
   },
   computed: {
-    isBreakfastMenuLoading() {
-      return this.$store.getters['menu/isLoadingBreakfast'];
+    isLoading() {
+      return this.$store.getters['roomTypes/isLoading'];
     },
-    isLunchMenuLoading() {
-      return this.$store.getters['menu/isLunchLoading'];
+    error(){
+      return this.$store.getters['roomTypes/error'];
     },
-    isDinnerMenuLoading() {
-      return this.$store.getters['menu/isDinnerLoading'];
+    roomTypes() {
+      return this.$store.getters['roomTypes/roomTypes'];
     },
-    breakfastError() {
-      return this.$store.getters['menu/breakFastError'];
-    },
-    lunchError() {
-      return this.$store.getters['menu/lunchError'];
-    },
-    dinnerError() {
-      return this.$store.getters['menu/dinnerError'];
-    },
-    breakfastMenu() {
-      return this.$store.getters['menu/getBreakfastMenu'];
-    },
-    lunchMenu() {
-      return this.$store.getters['menu/getLunchMenu'];
-    },
-    dinnerMenu() {
-      return this.$store.getters['menu/getDinnerMenu'];
-    }
   }
 };
 </script>
 
 <style scoped>
+.card {
+  border-radius: 0;
+  padding: 0;
+}
+
+.error {
+  color: red;
+  margin: 20px;
+}
+
+.elements-container {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
 .container {
   display: flex;
   align-items: stretch;
@@ -119,6 +194,22 @@ export default {
   font-size: 14px;
 }
 
+.title {
+  margin-bottom: 20px;
+}
+
+.title-description {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.inner-description-text {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
 h1 {
   font-weight: 700;
   color: #FC5C65;
@@ -127,7 +218,6 @@ h1 {
 
 .sub-title {
   font-size: 13px;
-  margin-top: 10px;
   opacity: 70%;
 }
 
@@ -149,6 +239,14 @@ h1 {
 
   .description-container {
     padding: 40px 40px 50px 40px;
+  }
+
+  .inner-description-text {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 22px;
   }
 }
 </style>
