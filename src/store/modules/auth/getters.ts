@@ -13,5 +13,14 @@ export default {
     },
     isAuthenticated(state: any) {
         return !!state.token && state.roles.length > 0;
+    },
+    isAdmin(state: any) {
+        return state.isAdmin;
+    },
+    isCleaner(state: any) {
+        return state.isCleaner;
+    },
+    isRestaurant(state: any) {
+        return state.isRestaurant;
     }
 }

@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import TheBookingImageCarousel from "@/components/layout/booking/TheBookingImageCarousel.vue";
-import TheBookingForm from "@/components/layout/booking/TheBookingForm.vue";
+import TheBookingImageCarousel from "@/components/booking/TheBookingImageCarousel.vue";
+import TheBookingForm from "@/components/booking/TheBookingForm.vue";
 
 export default {
     components: {

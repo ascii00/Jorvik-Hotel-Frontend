@@ -34,6 +34,7 @@
                   :max-date="maxDateReservation"
                   :min-date="minDateReservation"
                   @selected="dateFromSelected"
+                  @cleared="dateFromCleared"
               ></base-date-select-box>
 
               <base-date-select-box
@@ -42,6 +43,7 @@
                   :max-date="maxDateReservation"
                   :min-date="minDateReservation"
                   @selected="dateToSelected"
+                  @cleared="dateToCleared"
               ></base-date-select-box>
 
               <base-select-box
@@ -179,6 +181,20 @@ export default {
         return;
       }
       this.tryFetchElements();
+    },
+    dateFromCleared(){
+      this.reservationError = null;
+      this.entertainmentId = null;
+      this.dateFromRow = null;
+      this.dateFrom = null;
+      this.timeFrom = null;
+    },
+    dateToCleared(){
+      this.reservationError = null;
+      this.entertainmentId = null;
+      this.dateToRow = null;
+      this.dateTo = null;
+      this.timeTo = null;
     },
     async reserveClicked() {
       this.isButtonClicked = true;

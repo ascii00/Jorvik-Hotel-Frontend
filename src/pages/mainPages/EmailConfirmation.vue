@@ -8,8 +8,8 @@
 
 <script>
 
-import TheBookingImageCarousel from "@/components/layout/booking/TheBookingImageCarousel.vue";
-import LoginCard from "@/components/layout/login/TheLoginCard.vue";
+import TheBookingImageCarousel from "@/components/booking/TheBookingImageCarousel.vue";
+import LoginCard from "@/components/login/TheLoginCard.vue";
 
 export default {
   components: {

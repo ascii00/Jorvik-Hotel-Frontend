@@ -2,6 +2,32 @@ import axios from "axios";
 
 const baseURL = process.env.VUE_APP_BACKEND_URL;
 
+function assignRole(context: any) {
+    if(context.getters.roles.includes('ROLE_ADMIN')){
+        context.commit('setRestaurant', true);
+        context.commit('setCleaner', true);
+        context.commit('setAdmin', true);
+    } else if(context.getters.roles.includes('ROLE_RESTAURANT')){
+        context.commit('setRestaurant', true);
+    } else if(context.getters.roles.includes('ROLE_CLEANER')){
+        context.commit('setCleaner', true);
+    }
+}
+
+function assignCredentials(context: any, response: any) {
+    const token = response.data.data.token;
+    const roles = response.data.data.roles;
+    localStorage.setItem('token', token);
+    localStorage.setItem('roles', JSON.stringify(roles));
+
+    context.commit('setToken', token);
+    context.commit('setRoles', roles);
+    assignRole(context);
+    context.commit('setError', null);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
+
+
 export default {
     async login(context: any, payload: any) {
         context.commit('setLoading', true);
@@ -10,16 +36,7 @@ export default {
                 email: payload.email,
                 password: payload.password
             });
-
-            const token = response.data.data.token;
-            const roles = response.data.data.roles;
-            localStorage.setItem('token', token);
-            localStorage.setItem('roles', JSON.stringify(roles));
-
-            context.commit('setToken', token);
-            context.commit('setRoles', roles);
-            context.commit('setError', null);
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            assignCredentials(context, response);
         } catch (error) {
             let errorMessage: string;
             // @ts-ignore
@@ -46,15 +63,7 @@ export default {
                 password: payload.password
             });
 
-            const token = response.data.data.token;
-            const roles = response.data.data.roles;
-            localStorage.setItem('token', token);
-            localStorage.setItem('roles', JSON.stringify(roles));
-
-            context.commit('setToken', token);
-            context.commit('setRoles', roles);
-            context.commit('setError', null);
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            assignCredentials(context, response);
         } catch (error) {
             let errorMessage: string;
             // @ts-ignore
@@ -81,6 +90,8 @@ export default {
             // @ts-ignore
             context.commit('setRoles', JSON.parse(roles));
         }
+        // @ts-ignore
+        assignRole(context);
     },
     async logout(context: any) {
         context.commit('setLoading', true);
@@ -93,6 +104,9 @@ export default {
             context.commit('setToken', null);
             context.commit('setRoles', []);
             context.commit('setError', null);
+            context.commit('setAdmin', false);
+            context.commit('setCleaner', false);
+            context.commit('setRestaurant', false);
         } catch (error) {
             let errorMessage: string;
             // @ts-ignore
@@ -161,5 +175,5 @@ export default {
         } finally {
             context.commit('setLoading', false);
         }
-    }
+    },
 };

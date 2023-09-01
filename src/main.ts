@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+import { MotionPlugin} from "@vueuse/motion";
+
 
 import BaseDialog from "@/components/ui/BaseDialog.vue";
 import BaseButton from "@/components/ui/BaseButton.vue";
@@ -41,6 +43,7 @@ const app = createApp(App)
 
 app.use(store)
 app.use(router)
+app.use(MotionPlugin)
 
 app.component('base-dialog', BaseDialog)
 app.component('base-button', BaseButton)

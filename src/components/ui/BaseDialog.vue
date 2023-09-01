@@ -63,7 +63,6 @@ dialog {
     border: none;
     padding: 0;
     margin: 0;
-    overflow: hidden;
     background-color: white;
     opacity: 90%;
 }
@@ -73,6 +72,8 @@ header {
     color: white;
     width: 100%;
     padding: 1rem;
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
 }
 
 header h2 {

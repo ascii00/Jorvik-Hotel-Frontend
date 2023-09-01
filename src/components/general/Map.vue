@@ -1,5 +1,5 @@
 <template>
-  <GoogleMap api-key="AIzaSyANjF-769MxRPUJFCwBcIeoSRhdWmr2uiA" style="width: 100%; height: 500px " :center="center" :zoom="14">
+  <GoogleMap :api-key="googleAPI" style="width: 100%; height: 500px " :center="center" :zoom="14">
 
     <Marker :options="markerOptions1">
       <InfoWindow>
@@ -136,6 +136,11 @@ import { GoogleMap, Marker, InfoWindow } from "vue3-google-map";
 
 export default defineComponent({
   components: { GoogleMap, Marker, InfoWindow },
+  data() {
+    return {
+      googleAPI: process.env.VUE_APP_GOOGLE_API_KEY
+    }
+  },
   setup() {
     const center = { lat: 49.300862212224, lng: 19.91135153245024 };
     const markerOptions1 = {

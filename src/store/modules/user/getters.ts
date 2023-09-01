@@ -52,5 +52,11 @@ export default {
     },
     userEntertainmentReservationAmountError(state: any) {
         return state.userEntertainmentReservationAmountError;
+    },
+    usersByName(state: any) {
+        return state.usersByName;
+    },
+    errorUserByName(state: any) {
+        return state.errorUserByName;
     }
 };

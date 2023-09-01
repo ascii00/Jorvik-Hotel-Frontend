@@ -22,13 +22,13 @@
 
 <script>
 
-import TheLoginForm from "@/components/layout/login/TheLoginForm.vue";
-import TheRegisterForm from "@/components/layout/login/TheRegisterForm.vue";
-import TheResetPasswordForm from "@/components/layout/login/TheResetPasswordForm.vue";
-import ThePasswordResetConfirmation from "@/components/layout/login/ThePasswordResetConfirmation.vue";
-import ThePasswordChangeForm from "@/components/layout/login/ThePasswordChangeForm.vue";
-import ThePasswordChangeSuccess from "@/components/layout/login/ThePasswordChangeSuccess.vue";
-import TheEmailConfirmation from "@/components/layout/login/TheEmailConfirmation.vue";
+import TheLoginForm from "@/components/login/TheLoginForm.vue";
+import TheRegisterForm from "@/components/login/TheRegisterForm.vue";
+import TheResetPasswordForm from "@/components/login/TheResetPasswordForm.vue";
+import ThePasswordResetConfirmation from "@/components/login/ThePasswordResetConfirmation.vue";
+import ThePasswordChangeForm from "@/components/login/ThePasswordChangeForm.vue";
+import ThePasswordChangeSuccess from "@/components/login/ThePasswordChangeSuccess.vue";
+import TheEmailConfirmation from "@/components/login/TheEmailConfirmation.vue";
 
 export default {
   components: {

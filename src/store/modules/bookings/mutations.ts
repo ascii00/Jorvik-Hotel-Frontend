@@ -5,6 +5,12 @@ export default {
     setError(state: any, error: any) {
         state.error = error;
     },
+    setBookingByAdminLoading(state: any, error: any) {
+        state.errorBookingByAdmin = error;
+    },
+    setBookingByAdminError(state: any, error: any) {
+        state.errorBookingByAdmin = error;
+    },
     setEntertainmentLoading(state: any, isEntertainmentLoading: boolean) {
         state.isEntertainmentLoading = isEntertainmentLoading;
     },

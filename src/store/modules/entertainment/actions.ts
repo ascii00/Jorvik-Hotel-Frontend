@@ -2,6 +2,11 @@ import axios from "axios";
 
 const baseURL = process.env.VUE_APP_BACKEND_URL;
 
+interface FetchEntertainmentPayload {
+    start: string;
+    end: string;
+}
+
 export default {
     async fetchEntertainmentTypes(context: any) {
         context.commit('setIsEntertainmentTypesLoading', true);
@@ -43,6 +48,47 @@ export default {
             context.commit('setEntertainmentElementsError', errorMessage);
         } finally {
             context.commit('setIsEntertainmentElementsLoading', false);
+        }
+    },
+    async fetchAllEntertainmentReservationsByPeriod(context: any, payload: FetchEntertainmentPayload) {
+        context.commit('setIsEntertainmentByPeriodLoading', true);
+        try {
+            const response = await axios.get(`${baseURL}/api/v1/bookings/getEntertainmentBookingsForPeriod/${payload.start}/${payload.end}`);
+            context.commit('setEntertainmentByPeriod', response.data.data);
+            context.commit('setEntertainmentByPeriodError', null);
+        } catch (error) {
+            let errorMessage: string;
+            // @ts-ignore
+            if (error.response && error.response.data && error.response.data.data) {
+                // @ts-ignore
+                errorMessage = error.response.data.data;
+            } else {
+                // @ts-ignore
+                errorMessage = error.message || "Unknown error occurred.";
+            }
+            context.commit('setEntertainmentByPeriodError', errorMessage);
+        } finally {
+            context.commit('setIsEntertainmentByPeriodLoading', false);
+        }
+    },
+    async deleteEntertainmentReservationByIdAdmin(context: any, payload: any) {
+        context.commit('setIsEntertainmentCancelAdminLoading', true);
+        try {
+            await axios.delete(`${baseURL}/api/v1/bookings/deleteEntertainmentBookingByAdmin/${payload}`);
+            context.commit('setEntertainmentCancelAdminError', null);
+        } catch (error) {
+            let errorMessage: string;
+            // @ts-ignore
+            if (error.response && error.response.data && error.response.data.data) {
+                // @ts-ignore
+                errorMessage = error.response.data.data;
+            } else {
+                // @ts-ignore
+                errorMessage = error.message || "Unknown error occurred.";
+            }
+            context.commit('setEntertainmentCancelAdminError', errorMessage);
+        } finally {
+            context.commit('setIsEntertainmentCancelAdminLoading', false);
         }
     }
 }

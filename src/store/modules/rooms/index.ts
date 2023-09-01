@@ -8,6 +8,10 @@ export default {
         return {
             isLoading: false,
             error: null,
+            availableRooms: [],
+            isReservationsLoading: false,
+            reservationsError: null,
+            allRoomReservations: [],
         }
     },
     mutations,

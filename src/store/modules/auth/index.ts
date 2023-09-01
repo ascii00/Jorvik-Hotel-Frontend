@@ -10,6 +10,9 @@ export default {
             roles: [],
             isLoading: false,
             error: null,
+            isAdmin: false,
+            isCleaner: false,
+            isRestaurant: false
         }
     },
     mutations,

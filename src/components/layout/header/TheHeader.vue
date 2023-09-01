@@ -6,16 +6,22 @@
                     <TheLogo class="logo"></TheLogo>
                 </div>
                 <ul v-show="!mobile" class="navigation">
-                    <li><router-link active-class="link-active" class="link" :to="{name: 'Home'}" @click="closeAll">Booking</router-link></li>
-                    <li><router-link active-class="link-active" class="link" :to="{name: 'General'}" @click="closeAll">General</router-link></li>
+                    <li><router-link active-class="link-active" class="link" :to="{name: 'Home'}">Booking</router-link></li>
+                    <li><router-link active-class="link-active" class="link" :to="{name: 'General'}">General</router-link></li>
                     <li class="position-relative">
                         <a class="link" :class="{ 'link-active': isEntertainmentRoute }" @click="toggleEntertainment">
                             Entertainment
                             <i class="fa fa-angle-down icon-entertainment" :class="{'icon-active' : entertainment}"></i>
                         </a>
                     </li>
-                    <li><router-link active-class="link-active" class="link" :to="{name: 'restaurant'}" @click="closeAll">Restaurant</router-link></li>
-                    <li><router-link active-class="link-active" class="link" :to="{name: 'HowItWorks'}" @click="closeAll">How it works</router-link></li>
+                    <li><router-link active-class="link-active" class="link" :to="{name: 'restaurant'}">Restaurant</router-link></li>
+                    <li><router-link active-class="link-active" class="link" :to="{name: 'HowItWorks'}">How it works</router-link></li>
+                    <li v-if="isWorker" class="position-relative">
+                      <a class="link" :class="{ 'link-active': isServiceRoute }" @click="toggleService">
+                        Service
+                        <i class="fa fa-angle-down icon-service" :class="{'icon-active' : service}"></i>
+                      </a>
+                    </li>
                 </ul>
                 <TheLoginButton v-if="!mobile && !isLoggedIn" class="login-button"></TheLoginButton>
                 <svg v-else-if="!mobile && isLoggedIn" @click="toggleUserinfo" class="account-svg" :class="{ 'svg-active': isUserinfoRoute }" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/></svg>
@@ -53,7 +59,25 @@
 
                         <li><router-link active-class="link-active" class="link" :to="{name: 'restaurant'}" @click="toggleMobileNav">Restaurant</router-link></li>
                         <li><router-link active-class="link-active" class="link" :to="{name: 'HowItWorks'}" @click="toggleMobileNav">How it works</router-link></li>
-                        <TheLoginButton v-if="!isLoggedIn" class="login-button-mobile"></TheLoginButton>
+                          <li v-if="isWorker" class="position-relative">
+                            <a class="link" :class="{ 'link-active': isServiceRoute }" @click="toggleService">
+                              Service
+                              <i class="fa fa-angle-down icon-service-mobile" :class="{'icon-active' : service}"></i>
+                            </a>
+                          </li>
+
+                          <transition name="submenu-mobile">
+                            <ul v-if="service">
+                              <li v-if="isAdmin"><router-link active-class="link-active" class="sub-link" :to="{name: 'ServiceRooms'}" @click="toggleMobileNav">Rooms</router-link></li>
+                              <li v-if="isAdmin"><router-link active-class="link-active" class="sub-link" :to="{name: 'ServiceEntertainment'}" @click="toggleMobileNav">Entertainment</router-link></li>
+                              <li v-if="isAdmin || isHousekeepingWorker" ><router-link active-class="link-active" class="sub-link" :to="{name: 'ServiceHousekeeping'}" @click="toggleMobileNav">Housekeeping</router-link></li>
+                              <li v-if="isAdmin || isRestaurantWorker"><router-link active-class="link-active" class="sub-link" :to="{name: 'ServiceRestaurant'}" @click="toggleMobileNav">Restaurant</router-link></li>
+                              <li v-if="isAdmin"><router-link active-class="link-active" class="sub-link" :to="{name: 'ServiceAccounts'}" @click="toggleMobileNav">Accounts</router-link></li>
+                              <li v-if="isAdmin"><router-link active-class="link-active" class="sub-link" :to="{name: 'ServicePrices'}" @click="toggleMobileNav">Prices</router-link></li>
+                            </ul>
+                          </transition>
+
+                          <TheLoginButton v-if="!isLoggedIn" class="login-button-mobile"></TheLoginButton>
                         <li v-else-if="isLoggedIn"><svg @click="toggleUserinfo" class="account-svg-mobile" :class="{ 'svg-active': isUserinfoRoute }" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/></svg></li>
 
                         <transition name="submenu-mobile">
@@ -72,12 +96,12 @@
         <transition name="submenu-nav">
             <div v-if="!mobile && entertainment" class="submenu-navigation">
                 <ul class="navigation">
-                    <li><router-link active-class="link-active" class="link" :to="{name: 'Tennis'}" @click="closeAll">Tennis</router-link></li>
-                    <li><router-link active-class="link-active" class="link" :to="{name: 'Bicycles'}" @click="closeAll">Bicycles</router-link></li>
-                    <li><router-link active-class="link-active" class="link" :to="{name: 'Kayaks'}" @click="closeAll">Kayaks</router-link></li>
-                    <li><router-link active-class="link-active" class="link" :to="{name: 'EcoTours'}" @click="closeAll">Eco-tours</router-link></li>
-                    <li><router-link active-class="link-active" class="link" :to="{name: 'PingPong'}" @click="closeAll">Ping-Pong</router-link></li>
-                    <li><router-link active-class="link-active" class="link" :to="{name: 'Gym'}" @click="closeAll">Gym</router-link></li>
+                    <li><router-link active-class="link-active" class="link" :to="{name: 'Tennis'}">Tennis</router-link></li>
+                    <li><router-link active-class="link-active" class="link" :to="{name: 'Bicycles'}">Bicycles</router-link></li>
+                    <li><router-link active-class="link-active" class="link" :to="{name: 'Kayaks'}">Kayaks</router-link></li>
+                    <li><router-link active-class="link-active" class="link" :to="{name: 'EcoTours'}">Eco-tours</router-link></li>
+                    <li><router-link active-class="link-active" class="link" :to="{name: 'PingPong'}">Ping-Pong</router-link></li>
+                    <li><router-link active-class="link-active" class="link" :to="{name: 'Gym'}">Gym</router-link></li>
                 </ul>
             </div>
         </transition>
@@ -85,10 +109,23 @@
       <transition name="submenu-nav">
         <div v-if="!mobile && userinfo" class="submenu-navigation">
           <ul class="navigation">
-            <li><router-link active-class="link-active" class="link" :to="{name: 'MyAccount'}" @click="closeAll">My account</router-link></li>
-            <li><router-link active-class="link-active" class="link" :to="{name: 'MyBookings'}" @click="closeAll">My Bookings</router-link></li>
-            <li><router-link active-class="link-active" class="link" :to="{name: 'MyRooms'}" @click="closeAll">Rooms</router-link></li>
+            <li><router-link active-class="link-active" class="link" :to="{name: 'MyAccount'}">My account</router-link></li>
+            <li><router-link active-class="link-active" class="link" :to="{name: 'MyBookings'}">My Bookings</router-link></li>
+            <li><router-link active-class="link-active" class="link" :to="{name: 'MyRooms'}">Rooms</router-link></li>
             <li><p class="link" @click="logout">Log out</p></li>
+          </ul>
+        </div>
+      </transition>
+
+      <transition name="submenu-nav">
+        <div v-if="!mobile && service" class="submenu-navigation">
+          <ul class="navigation">
+            <li v-if="isAdmin"><router-link active-class="link-active" class="link" :to="{name: 'ServiceRooms'}">Rooms</router-link></li>
+            <li v-if="isAdmin"><router-link active-class="link-active" class="link" :to="{name: 'ServiceEntertainment'}">Entertainment</router-link></li>
+            <li v-if="isAdmin || isHousekeepingWorker"><router-link active-class="link-active" class="link" :to="{name: 'ServiceHousekeeping'}">Housekeeping</router-link></li>
+            <li v-if="isAdmin || isRestaurantWorker"><router-link active-class="link-active" class="link" :to="{name: 'ServiceRestaurant'}">Restaurant</router-link></li>
+            <li v-if="isAdmin"><router-link active-class="link-active" class="link" :to="{name: 'ServiceAccounts'}">Accounts</router-link></li>
+            <li v-if="isAdmin"><router-link active-class="link-active" class="link" :to="{name: 'ServicePrices'}">Prices</router-link></li>
           </ul>
         </div>
       </transition>
@@ -113,6 +150,7 @@ export default {
             mobileNav: null,
             windowWidth: null,
             entertainment: false,
+            service: false,
             userinfo: false
         };
     },
@@ -124,22 +162,34 @@ export default {
         toggleMobileNav() {
             this.closeEntertainment();
             this.closeUserinfo();
+            this.closeService();
             this.mobileNav = !this.mobileNav;
         },
         closeMobileNav() {
             this.closeEntertainment();
             this.closeUserinfo();
+          this.closeService();
             this.mobileNav = false;
         },
         toggleEntertainment() {
             this.closeUserinfo();
+            this.closeService();
             this.entertainment = !this.entertainment;
+        },
+        toggleService() {
+            this.closeEntertainment();
+            this.closeUserinfo();
+            this.service = !this.service;
+        },
+        closeService() {
+            this.service = false;
         },
         closeEntertainment() {
             this.entertainment = false;
         },
         toggleUserinfo() {
             this.closeEntertainment();
+            this.closeService();
             this.userinfo = !this.userinfo;
         },
         closeUserinfo() {
@@ -148,6 +198,7 @@ export default {
         closeAll() {
             this.closeEntertainment();
             this.closeUserinfo();
+            this.closeService();
         },
         checkScreen() {
             this.windowWidth = window.innerWidth;
@@ -173,9 +224,25 @@ export default {
         const route = this.$route.name;
         return route === 'Tennis' || route === 'Bicycles' || route === 'Kayaks' || route === 'EcoTours' || route === 'PingPong' || route === 'Gym';
       },
+      isServiceRoute() {
+        const route = this.$route.name;
+        return route === 'ServicePrices' || route === 'ServiceAccounts' || route === 'ServiceRestaurant' || route === 'ServiceHousekeeping' || route === 'ServiceEntertainment' || route === 'ServiceRooms';
+      },
       isUserinfoRoute() {
         const route = this.$route.name;
         return route === 'MyAccount' || route === 'MyBookings' || route === 'MyRooms';
+      },
+      isWorker(){
+        return this.isRestaurantWorker || this.isHousekeepingWorker || this.isAdmin;
+      },
+      isRestaurantWorker(){
+        return this.$store.getters['auth/isRestaurant'];
+      },
+      isHousekeepingWorker(){
+        return this.$store.getters['auth/isCleaner'];
+      },
+      isAdmin(){
+        return this.$store.getters['auth/isAdmin'];
       }
     },
     directives: {
@@ -195,6 +262,18 @@ export default {
     position: absolute;
     top: 17px;
     left: 118px;
+}
+
+.icon-service {
+  position: absolute;
+  top: 17px;
+  left: 73px;
+}
+
+.icon-service-mobile {
+  position: absolute;
+  top: 17px;
+  left: 95px;
 }
 
 header {

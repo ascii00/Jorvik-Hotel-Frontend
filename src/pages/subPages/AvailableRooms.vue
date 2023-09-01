@@ -172,7 +172,7 @@ import BaseRoomCard from "@/components/ui/BaseBookingCard.vue";
 import BaseButton from "@/components/ui/BaseButton.vue";
 import BaseDialog from "@/components/ui/BaseDialog.vue";
 import BaseCard from "@/components/ui/BaseCard.vue";
-import ApartmentCard from "@/components/layout/roomDescription/ApartmentCard.vue";
+import ApartmentCard from "@/components/roomDescription/ApartmentCard.vue";
 import BasePayment from "@/components/ui/BasePayment.vue";
 
 export default {

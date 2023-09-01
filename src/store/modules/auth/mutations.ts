@@ -10,5 +10,14 @@ export default {
     },
     setRoles(state: any, roles: string[]) {
         state.roles = roles;
+    },
+    setAdmin(state: any, isAdmin: boolean) {
+        state.isAdmin = isAdmin;
+    },
+    setCleaner(state: any, isCleaner: boolean) {
+        state.isCleaner = isCleaner;
+    },
+    setRestaurant(state: any, isRestaurant: boolean) {
+        state.isRestaurant = isRestaurant;
     }
 };
