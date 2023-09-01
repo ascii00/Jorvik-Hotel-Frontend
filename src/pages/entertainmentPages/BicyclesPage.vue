@@ -22,7 +22,7 @@
           <li class="description-list-element">Each bike has a code lock, which you will receive after payment</li>
           <li class="description-list-element">After the trip, please, return the bike to its place and lock it</li>
         </ul>
-        <base-button class="reservation-button" mode="color-two" @click="reservationHandler">Reserve a bike</base-button>
+        <base-button v-motion-slide-visible-right class="reservation-button" mode="color-two" @click="reservationHandler">Reserve a bike</base-button>
       </div>
 
     </div>

@@ -8,6 +8,8 @@ export default {
         return {
             isLoading: false,
             error: null,
+            isBookingByAdminLoading: false,
+            errorBookingByAdmin: null,
             isEntertainmentLoading: false,
             entertainmentError: null,
             lastBookingRoomNumber: null,

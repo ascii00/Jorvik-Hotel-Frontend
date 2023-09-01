@@ -11,7 +11,12 @@ export default {
             isEntertainmentTypesLoading: false,
             entertainmentTypesError: null,
             isEntertainmentElementsLoading: false,
-            entertainmentElementsError: null
+            entertainmentElementsError: null,
+            entertainmentByPeriod: [],
+            isEntertainmentByPeriodLoading: false,
+            entertainmentByPeriodError: null,
+            entertainmentCancelAdminError: null,
+            isEntertainmentCancelAdminLoading: false
         }
     },
     mutations,

@@ -56,6 +56,7 @@
         <div v-else-if="lunchError" class="error">{{ lunchError }}</div>
         <div v-else-if="lunchMenu.length !== 0" v-for="menuItem in lunchMenu" :key="menuItem.id">
           <MenuItem
+              v-motion-slide-visible-right
               class="menu-item"
               :title="menuItem.name"
               :description="menuItem.description"
@@ -71,6 +72,7 @@
         <div v-else-if="dinnerError" class="error">{{ dinnerError }}</div>
         <div v-else-if="dinnerMenu.length !== 0" v-for="menuItem in dinnerMenu" :key="menuItem.id">
           <MenuItem
+              v-motion-slide-visible-right
               class="menu-item"
               :title="menuItem.name"
               :description="menuItem.description"
@@ -88,7 +90,7 @@
 import BaseRoomCard from "@/components/ui/BaseBookingCard.vue";
 import BaseButton from "@/components/ui/BaseButton.vue";
 import BaseImageCarousel from "@/components/ui/BaseImageCarousel.vue";
-import MenuItem from "@/components/layout/restaurant/MenuItem.vue";
+import MenuItem from "@/components/restaurant/MenuItem.vue";
 import BaseSpinner from "@/components/ui/BaseSpinner.vue";
 
 export default {

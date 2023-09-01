@@ -40,9 +40,9 @@
 <script>
 import BaseCard from "@/components/ui/BaseCard.vue";
 import BaseImageCarousel from "@/components/ui/BaseImageCarousel.vue";
-import RoomElementsList from "@/components/layout/roomDescription/RoomElementsList.vue";
-import BathroomElementsList from "@/components/layout/roomDescription/BathroomElementsList.vue";
-import TheBookingImageCarousel from "@/components/layout/booking/TheBookingImageCarousel.vue";
+import RoomElementsList from "@/components/roomDescription/RoomElementsList.vue";
+import BathroomElementsList from "@/components/roomDescription/BathroomElementsList.vue";
+import TheBookingImageCarousel from "@/components/booking/TheBookingImageCarousel.vue";
 
 export default {
   components: {TheBookingImageCarousel, BathroomElementsList, RoomElementsList, BaseCard, BaseImageCarousel},
@@ -150,7 +150,7 @@ export default {
 .images-slider {
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
-  height: 300px;
+  height: 400px;
 }
 
 .image-container {

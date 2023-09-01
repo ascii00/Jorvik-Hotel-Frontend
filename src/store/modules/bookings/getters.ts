@@ -5,6 +5,12 @@ export default {
     error(state: any) {
         return state.error;
     },
+    isBookingByAdminLoading(state: any) {
+        return state.isBookingByAdminLoading;
+    },
+    errorBookingByAdmin(state: any) {
+        return state.errorBookingByAdmin;
+    },
     isEntertainmentLoading(state: any) {
         return state.isEntertainmentLoading;
     },

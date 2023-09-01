@@ -366,10 +366,6 @@ export default {
 
 <style scoped>
 
-.transition-off {
-  transition: color 0.0s;
-}
-
 .error-text {
   color: red;
 }

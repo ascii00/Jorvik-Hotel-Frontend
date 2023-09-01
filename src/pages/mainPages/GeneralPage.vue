@@ -36,7 +36,7 @@
       </section>
 
       <section>
-        <h1 class="title-description">Rooms Overview</h1>
+        <h1 class="title-description" >Rooms Overview</h1>
         <p class="inner-description-text">
           You will find a flat-screen TV with satellite channels, a writing table and a
           sofa in the room. It features a terrace and a fully furnished kitchen. Beds with a pillow-top mattress,
@@ -56,14 +56,14 @@
               :area="roomType.roomArea"
               :capacity="roomType.roomOccupancy"
               :slides="getSlides(roomType.id)"
-              :apartment-number="roomType.id"
+              :apartment-number="roomType.id.toString()"
               parking bathroom balcony coffee tv view air wifi pets
           ></ApartmentCard>
         </div>
       </section>
 
       <section>
-        <h1 class="title-description">Good to know</h1>
+        <h1 class="title-description" >Good to know</h1>
         <GoodToKnow></GoodToKnow>
       </section>
 
@@ -75,12 +75,12 @@
 import BaseRoomCard from "@/components/ui/BaseBookingCard.vue";
 import BaseButton from "@/components/ui/BaseButton.vue";
 import BaseImageCarousel from "@/components/ui/BaseImageCarousel.vue";
-import MenuItem from "@/components/layout/restaurant/MenuItem.vue";
+import MenuItem from "@/components/restaurant/MenuItem.vue";
 import BaseSpinner from "@/components/ui/BaseSpinner.vue";
-import Map from "@/components/layout/general/Map.vue";
+import Map from "@/components/general/Map.vue";
 import BaseCard from "@/components/ui/BaseCard.vue";
-import ApartmentCard from "@/components/layout/roomDescription/ApartmentCard.vue";
-import GoodToKnow from "@/components/layout/general/GoodToKnow.vue";
+import ApartmentCard from "@/components/roomDescription/ApartmentCard.vue";
+import GoodToKnow from "@/components/general/GoodToKnow.vue";
 
 export default {
   components: {ApartmentCard, BaseCard, Map, BaseSpinner, MenuItem, BaseImageCarousel, BaseButton, BaseRoomCard, GoodToKnow},

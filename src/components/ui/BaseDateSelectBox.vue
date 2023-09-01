@@ -2,10 +2,11 @@
   <div>
     <VueDatePicker
         v-model="date"
-        partial-flow :flow="['calendar', 'time']"
+        partial-flow
+        :flow="['calendar', 'time']"
+        :enable-time-picker="timePicker"
         placeholder="Select Date"
         :start-time="startTime"
-
         :min-date="getMinDate()"
         :max-date="getMaxDate()"
         :start-date="new Date()"
@@ -14,6 +15,7 @@
         :month-change-on-scroll="false"
         input-class-name="dp-custom-input"
         @update:model-value="handleDate"
+        @cleared="handleClear"
     />
   </div>
 </template>
@@ -53,6 +55,11 @@ export default {
       required: false,
       default: 22,
     },
+    timePicker: {
+      type: Boolean,
+      required: false,
+      default: true,
+    }
   },
   data() {
     return {
@@ -79,6 +86,9 @@ export default {
     handleDate(date) {
       this.$emit('selected', date);
     },
+    handleClear(){
+      this.$emit('cleared');
+    }
   }
 }
 </script>

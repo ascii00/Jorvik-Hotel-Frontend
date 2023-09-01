@@ -3,7 +3,7 @@
 
     <div class="container">
       <div class="description-container">
-        <p class="description-text">
+        <p class="description-text media-item">
           <a href="/" class="titled-text">Select</a> your desired check-in and check-out dates for the hotel.
         </p>
       </div>
@@ -14,7 +14,7 @@
 
     <div class="container">
       <div class="description-container">
-        <p class="description-text">
+        <p class="description-text media-item">
           Choose the room that suits your needs based on the number of guests.
         </p>
       </div>
@@ -25,7 +25,7 @@
 
     <div class="container">
       <div class="description-container">
-        <p class="description-text">
+        <p class="description-text media-item">
           Proceed to payment. You can pay immediately, or postpone for later. Please note that payment must be made
           no later than 1 day before check-in. We accept major credit cards and online payment methods.
         </p>
@@ -37,7 +37,7 @@
 
     <div class="container">
       <div class="description-container">
-        <p class="description-text">
+        <p class="description-text media-item">
           On the day of check-in, use the 4-digit access code provided to enter your room. You will receive this code
           via email a few hours before check-in, and it will also be available in your personal account on our website.
         </p>
@@ -49,7 +49,7 @@
 
     <div class="container">
       <div class="description-container">
-        <p class="description-text">
+        <p class="description-text media-item">
           Enjoy your stay at our hotel! Please note that cleaning services are scheduled every day at 11 am.
         </p>
       </div>
@@ -60,7 +60,7 @@
 
     <div class="container">
       <div class="description-container">
-        <p class="description-text">
+        <p class="description-text media-item">
           Our hotel offers 3 meals a day included in the price of your stay. You can find the current menu in the
           <a href="/restaurant" class="titled-text">restaurant section</a> of our website. In addition to the included meals, you can
           order any dish from the menu for an additional price directly in our restaurant.
@@ -73,7 +73,7 @@
 
     <div class="container">
       <div class="description-container">
-        <p class="description-text">
+        <p class="description-text media-item">
           Our hotel boasts 4 high-quality <a href="/tennis" class="titled-text">tennis courts.</a> Any guest of our hotel can reserve a court
           by appointment and payment. Please note that we do not rent tennis equipment, so you will need
           to bring your own.
@@ -86,7 +86,7 @@
 
     <div class="container">
       <div class="description-container">
-        <p class="description-text">
+        <p class="description-text media-item">
           <a href="/bicycles" class="titled-text">Bicycle rentals</a> are available, including mountain bikes, children's bikes, and urban bikes.
           Bikes must be reserved in advance and paid for.
         </p>
@@ -98,7 +98,7 @@
 
     <div class="container">
       <div class="description-container">
-        <p class="description-text">
+        <p class="description-text media-item">
           If you're interested in kayaking, we offer kayak rentals as well. You can find the rules, rental fees,
           and booking information <a href="/kayaks" class="titled-text">here.</a>
         </p>
@@ -110,7 +110,7 @@
 
     <div class="container">
       <div class="description-container">
-        <p class="description-text">
+        <p class="description-text media-item">
           We have prepared several <a href="/eco-tours" class="titled-text">forest paths</a> for you to explore during your stay. Each path is marked with
           special signs to help you navigate.
         </p>
@@ -122,7 +122,7 @@
 
     <div class="container">
       <div class="description-container">
-        <p class="description-text">
+        <p class="description-text media-item">
           Each guest can use the <a href="/gym" class="titled-text">gym</a> for free. No pre-registration is required, and the hall is
           available for use at any time during your stay. This is a great option for rainy days or for indoor activities.
         </p>
@@ -134,7 +134,7 @@
 
     <div class="container">
       <div class="description-container">
-        <p class="description-text">
+        <p class="description-text media-item">
           Additionally, we provide free <a href="/ping-pong" class="titled-text">ping pong</a> tables on the first, second, and fifth floors, as
           well as near the tennis courts. You can play at your leisure, and we encourage you to have fun
           and make new friends during your stay.
@@ -150,6 +150,8 @@
 
 <script>
 import BaseImageCarousel from "@/components/ui/BaseImageCarousel.vue";
+import {onMounted} from "vue";
+import {useMotion} from "@vueuse/motion";
 
 export default {
   components: {BaseImageCarousel},
@@ -162,6 +164,32 @@ export default {
         'https://i.imgur.com/IpHijtK.jpg'
       ],
     };
+  },
+  setup() {
+    const animation = () => ({
+      initial: {
+        x: 50,
+        opacity: 0
+      },
+      visible: {
+        x: 0,
+        opacity: 1,
+        transition: {
+          type: 'spring',
+          stiffness: 250,
+          damping: 15,
+          mass: 1,
+        }
+      }
+    })
+
+    onMounted(() => {
+      const mediaItems = document.querySelectorAll('.media-item')
+
+      mediaItems.forEach((mediaItem) => {
+        useMotion(mediaItem, animation())
+      })
+    })
   },
 };
 </script>

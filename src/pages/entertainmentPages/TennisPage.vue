@@ -24,7 +24,7 @@
           <li class="description-list-element">After the game, clean up after yourself, return the inventory to its place</li>
           <li class="description-list-element">It is not allowed to enter with food and drinks, with animals, under the influence of alcohol.</li>
         </ul>
-        <base-button class="reservation-button" mode="color-two" @click="reservationHandler">Reserve a bike</base-button>
+        <base-button v-motion-slide-visible-right class="reservation-button" mode="color-two" @click="reservationHandler">Reserve a court</base-button>
       </div>
 
     </div>
@@ -43,10 +43,10 @@ export default {
   data() {
     return {
       slides: [
-        'https://i.imgur.com/6fFu1cr.jpg',
-        'https://i.imgur.com/9vmqKRv.jpg',
+        'https://i.imgur.com/QVcjiVG.jpg',
+        'https://i.imgur.com/u77BHoT.jpg',
         'https://i.imgur.com/fNiTUSD.jpg',
-        'https://i.imgur.com/ul8wMpL.jpg'
+        'https://i.imgur.com/6fFu1cr.jpg',
       ],
     };
   },

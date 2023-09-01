@@ -163,5 +163,22 @@ export default {
         } finally {
             context.commit('setUserEntertainmentReservationAmountLoading', false);
         }
+    },
+    async fetchUserByName(context: any, payload: any) {
+        try {
+            const response = await axios.get(`${baseURL}/api/v1/user/get-by-matching/${payload}`);
+            context.commit('setUsersByName', response.data.data);
+        } catch (error) {
+            let errorMessage: string;
+            // @ts-ignore
+            if (error.response && error.response.data && error.response.data.data) {
+                // @ts-ignore
+                errorMessage = error.response.data.data;
+            } else {
+                // @ts-ignore
+                errorMessage = error.message || "Unknown error occurred.";
+            }
+            context.commit('setErrorUserByName', errorMessage);
+        }
     }
 };

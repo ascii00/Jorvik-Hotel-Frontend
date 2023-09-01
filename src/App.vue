@@ -46,6 +46,10 @@ a {
     text-decoration: none;
 }
 
+.transition-off {
+  transition: color 0.0s;
+}
+
 ::-webkit-scrollbar {
   width: 5px;
   background: transparent;

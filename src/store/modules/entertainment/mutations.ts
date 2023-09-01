@@ -17,4 +17,19 @@ export default {
     setEntertainmentElementsError(state: any, payload: any) {
         state.entertainmentElementsError = payload;
     },
+    setEntertainmentByPeriod(state: any, payload: any) {
+        state.entertainmentByPeriod = payload;
+    },
+    setIsEntertainmentByPeriodLoading(state: any, payload: any) {
+        state.isEntertainmentByPeriodLoading = payload;
+    },
+    setEntertainmentByPeriodError(state: any, payload: any) {
+        state.entertainmentByPeriodError = payload;
+    },
+    setEntertainmentCancelAdminError(state: any, payload: any) {
+        state.entertainmentCancelAdminError = payload;
+    },
+    setIsEntertainmentCancelAdminLoading(state: any, payload: any) {
+        state.isEntertainmentCancelAdminLoading = payload;
+    }
 }

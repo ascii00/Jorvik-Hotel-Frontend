@@ -17,8 +17,8 @@
 
 <script>
 
-import CarouselControls from "@/components/layout/imageCarousel/CarouselControls.vue";
-import CarouselIndicators from "@/components/layout/imageCarousel/CarouselIndicators.vue";
+import CarouselControls from "@/components/imageCarousel/CarouselControls.vue";
+import CarouselIndicators from "@/components/imageCarousel/CarouselIndicators.vue";
 
 export default {
   components: {CarouselIndicators, CarouselControls},

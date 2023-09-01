@@ -25,6 +25,14 @@ import MyAccount from "@/pages/accountPages/MyAccountPage.vue";
 import Rooms from "@/pages/accountPages/RoomsPage.vue";
 import EmailConfirmation from "@/pages/mainPages/EmailConfirmation.vue";
 
+// Service pages
+import ServiceRooms from "@/pages/servicePages/ServiceRoomsPage.vue";
+import ServiceEntertainment from "@/pages/servicePages/ServiceEntertainmentPage.vue";
+import ServiceHousekeeping from "@/pages/servicePages/ServiceHousekeepingPage.vue";
+import ServiceRestaurant from "@/pages/servicePages/ServiceRestaurantPage.vue";
+import ServiceAccounts from "@/pages/servicePages/ServiceAccountsPage.vue";
+import ServicePrices from "@/pages/servicePages/ServicePricesPage.vue";
+
 // Sub Pages
 import AvailableRooms from "@/pages/subPages/AvailableRooms.vue";
 import BookingResult from "@/pages/subPages/BookingResult.vue";
@@ -144,14 +152,57 @@ const router = createRouter({
             name: 'EntertainmentReservation',
             component: EntertainmentReservation,
             meta: { requiresAuth: true }
+        },
+        {
+            path: '/service-rooms',
+            name: 'ServiceRooms',
+            component: ServiceRooms,
+            meta: { requiresAdminRole: true }
+        },
+        {
+            path: '/service-entertainment',
+            name: 'ServiceEntertainment',
+            component: ServiceEntertainment,
+            meta: { requiresAdminRole: true }
+        },
+        {
+            path: '/service-housekeeping',
+            name: 'ServiceHousekeeping',
+            component: ServiceHousekeeping,
+            meta: { requiresCleanerRole: true }
+        },
+        {
+            path: '/service-restaurant',
+            name: 'ServiceRestaurant',
+            component: ServiceRestaurant,
+            meta: { requiresRestaurantRole: true }
+        },
+        {
+            path: '/service-accounts',
+            name: 'ServiceAccounts',
+            component: ServiceAccounts,
+            meta: { requiresAdminRole: true }
+        },
+        {
+            path: '/service-prices',
+            name: 'ServicePrices',
+            component: ServicePrices,
+            meta: { requiresAdminRole: true }
         }
     ]
 })
 
 router.beforeEach(function (to, from, next) {
-    if (to.meta.requiresAuth && !store.getters["auth/isAuthenticated"]) {
+    if ((to.meta.requiresAuth || to.meta.requiresAdminRole || to.meta.requiresCleanerRole || to.meta.requiresRestaurantRole) && !store.getters["auth/isAuthenticated"]) {
         next('/login');
     } else if (to.meta.requiresUnAuth && store.getters["auth/isAuthenticated"]) {
+        next('/');
+    } else if (to.meta.requiresAdminRole && store.getters["auth/isAuthenticated"] && !store.getters["auth/isAdmin"]) {
+        next('/');
+    } else if (to.meta.requiresCleanerRole && store.getters["auth/isAuthenticated"] && !store.getters["auth/isCleaner"]) {
+        console.log(store.getters["auth/isCleaner"]);
+        next('/');
+    } else if (to.meta.requiresRestaurantRole && store.getters["auth/isAuthenticated"] && !store.getters["auth/isRestaurant"]) {
         next('/');
     } else {
         next();
