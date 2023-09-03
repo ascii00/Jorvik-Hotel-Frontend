@@ -9,6 +9,8 @@ export default {
             roomTypes: [],
             isLoading: false,
             error: null,
+            pricesIsLoading: false,
+            pricesError: null
         }
     },
     mutations,

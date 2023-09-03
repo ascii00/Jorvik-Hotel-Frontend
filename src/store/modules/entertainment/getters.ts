@@ -31,5 +31,11 @@ export default {
     },
     isEntertainmentCancelAdminLoading(state: any) {
         return state.isEntertainmentCancelAdminLoading;
+    },
+    pricesIsLoading(state: any) {
+        return state.pricesIsLoading;
+    },
+    pricesError(state: any) {
+        return state.pricesError;
     }
 }

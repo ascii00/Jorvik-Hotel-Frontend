@@ -31,5 +31,11 @@ export default {
     },
     setIsEntertainmentCancelAdminLoading(state: any, payload: any) {
         state.isEntertainmentCancelAdminLoading = payload;
+    },
+    setPricesIsLoading(state: any, payload: any) {
+        state.pricesIsLoading = payload;
+    },
+    setPricesError(state: any, payload: any) {
+        state.pricesError = payload;
     }
 }

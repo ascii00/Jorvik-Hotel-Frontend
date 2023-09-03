@@ -8,4 +8,10 @@ export default {
     setError(state: any, error: any) {
         state.error = error;
     },
+    setPricesLoading(state: any, isLoading: boolean) {
+        state.pricesIsLoading = isLoading;
+    },
+    setPricesError(state: any, error: any) {
+        state.pricesError = error;
+    }
 };

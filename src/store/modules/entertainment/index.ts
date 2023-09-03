@@ -16,7 +16,9 @@ export default {
             isEntertainmentByPeriodLoading: false,
             entertainmentByPeriodError: null,
             entertainmentCancelAdminError: null,
-            isEntertainmentCancelAdminLoading: false
+            isEntertainmentCancelAdminLoading: false,
+            pricesIsLoading: false,
+            pricesError: null
         }
     },
     mutations,

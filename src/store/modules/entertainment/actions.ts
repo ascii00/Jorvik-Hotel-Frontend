@@ -90,5 +90,25 @@ export default {
         } finally {
             context.commit('setIsEntertainmentCancelAdminLoading', false);
         }
+    },
+    async updatePrices(context: any, payload: any) {
+        context.commit('setPricesLoading', true);
+        try {
+            await axios.patch(`${baseURL}/api/v1/entertainment/update-price`, payload);
+            context.commit('setPricesError', null);
+        } catch (error) {
+            let errorMessage: string;
+            // @ts-ignore
+            if (error.response && error.response.data && error.response.data.data) {
+                // @ts-ignore
+                errorMessage = error.response.data.data;
+            } else {
+                // @ts-ignore
+                errorMessage = error.message || "Unknown error occurred.";
+            }
+            context.commit('setPricesError', errorMessage);
+        } finally {
+            context.commit('setPricesLoading', false);
+        }
     }
 }
