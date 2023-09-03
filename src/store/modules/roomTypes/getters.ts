@@ -8,4 +8,10 @@ export default {
     error(state: any) {
         return state.error;
     },
+    pricesIsLoading(state: any) {
+        return state.pricesIsLoading;
+    },
+    pricesError(state: any) {
+        return state.pricesError;
+    }
 };

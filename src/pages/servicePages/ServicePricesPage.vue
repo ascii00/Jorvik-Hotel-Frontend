@@ -19,7 +19,12 @@
                 @keypress="isNumber($event)" />
           </div>
         </div>
-        <base-button class="button" :disabled="isButtonDisabled" @click="roomPriceChangeHandler">Edit</base-button>
+        <p v-if="roomPricesUpdateError" class="error">{{ roomPricesUpdateError }}</p>
+        <p v-else-if="isRoomPricesUpdated" class="success">Prices have been updated successfully!</p>
+        <base-button class="button" :disabled="isButtonDisabled" @click="roomPriceChangeHandler">
+          <base-button-spinner :is-loading="!!roomPricesUpdateLoading"></base-button-spinner>
+          <span class="transition-off" v-if="!roomPricesUpdateLoading">Save</span>
+        </base-button>
       </div>
     </base-card>
 
@@ -40,7 +45,12 @@
                 @keypress="isNumber($event)" />
           </div>
         </div>
-        <base-button class="button" :disabled="isButtonDisabled" @click="entertainmentPriceChangeHandler">Edit</base-button>
+        <p v-if="entertainmentPricesUpdateError" class="error">{{ entertainmentPricesUpdateError }}</p>
+        <p v-else-if="isEntertainmentPricesUpdated" class="success">Prices have been updated successfully!</p>
+        <base-button class="button" :disabled="isButtonDisabled" @click="entertainmentPriceChangeHandler">
+          <base-button-spinner :is-loading="!!entertainmentPricesUpdateLoading"></base-button-spinner>
+          <span class="transition-off" v-if="!entertainmentPricesUpdateLoading">Save</span>
+        </base-button>
       </div>
     </base-card>
   </div>
@@ -52,12 +62,15 @@ import {defineComponent} from "vue";
 import BaseCard from "@/components/ui/BaseCard.vue";
 import BaseSpinner from "@/components/ui/BaseSpinner.vue";
 import BaseButton from "@/components/ui/BaseButton.vue";
+import BaseButtonSpinner from "@/components/ui/BaseButtonSpinner.vue";
 
 export default defineComponent({
-  components: {BaseButton, BaseSpinner, BaseCard},
+  components: {BaseButtonSpinner, BaseButton, BaseSpinner, BaseCard},
   data() {
     return {
       isButtonDisabled: false,
+      isRoomPricesUpdated: false,
+      isEntertainmentPricesUpdated: false,
     }
   },
   methods: {
@@ -75,9 +88,15 @@ export default defineComponent({
     },
     async roomPriceChangeHandler() {
       this.isButtonDisabled = true;
+      await this.$store.dispatch('roomTypes/updatePrices', this.roomTypes);
+      this.isRoomPricesUpdated = true;
+      this.isButtonDisabled = false;
     },
     async entertainmentPriceChangeHandler() {
       this.isButtonDisabled = true;
+      await this.$store.dispatch('entertainment/updatePrices', this.entertainmentTypes);
+      this.isEntertainmentPricesUpdated = true;
+      this.isButtonDisabled = false;
     }
   },
   created() {
@@ -102,12 +121,30 @@ export default defineComponent({
     },
     entertainmentTypesLoading() {
       return this.$store.getters['entertainment/isEntertainmentTypesLoading'];
-    }
+    },
+    roomPricesUpdateLoading() {
+      return this.$store.getters['roomTypes/pricesIsLoading'];
+    },
+    roomPricesUpdateError() {
+      return this.$store.getters['roomTypes/pricesError'];
+    },
+    entertainmentPricesUpdateLoading() {
+      return this.$store.getters['entertainment/pricesIsLoading'];
+    },
+    entertainmentPricesUpdateError() {
+      return this.$store.getters['entertainment/pricesError'];
+    },
   }
 })
 </script>
 
 <style scoped>
+
+.success {
+  margin-top: 20px;
+  color: green;
+  font-weight: 500;
+}
 
 .room-container {
   display: flex;
