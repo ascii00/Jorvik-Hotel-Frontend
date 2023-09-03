@@ -6,6 +6,7 @@ export default {
     async createPaymentIntent(context: any, payload: any) {
         context.commit('setLoading', true);
         try {
+            console.log('payload', payload)
             const response = await axios.post(`${baseURL}/api/v1/payment/create-payment-intent`, payload);
             context.commit('setPaymentIntent', response.data);
             context.commit('setError', null);
