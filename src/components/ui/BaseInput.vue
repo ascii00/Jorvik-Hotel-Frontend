@@ -74,6 +74,15 @@ input {
   padding: 0 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  outline: none;
+}
+
+input:hover {
+  border: 2px solid #aaaeb7;
+}
+
+input:focus {
+  border: 2px solid #aaaeb7;
 }
 
 .password-visibility-toggle {
