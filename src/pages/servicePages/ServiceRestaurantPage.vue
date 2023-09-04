@@ -74,10 +74,6 @@
       </template>
     </base-dialog>
 
-
-
-
-
     <base-card>
       <h1>All dishes</h1>
       <base-button class="add-dish-button" :disabled="isButtonDisabled" @click="addNewDishHandle">Add new dish to the database</base-button>
@@ -102,9 +98,6 @@
         </BaseButton>
       </template>
     </base-dialog>
-
-
-
 
     <base-dialog :show="dishEditDialog" @close="closeDishEditDialog" title="Edit or delete dish">
 

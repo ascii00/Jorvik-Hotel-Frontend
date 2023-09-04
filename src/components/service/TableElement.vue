@@ -1,6 +1,6 @@
 <template>
   <base-card>
-    <div>
+    <div class="container-table">
       <input class="input-search" v-model="searchValue" placeholder="Search..." />
       <table>
         <thead>
@@ -101,6 +101,10 @@ export default {
   margin-left: 100px;
   margin-right: 100px;
   max-width: 100%;
+}
+
+.container-table {
+  overflow: scroll;
 }
 
 table {

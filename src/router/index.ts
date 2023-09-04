@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
-import Test from '../pages/Test.vue'
 import NotFound from "@/pages/NotFound.vue";
 import store from "@/store";
 
@@ -51,11 +50,6 @@ const router = createRouter({
             path: '/available-rooms',
             name: 'AvailableRooms',
             component: AvailableRooms
-        },
-        {
-            path: '/test',
-            name: 'Test',
-            component: Test
         },
         {
             path: '/general',

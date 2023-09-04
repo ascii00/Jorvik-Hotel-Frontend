@@ -58,5 +58,20 @@ export default {
     },
     setErrorUserByName(state: any, errorUserByName: any) {
         state.errorUserByName = errorUserByName;
+    },
+    setUserUpdateLoading(state: any, isUserUpdateLoading: boolean) {
+        state.isUserUpdateLoading = isUserUpdateLoading;
+    },
+    setUserUpdateError(state: any, userUpdateError: any) {
+        state.userUpdateError = userUpdateError;
+    },
+    setUserReservations(state: any, userReservations: any) {
+        state.userReservations = userReservations;
+    },
+    setUserReservationsError(state: any, userReservationsError: any) {
+        state.userReservationsError = userReservationsError;
+    },
+    setUserReservationsLoading(state: any, isUserReservationsLoading: boolean) {
+        state.isUserReservationsLoading = isUserReservationsLoading;
     }
 };
