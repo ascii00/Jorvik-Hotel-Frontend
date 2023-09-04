@@ -25,7 +25,13 @@ export default {
             isUserEntertainmentReservationAmountLoading: false,
             userEntertainmentReservationAmountError: null,
             usersByName: [],
-            errorUserByName: null
+            errorUserByName: null,
+            isUserUpdateLoading: false,
+            userUpdateError: null,
+
+            userReservations: [],
+            userReservationsError: null,
+            isUserReservationsLoading: false,
         }
     },
     mutations,

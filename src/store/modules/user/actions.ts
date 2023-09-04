@@ -180,5 +180,52 @@ export default {
             }
             context.commit('setErrorUserByName', errorMessage);
         }
+    },
+    async editUser(context: any, payload: any) {
+        context.commit('setUserUpdateLoading', true);
+        try {
+            await axios.put(`${baseURL}/api/v1/user/update/${payload.id}`, {
+                firstName: payload.firstName,
+                lastName: payload.lastName,
+                email: payload.email,
+                phone: payload.phone,
+                discount: payload.discount,
+            });
+
+            context.commit('setUserUpdateError', null);
+        } catch (error) {
+            let errorMessage: string;
+            // @ts-ignore
+            if (error.response && error.response.data && error.response.data.data && error.response.data.data.errors) {
+                // @ts-ignore
+                errorMessage = error.response.data.data.errors;
+            } else {
+                // @ts-ignore
+                errorMessage = error.message || "Unknown error occurred.";
+            }
+            context.commit('setUserUpdateError', errorMessage);
+        } finally {
+            context.commit('setUserUpdateLoading', false);
+        }
+    },
+    async fetchUserReservations(context: any, payload: any) {
+        context.commit('setUserReservationsLoading', true);
+        try {
+            const response = await axios.get(`${baseURL}/api/v1/bookings/getAllByAdmin/${payload}`);
+            context.commit('setUserReservations', response.data.data);
+        } catch (error) {
+            let errorMessage: string;
+            // @ts-ignore
+            if (error.response && error.response.data && error.response.data.errors) {
+                // @ts-ignore
+                errorMessage = error.response.data.errors;
+            } else {
+                // @ts-ignore
+                errorMessage = error.message || "Unknown error occurred.";
+            }
+            context.commit('setUserReservationsError', errorMessage);
+        } finally {
+            context.commit('setUserReservationsLoading', false);
+        }
     }
 };
