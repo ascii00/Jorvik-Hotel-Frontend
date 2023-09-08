@@ -1,4 +1,5 @@
 <template>
+
     <TheHeader v-if="!isLoginPage" class="header"></TheHeader>
     <router-view class="content"/>
 </template>

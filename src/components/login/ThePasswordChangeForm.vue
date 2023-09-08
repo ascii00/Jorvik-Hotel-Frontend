@@ -72,7 +72,7 @@ export default {
       this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
     },
     validatePassword(value){
-      const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#^&])[A-Za-z\d@$!%*?#^&]{8,}$/;
       if (this.password !== this.passwordTwo) {
         this.passwordError = 'Passwords do not match';
       } else if (!passwordReg.test(value)) {
