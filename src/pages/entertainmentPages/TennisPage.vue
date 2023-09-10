@@ -24,7 +24,8 @@
           <li class="description-list-element">After the game, clean up after yourself, return the inventory to its place</li>
           <li class="description-list-element">It is not allowed to enter with food and drinks, with animals, under the influence of alcohol.</li>
         </ul>
-        <base-button v-motion-slide-visible-right class="reservation-button" mode="color-two" @click="reservationHandler">Reserve a court</base-button>
+        <base-button v-if="!isMobile" v-motion-slide-visible-right class="reservation-button" mode="color-two" @click="reservationHandler">Reserve a court</base-button>
+        <base-button v-else v-motion-slide-visible-top class="reservation-button" mode="color-two" @click="reservationHandler">Reserve a court</base-button>
       </div>
 
     </div>
@@ -42,6 +43,7 @@ export default {
   components: {BaseImageCarousel, BaseButton, BaseRoomCard},
   data() {
     return {
+      windowWidth: window.innerWidth,
       slides: [
         'https://i.imgur.com/QVcjiVG.jpg',
         'https://i.imgur.com/u77BHoT.jpg',
@@ -54,6 +56,21 @@ export default {
     reservationHandler() {
       this.$router.push({name: "EntertainmentReservation"})
     },
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    }
+  },
+  created() {
+    window.addEventListener('resize', this.handleResize);
+  },
+
+  destroyed() {
+    window.removeEventListener('resize', this.handleResize);
+  },
+  computed: {
+    isMobile() {
+      return this.windowWidth <= 1000;
+    }
   },
 };
 </script>

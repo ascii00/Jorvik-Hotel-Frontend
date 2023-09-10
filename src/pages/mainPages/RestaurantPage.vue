@@ -41,6 +41,16 @@
         <div v-else-if="breakfastError" class="error">{{ breakfastError }}</div>
         <div v-else-if="breakfastMenu.length !== 0" v-for="menuItem in breakfastMenu" :key="menuItem.id">
           <MenuItem
+              v-if="!isMobile"
+              v-motion-slide-visible-right
+              class="menu-item"
+              :title="menuItem.name"
+              :description="menuItem.description"
+              :image="menuItem.photoDirectory"
+          ></MenuItem>
+          <MenuItem
+              v-else
+              v-motion-slide-visible-top
               class="menu-item"
               :title="menuItem.name"
               :description="menuItem.description"
@@ -56,7 +66,16 @@
         <div v-else-if="lunchError" class="error">{{ lunchError }}</div>
         <div v-else-if="lunchMenu.length !== 0" v-for="menuItem in lunchMenu" :key="menuItem.id">
           <MenuItem
+              v-if="!isMobile"
               v-motion-slide-visible-right
+              class="menu-item"
+              :title="menuItem.name"
+              :description="menuItem.description"
+              :image="menuItem.photoDirectory"
+          ></MenuItem>
+          <MenuItem
+              v-else
+              v-motion-slide-visible-top
               class="menu-item"
               :title="menuItem.name"
               :description="menuItem.description"
@@ -72,7 +91,16 @@
         <div v-else-if="dinnerError" class="error">{{ dinnerError }}</div>
         <div v-else-if="dinnerMenu.length !== 0" v-for="menuItem in dinnerMenu" :key="menuItem.id">
           <MenuItem
+              v-if="!isMobile"
               v-motion-slide-visible-right
+              class="menu-item"
+              :title="menuItem.name"
+              :description="menuItem.description"
+              :image="menuItem.photoDirectory"
+          ></MenuItem>
+          <MenuItem
+              v-else
+              v-motion-slide-visible-top
               class="menu-item"
               :title="menuItem.name"
               :description="menuItem.description"
@@ -97,6 +125,7 @@ export default {
   components: {BaseSpinner, MenuItem, BaseImageCarousel, BaseButton, BaseRoomCard},
   data() {
     return {
+      windowWidth: window.innerWidth,
       slides: [
         'https://i.imgur.com/Ab55X0J.jpg',
         'https://i.imgur.com/cITXy9A.jpg',
@@ -106,13 +135,20 @@ export default {
     };
   },
   async created() {
+    window.addEventListener('resize', this.handleResize);
     await this.fetchMenu();
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.handleResize);
   },
   methods: {
     async fetchMenu(){
       await this.$store.dispatch('menu/fetchBreakfastMenu');
       await this.$store.dispatch('menu/fetchLunchMenu');
       await this.$store.dispatch('menu/fetchDinnerMenu');
+    },
+    handleResize() {
+      this.windowWidth = window.innerWidth;
     }
   },
   computed: {
@@ -142,6 +178,9 @@ export default {
     },
     dinnerMenu() {
       return this.$store.getters['menu/getDinnerMenu'];
+    },
+    isMobile() {
+      return this.windowWidth <= 1000;
     }
   }
 };

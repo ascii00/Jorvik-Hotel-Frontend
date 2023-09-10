@@ -22,7 +22,8 @@
           <li class="description-list-element">After the trip, please, return the kayak to its place</li>
           <li class="description-list-element">10 euro per hour</li>
         </ul>
-        <base-button v-motion-slide-visible-right class="reservation-button" mode="color-two" @click="reservationHandler">Reserve kayak</base-button>
+        <base-button v-if="!isMobile" v-motion-slide-visible-right class="reservation-button" mode="color-two" @click="reservationHandler">Reserve kayak</base-button>
+        <base-button v-else v-motion-slide-visible-top class="reservation-button" mode="color-two" @click="reservationHandler">Reserve kayak</base-button>
       </div>
 
     </div>
@@ -40,6 +41,7 @@ export default {
   components: {BaseImageCarousel, BaseButton, BaseRoomCard},
   data() {
     return {
+      windowWidth: window.innerWidth,
       slides: [
         'https://i.imgur.com/hbywB8u.jpg',
         'https://i.imgur.com/dPS7FNr.jpg',
@@ -53,6 +55,21 @@ export default {
     reservationHandler() {
       this.$router.push({name: "EntertainmentReservation"})
     },
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    }
+  },
+  created() {
+    window.addEventListener('resize', this.handleResize);
+  },
+
+  destroyed() {
+    window.removeEventListener('resize', this.handleResize);
+  },
+  computed: {
+    isMobile() {
+      return this.windowWidth <= 1000;
+    }
   },
 };
 </script>
