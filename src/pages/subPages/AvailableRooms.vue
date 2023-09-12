@@ -11,12 +11,12 @@
               <p class="title-two">for <b>{{ totalGuests }}</b> guests</p>
             </base-card>
           </div>
-
           <div class="content">
 
             <div v-if="isLoading" class="spinner"><base-spinner/></div>
-            <div v-else-if="!roomTypes.length">No available rooms matching your criteria were found.</div>
-
+            <base-card v-else-if="!roomTypes.length">
+            <h2>No available rooms matching your criteria were found.</h2>
+            </base-card>
 
             <div v-else>
               <div v-for="roomType in roomTypes" :key="roomType.id">

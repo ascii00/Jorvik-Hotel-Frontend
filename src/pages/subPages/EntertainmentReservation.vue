@@ -275,7 +275,7 @@ export default {
       return `${String(dateObj.getHours()).padStart(2, '0')}-${String(dateObj.getMinutes()).padStart(2, '0')}`;
     },
     validateDate(dateFrom, dateTo){
-      if (dateFrom > dateTo) {
+      if (dateFrom >= dateTo) {
         this.reservationError = 'The end date cannot be earlier than the start date.';
         return false;
       }
