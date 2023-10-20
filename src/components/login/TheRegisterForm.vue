@@ -13,7 +13,7 @@
       <input class="email-input" type="email" v-model="email" placeholder="Enter Email" autocomplete="username" required />
       <p v-if="emailError" class="error">{{ emailError }}</p>
 
-      <input type="tel" v-model="phone" placeholder="Phone Number" pattern="[0-9]{7,11}" autocomplete="off" required />
+      <input type="tel" v-model="phone" placeholder="Phone Number" autocomplete="off" required />
 
       <p v-if="phoneError" class="error">{{ phoneError }}</p>
 
@@ -130,7 +130,7 @@ export default {
       }
     },
     validatePhone(value){
-      const phoneReg = /^\d{7,11}$/;
+      const phoneReg = /^\+?\d{6,14}$/;
       if (!phoneReg.test(value)) {
         this.phoneError = 'Please enter a valid phone number';
       } else {

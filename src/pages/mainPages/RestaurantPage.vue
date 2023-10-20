@@ -42,7 +42,7 @@
         <div v-else-if="breakfastMenu.length !== 0" v-for="menuItem in breakfastMenu" :key="menuItem.id">
           <MenuItem
               v-if="!isMobile"
-              v-motion-slide-visible-right
+              v-motion-slide-visible-once-right
               class="menu-item"
               :title="menuItem.name"
               :description="menuItem.description"
@@ -50,7 +50,7 @@
           ></MenuItem>
           <MenuItem
               v-else
-              v-motion-slide-visible-top
+              v-motion-slide-visible-once-top
               class="menu-item"
               :title="menuItem.name"
               :description="menuItem.description"
@@ -67,7 +67,7 @@
         <div v-else-if="lunchMenu.length !== 0" v-for="menuItem in lunchMenu" :key="menuItem.id">
           <MenuItem
               v-if="!isMobile"
-              v-motion-slide-visible-right
+              v-motion-slide-visible-once-right
               class="menu-item"
               :title="menuItem.name"
               :description="menuItem.description"
@@ -75,7 +75,7 @@
           ></MenuItem>
           <MenuItem
               v-else
-              v-motion-slide-visible-top
+              v-motion-slide-visible-once-top
               class="menu-item"
               :title="menuItem.name"
               :description="menuItem.description"
@@ -92,7 +92,7 @@
         <div v-else-if="dinnerMenu.length !== 0" v-for="menuItem in dinnerMenu" :key="menuItem.id">
           <MenuItem
               v-if="!isMobile"
-              v-motion-slide-visible-right
+              v-motion-slide-visible-once-right
               class="menu-item"
               :title="menuItem.name"
               :description="menuItem.description"
@@ -100,7 +100,7 @@
           ></MenuItem>
           <MenuItem
               v-else
-              v-motion-slide-visible-top
+              v-motion-slide-visible-once-top
               class="menu-item"
               :title="menuItem.name"
               :description="menuItem.description"
