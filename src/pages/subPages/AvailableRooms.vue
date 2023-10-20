@@ -96,7 +96,7 @@
               :area="area"
               :capacity="capacity"
               :slides="slidesRoomTwo"
-              apartment-number="One"
+              apartment-number="Two"
               parking bathroom balcony coffee tv view air wifi pets minibar
               @closeRoomDescription="closeRoomDescription"
           >
@@ -109,7 +109,7 @@
               :area="area"
               :capacity="capacity"
               :slides="slidesRoomThree"
-              apartment-number="One"
+              apartment-number="Three"
               parking bathroom balcony coffee tv view air wifi smoking
               @closeRoomDescription="closeRoomDescription"
           >
