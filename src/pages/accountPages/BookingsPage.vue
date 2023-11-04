@@ -46,9 +46,24 @@
               </base-booking-card>
             </div>
 
-            <div class="show-all-button" v-if="!showAllBookings && allBookings.length > 7">
-              <base-button @click="showAll" mode="color-two">Show all bookings</base-button>
+            <div class="pagination-controls" v-if="allBookings.length > bookingsPerPage">
+              <base-button
+                  :disabled="currentPage === 1"
+                  @click="currentPage--"
+                  mode="color-two"
+              >
+                Previous
+              </base-button>
+              <span class="page-numbers">Page {{ currentPage }} of {{ totalPages }}</span>
+              <base-button
+                  :disabled="currentPage === totalPages"
+                  @click="currentPage++"
+                  mode="color-two"
+              >
+                Next
+              </base-button>
             </div>
+
           </div>
 
           <base-payment
@@ -121,6 +136,8 @@ export default {
       timeTo: null,
       paymentDateRoomTypeId: null,
       reservationId: null,
+      currentPage: 1,
+      bookingsPerPage: 5,
     };
   },
   methods: {
@@ -243,11 +260,9 @@ export default {
   },
   computed: {
     displayedBookings() {
-      if (this.showAllBookings) {
-        return this.allBookings;
-      } else {
-        return this.allBookings.slice(0, 7);
-      }
+      let start = (this.currentPage - 1) * this.bookingsPerPage;
+      let end = this.currentPage * this.bookingsPerPage;
+      return this.allBookings.slice(start, end);
     },
     allBookings(){
       return this.$store.getters['bookings/allBookings'];
@@ -264,22 +279,32 @@ export default {
     deleteBookingLoading(){
       return this.$store.getters['bookings/bookingDeleteIsLoading'];
     },
+    totalPages() {
+      return Math.ceil(this.allBookings.length / this.bookingsPerPage);
+    },
   },
 };
 
 </script>
 
 <style scoped>
-
 .background {
   position: absolute;
   width: 100%;
   min-height: 115vh;
   background-image: url('https://i.imgur.com/HxsgirU.jpg');
   background-size: cover;
-  background-repeat: no-repeat; /* This will prevent your image from repeating */
+  background-repeat: repeat; /* This will prevent your image from repeating */
   background-position: center; /* This will center your image within the element */
   z-index: -10;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 10px;
+  color: white;
 }
 
 .container {
@@ -310,6 +335,11 @@ export default {
 .booking-element-title {
   color: white;
   margin-bottom: 5px;
+}
+
+.page-numbers {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .content {
@@ -411,6 +441,12 @@ h1 {
 .route-leave-from {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (max-width: 1100px) {
+  .background {
+    display: none;
+  }
 }
 
 @media (max-width: 1000px) {

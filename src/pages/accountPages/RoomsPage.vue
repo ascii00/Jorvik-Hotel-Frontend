@@ -88,17 +88,13 @@ export default {
 </script>
 
 <style scoped>
-
-.background {
-  position: absolute;
-  width: 100%;
-  min-height: 115vh;
+body {
   background-image: url('https://i.imgur.com/HxsgirU.jpg');
-  background-size: cover;
-  background-repeat: no-repeat; /* This will prevent your image from repeating */
-  background-position: center; /* This will center your image within the element */
-  z-index: -10;
+  background-repeat: repeat;
+  margin: 0;
+  padding: 0;
 }
+
 
 .card {
   border-radius: 5px;
