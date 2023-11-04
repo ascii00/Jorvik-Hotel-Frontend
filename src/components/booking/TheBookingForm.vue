@@ -186,7 +186,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1F232C;
+  background-color: rgba(31, 35, 44, 0.9);
   border-radius: 50px;
   padding: 10px;
   width: 900px;

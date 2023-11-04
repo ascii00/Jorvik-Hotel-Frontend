@@ -34,7 +34,7 @@
         <p v-if="paymentFailed" class="error">{{ paymentFailedMessage }}</p>
       </div>
 
-      <base-button type="submit" :disabled="!!isPaymentLoading || buttonsBlocked">
+      <base-button type="submit" :disabled="!!isPaymentLoading || buttonsBlocked" mode="color-two">
         <base-button-spinner :isLoading="!!isPaymentLoading"></base-button-spinner>
         <span v-if="!isPaymentLoading">Pay now</span>
       </base-button>
@@ -86,7 +86,7 @@ export default {
       type: String,
       required: false,
       default: '/bookings-result',
-    },
+    }
   },
   data() {
     return {
@@ -134,7 +134,7 @@ export default {
       this.reservationId = this.$store.getters['payment/paymentIntent'].reservationId;
 
       const appearance = {
-        theme: 'flat',
+        theme: 'night',
         variables: {
           colorPrimary: '#2f4fd0',
         },
@@ -214,21 +214,20 @@ export default {
 .test p,
 .payment-description p{
   font-size: 13px;
-  color: #494949;
+  color: #ffffff;
 }
 
 .test h3,
 .payment-description h3{
   font-size: 13px;
   font-weight: 700;
-  color: #494949;
+  color: #ffffff;
   margin-bottom: 8px;
   margin-top: 8px;
 }
 
-
 #payment-message {
-  color: rgb(105, 115, 134);
+  color: #ffffff;
   font-size: 16px;
   line-height: 20px;
   padding-top: 12px;
@@ -275,6 +274,10 @@ button:disabled {
   background-color: #e0e0e0;
   color: #9e9e9e;
   cursor: not-allowed;
+}
+
+.Input, .p-FauxInput {
+  border-radius: 5px !important;
 }
 
 @media (max-width: 600px) {

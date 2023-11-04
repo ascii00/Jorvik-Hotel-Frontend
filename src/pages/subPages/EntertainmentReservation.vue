@@ -1,4 +1,6 @@
 <template>
+  <div class="background">
+  </div>
   <div>
     <div v-if="!error">
       <transition name="route" mode="out-in">
@@ -12,10 +14,10 @@
                     src="https://cdn.lordicon.com/lupuorrc.json"
                     trigger="loop"
                     delay="2000"
-                    colors="primary:#121331,secondary:#FC5C65"
+                    colors="primary:#FFFFFFFF,secondary:#FC5C65"
                     style="width:50px;height:50px">
                 </lord-icon>
-                <p>Discover the best in recreational fun and sporty adventures at Jorvik Hotel. Whether you're keen on
+                <p class="info-ent">Discover the best in recreational fun and sporty adventures at Jorvik Hotel. Whether you're keen on
                   rallying on our pristine tennis courts, exploring scenic trails on our top-notch bicycles, or
                   embarking on a tranquil kayak journey, we've got the perfect reservation waiting for you.</p>
                 <h3>Note: Entertainment reservations can be made 24 hours in advance.</h3>
@@ -67,7 +69,7 @@
                 </tr>
               </table>
 
-              <base-button class="reserve-button" @click="reserveClicked" :disabled="isButtonClicked">Reserve</base-button>
+              <base-button class="reserve-button" @click="reserveClicked" :disabled="isButtonClicked" mode="color-two">Reserve</base-button>
             </div>
           </base-card>
           <base-payment
@@ -339,11 +341,29 @@ export default {
 
 <style scoped>
 
+.background {
+  position: absolute;
+  width: 100%;
+  min-height: 115vh;
+  background-image: url('https://i.imgur.com/JN5WeBA.jpg');
+  background-size: cover;
+  background-repeat: no-repeat; /* This will prevent your image from repeating */
+  background-position: center; /* This will center your image within the element */
+  z-index: -10;
+}
+
+.card {
+  border-radius: 5px;
+  background-color: rgba(31, 35, 44, 0.8);
+  opacity: 90%;
+}
+
 .text-container {
   margin-bottom: 20px;
 }
 
 h2 {
+  color: white;
   text-align: center;
   font-size: 20px;
   font-weight: 700;
@@ -351,11 +371,13 @@ h2 {
 }
 
 h3 {
+  color: white;
   font-size: 15px;
   font-weight: 500;
 }
 
-p {
+.info-ent {
+  color: white;
   font-size: 16px;
 }
 
@@ -372,6 +394,7 @@ p {
 table {
   width: 50%;
   border-collapse: collapse;
+  color: white;
   margin: 20px 0;
 }
 
@@ -383,7 +406,7 @@ td, th {
 }
 
 th {
-  background-color: #f5f5f5;
+  background-color: rgba(255, 255, 255, 0.2);
   font-weight: bold;
   font-size: 14px;
 }

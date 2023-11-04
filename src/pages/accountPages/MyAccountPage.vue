@@ -1,5 +1,6 @@
 <template>
-
+  <div class="background">
+  </div>
   <div>
     <BaseDialog :show="!!error" @close="closeErrorDialog" title="An error occurred">
       <p class="error-text">{{ error }}</p>
@@ -77,7 +78,7 @@
     <div v-if="isLoading" class="spinner"><base-spinner/></div>
     <div class="content" v-else>
 
-        <base-card>
+        <base-card class="profile-info">
 
           <div class="profile-title">
             <h1>Hey,</h1>
@@ -105,7 +106,7 @@
                 </div>
                 <span class="transition-off" v-if="!isEmailVerificationLoading">Resend verification</span>
               </BaseButton>
-              <base-button @click="editEmailDialogOpen" :disabled="buttonsBlocked">Edit</base-button>
+              <base-button @click="editEmailDialogOpen" :disabled="buttonsBlocked" mode="color-two">Edit</base-button>
             </div>
           </div>
 
@@ -113,7 +114,7 @@
             <p class="info-title">Phone</p>
             <div class="user-data">
               <p class="info-value">{{ phone }}</p>
-              <base-button @click="editPhoneDialogOpen" :disabled="buttonsBlocked">Edit</base-button>
+              <base-button @click="editPhoneDialogOpen" :disabled="buttonsBlocked" mode="color-two">Edit</base-button>
             </div>
           </div>
 
@@ -127,7 +128,7 @@
           <div class="info-block-line">
             <p class="info-title">Password</p>
             <div class="user-data">
-              <base-button @click="editPasswordDialogOpen" :disabled="buttonsBlocked">Change Password</base-button>
+              <base-button @click="editPasswordDialogOpen" :disabled="buttonsBlocked" mode="color-two">Change Password</base-button>
             </div>
           </div>
         </base-card>
@@ -365,6 +366,30 @@ export default {
 
 
 <style scoped>
+.background {
+  position: absolute;
+  width: 100%;
+  min-height: 115vh;
+  background-image: url('https://i.imgur.com/HxsgirU.jpg');
+  background-size: cover;
+  background-repeat: no-repeat; /* This will prevent your image from repeating */
+  background-position: center; /* This will center your image within the element */
+  z-index: -10;
+}
+
+.card {
+  border-radius: 5px;
+  background-color: rgba(31, 35, 44, 0.8);
+  opacity: 90%;
+}
+
+.profile-info {
+  color: white;
+}
+
+.profile-title {
+  color: black;
+}
 
 .error-text {
   color: red;

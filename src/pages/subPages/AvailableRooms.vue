@@ -1,5 +1,6 @@
 <template>
-
+  <div class="background">
+  </div>
   <div>
     <transition name="route" mode="out-in">
       <div :key="transitionKey">
@@ -21,7 +22,7 @@
             <div v-else>
               <div v-for="roomType in roomTypes" :key="roomType.id">
 
-                <div v-if="roomType.id === 1" class="card">
+                <div v-if="roomType.id === 1" class="card-room">
                   <base-booking-card photo="https://i.imgur.com/ba7Ptwm.jpg">
                     <template v-slot:text>
                       <div class="description">
@@ -32,13 +33,13 @@
                       </div>
                     </template>
                     <template v-slot:button>
-                      <base-button :disabled="buttonsBlocked" @click="bookRoomClicked(1)">Book</base-button>
+                      <base-button :disabled="buttonsBlocked" @click="bookRoomClicked(1)" mode="color-two">Book</base-button>
                       <base-button :disabled="buttonsBlocked" @click="roomDescriptionClicked(1)" mode="color-two">Room Description</base-button>
                     </template>
                   </base-booking-card>
                 </div>
 
-                <div v-else-if="roomType.id === 2" class="card">
+                <div v-else-if="roomType.id === 2" class="card-room">
                   <base-booking-card photo="https://i.imgur.com/K3OrwDE.jpg">
                     <template v-slot:text>
                       <div class="description">
@@ -49,13 +50,13 @@
                       </div>
                     </template>
                     <template v-slot:button>
-                      <base-button :disabled="buttonsBlocked" @click="bookRoomClicked(2)">Book</base-button>
+                      <base-button :disabled="buttonsBlocked" @click="bookRoomClicked(2)" mode="color-two">Book</base-button>
                       <base-button :disabled="buttonsBlocked" @click="roomDescriptionClicked(2)" mode="color-two">Room Description</base-button>
                     </template>
                   </base-booking-card>
                 </div>
 
-                <div v-else>
+                <div v-else class="card-room">
                   <base-booking-card photo="https://i.imgur.com/ElXyXiO.jpg">
                     <template v-slot:text>
                       <div class="description">
@@ -66,7 +67,7 @@
                       </div>
                     </template>
                     <template v-slot:button>
-                      <base-button :disabled="buttonsBlocked" @click="bookRoomClicked(3)">Book</base-button>
+                      <base-button :disabled="buttonsBlocked" @click="bookRoomClicked(3)" mode="color-two">Book</base-button>
                       <base-button :disabled="buttonsBlocked" @click="roomDescriptionClicked(3)" mode="color-two">Room Description</base-button>
                     </template>
                   </base-booking-card>
@@ -162,9 +163,7 @@
     <base-dialog :show="showErrorDialog" title="Error" @close="closeErrorDialog">
       <p>Something went wrong. Please try again later.</p>
     </base-dialog>
-
   </div>
-
 </template>
 
 <script>
@@ -349,6 +348,27 @@ export default {
 </script>
 
 <style scoped>
+.background {
+  position: absolute;
+  width: 100%;
+  min-height: 115vh;
+  background-image: url('https://i.imgur.com/JN5WeBA.jpg');
+  background-size: cover;
+  background-repeat: no-repeat; /* This will prevent your image from repeating */
+  background-position: center; /* This will center your image within the element */
+  z-index: -10;
+}
+
+.card {
+  border-radius: 5px;
+  background-color: rgba(31, 35, 44, 0.8);
+  opacity: 90%;
+}
+
+.custom-button {
+  width: 150px;
+}
+
 .title {
   margin-top: 20px;
   font-size: 1.5rem;
@@ -357,7 +377,6 @@ export default {
 }
 
 .content {
-  margin: 20px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -371,13 +390,22 @@ export default {
   transform: translate(-50%, -50%);
 }
 
-.description h3 {
-  font-weight: 500;
-  font-size: 1.2rem;
-  margin-bottom: 15px;
+.description {
+  color: white;
+  opacity: 70%;
 }
 
-.card {
+.description h3 {
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.description p {
+  font-size: 0.9rem;
+}
+
+.card-room {
   margin-bottom: 20px;
 }
 
@@ -390,10 +418,14 @@ export default {
 }
 
 .title-one {
+  color: white;
+  opacity: 70%;
   font-size: 23px;
 }
 
 .title-two {
+  color: white;
+  opacity: 70%;
   font-size: 18px;
 }
 
@@ -430,6 +462,11 @@ b {
 }
 
 @media (max-width: 1000px) {
+  .card-room {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
   .title {
     margin-left: 20px;
     margin-right: 20px;

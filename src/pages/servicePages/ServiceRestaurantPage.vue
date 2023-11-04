@@ -155,7 +155,6 @@ export default defineComponent({
       newDishName: null,
       newDishDescription: null,
       newDishPhoto: null,
-
       editDishId: null,
       editDishName: null,
       editDishDescription: null,
@@ -204,6 +203,7 @@ export default defineComponent({
     },
     closeAddMenuDialog() {
       this.addMenuDialog = false;
+      this.isButtonDisabled = false;
     },
     closeDishEditDialog() {
       this.dishEditDialog = false;

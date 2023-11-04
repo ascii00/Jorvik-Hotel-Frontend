@@ -92,10 +92,6 @@ export default {
   padding: 10px;
 }
 
-.selected-option.not-default {
-  color: black;
-}
-
 .options {
   position: absolute;
   top: 100%;
@@ -122,7 +118,7 @@ export default {
 
 .custom-select.disabled {
   border-color: #ececec;
-  background-color: #ececec;
+  background-color: rgba(255, 255, 255, 0.2);
   cursor: not-allowed;
 }
 

@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="background">
+    </div>
+  <div>
     <div class="content">
       <base-card>
         <div class="text-container">
@@ -26,7 +29,7 @@
         </div>
       </base-card>
     </div>
-
+  </div>
   </div>
 </template>
 
@@ -51,6 +54,16 @@ export default {
 </script>
 
 <style scoped>
+.background {
+  position: absolute;
+  width: 100%;
+  min-height: 100vh;
+  background-image: url('https://i.imgur.com/JN5WeBA.jpg');
+  background-size: cover;
+  background-repeat: no-repeat; /* This will prevent your image from repeating */
+  background-position: center; /* This will center your image within the element */
+  z-index: -10;
+}
 
 .content {
   margin: 0 20px;

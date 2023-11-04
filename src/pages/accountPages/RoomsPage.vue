@@ -1,4 +1,6 @@
 <template>
+  <div class="background">
+  </div>
   <div>
     <BaseDialog :show="!!currentRoomsError" @close="closeErrorDialog" title="An error occurred">
       <p class="error-text">{{ currentRoomsError }}</p>
@@ -83,6 +85,24 @@ export default {
 </script>
 
 <style scoped>
+
+.background {
+  position: absolute;
+  width: 100%;
+  min-height: 115vh;
+  background-image: url('https://i.imgur.com/HxsgirU.jpg');
+  background-size: cover;
+  background-repeat: no-repeat; /* This will prevent your image from repeating */
+  background-position: center; /* This will center your image within the element */
+  z-index: -10;
+}
+
+.card {
+  border-radius: 5px;
+  background-color: rgba(31, 35, 44, 0.8);
+  opacity: 90%;
+}
+
 .spinner {
   position: fixed;
   top: 40%;
@@ -112,6 +132,11 @@ h1 {
   margin-left: 20px;
   font-size: 40px;
   font-weight: 700;
+}
+
+.info-block,
+.info-block-line {
+  color: white;
 }
 
 .card {

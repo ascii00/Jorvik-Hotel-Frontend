@@ -1,8 +1,8 @@
 <template>
-  <button v-if="!link" :class="mode" :disabled="disabled">
+  <button class="custom-button" v-if="!link" :class="mode" :disabled="disabled">
     <slot></slot>
   </button>
-  <router-link class="button" :class="mode" v-else :to="to">
+  <router-link class="custom-button" :class="mode" v-else :to="to">
     <slot></slot>
   </router-link>
 </template>
@@ -36,8 +36,7 @@ export default {
 </script>
 
 <style scoped>
-button,
-.button {
+.custom-button {
     border: 2px solid rgba(199, 196, 196, 0.83);
     background-color: transparent;
     border-radius: 5px;
@@ -48,36 +47,33 @@ button,
     font-size: 15px;
 }
 
-button.color-one,
-.button.color-one{
+.custom-button.color-one{
     color: #1F232C;
 }
 
-button.color-two,
+.custom-button.color-two,
 .button.color-two{
     color: #FC5C65;
 }
 
-button.color-one:hover,
-.button.color-one:hover {
+.custom-button.color-one:hover {
     background-color: #1F232C;
     border-color: #1F232C;
     color: white;
 }
 
-button.color-two:hover,
-.button.color-two:hover{
+.custom-button.color-two:hover{
     background-color: #e33840;
     border-color: #e33840;
     color: white;
 }
 
-button:disabled {
+.custom-button:disabled {
   cursor: not-allowed;
   opacity: 0.6;
 }
 
-button:disabled:hover {
+.custom-button:disabled:hover {
   background-color: transparent;
   border-color: rgba(199, 196, 196, 0.83);
   color: inherit;

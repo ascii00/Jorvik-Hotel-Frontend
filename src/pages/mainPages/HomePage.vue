@@ -1,6 +1,7 @@
 <template>
     <div>
         <TheBookingImageCarousel>
+
             <template v-slot:title>
               <h1>
                 Unwind, rejuvenate, and <br>
@@ -22,7 +23,7 @@ export default {
     components: {
         TheBookingImageCarousel,
         TheBookingForm
-    }
+    },
 };
 </script>
 

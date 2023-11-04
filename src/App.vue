@@ -35,7 +35,7 @@ export default {
     box-sizing: border-box;
     font-family: "Nunito", sans-serif;
     font-weight: 300;
-    transition: color 0.2s, fill 0.2s, background-color 0.3s, border-color 0.3s, width 0.3s, height 0.3s;
+    transition: color 0.2s, fill 0.2s, background-color 0.3s, border-color 0.3s;
 }
 
 .app {
@@ -113,9 +113,11 @@ a {
 }
 
 .dp__input {
+  background: none !important;
   border-radius: 10px !important;
   height: 50px !important;
   font-family: "Nunito", sans-serif !important;
+  color: #9d9d9d !important;
 }
 
 .dp__action_select:disabled {

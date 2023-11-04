@@ -1,6 +1,7 @@
 <template>
+  <div class="background">
+  </div>
   <div>
-
     <div v-if="allBookingsLoading" class="spinner"><base-spinner/></div>
 
     <div v-else-if="!allBookingsError" class="content">
@@ -38,15 +39,15 @@
                       </div>
                       <span class="transition-off" v-if="!deleteBookingLoading">Cancel</span>
                     </base-button>
-                    <base-button v-if="isRoomBooking(booking.bookingType)" @click="payForRoom(booking.fromDate, booking.toDate, booking.roomTypeId, booking.id)">Pay</base-button>
-                    <base-button v-else @click="payForEntertainment(booking.bookingType, booking.fromDate, booking.toDate, booking.id)">Pay</base-button>
+                    <base-button v-if="isRoomBooking(booking.bookingType)" @click="payForRoom(booking.fromDate, booking.toDate, booking.roomTypeId, booking.id)" mode="color-two">Pay</base-button>
+                    <base-button v-else @click="payForEntertainment(booking.bookingType, booking.fromDate, booking.toDate, booking.id)" mode="color-two">Pay</base-button>
                   </div>
                 </template>
               </base-booking-card>
             </div>
 
             <div class="show-all-button" v-if="!showAllBookings && allBookings.length > 7">
-              <base-button @click="showAll">Show all bookings</base-button>
+              <base-button @click="showAll" mode="color-two">Show all bookings</base-button>
             </div>
           </div>
 
@@ -270,8 +271,25 @@ export default {
 
 <style scoped>
 
+.background {
+  position: absolute;
+  width: 100%;
+  min-height: 115vh;
+  background-image: url('https://i.imgur.com/HxsgirU.jpg');
+  background-size: cover;
+  background-repeat: no-repeat; /* This will prevent your image from repeating */
+  background-position: center; /* This will center your image within the element */
+  z-index: -10;
+}
+
 .container {
   max-width: 100%
+}
+
+.card {
+  border-radius: 5px;
+  background-color: rgba(31, 35, 44, 0.8);
+  opacity: 90%;
 }
 
 .action-button {
@@ -290,6 +308,7 @@ export default {
 }
 
 .booking-element-title {
+  color: white;
   margin-bottom: 5px;
 }
 
@@ -300,7 +319,7 @@ export default {
 
 h1 {
   margin-top: 20px;
-  margin-left: 20px;
+  margin-left: 80px;
   font-size: 40px;
   font-weight: 700;
 }
@@ -327,6 +346,7 @@ h1 {
 }
 
 .reservation-date {
+  color: white;
   display: flex;
   align-items: center;
 }
@@ -339,6 +359,10 @@ h1 {
 .reservation-date-right {
   margin-left: 5px;
   font-weight: 500;
+}
+
+.description {
+  color: white;
 }
 
 .card {
@@ -391,7 +415,8 @@ h1 {
 
 @media (max-width: 1000px) {
   .content {
-    margin: 0 20px;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   h1 {

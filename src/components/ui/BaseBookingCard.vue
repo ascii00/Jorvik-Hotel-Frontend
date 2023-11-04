@@ -1,5 +1,5 @@
 <template>
-    <div class="container" :class="{'container-hover': (isClickable && !isInactive ), 'container-inactive':isInactive}" @click="handleClick">
+    <div class="booking-container" :class="{'container-hover': (isClickable && !isInactive ), 'container-inactive':isInactive}" @click="handleClick">
       <img :src="photo" alt="Photo" class="photo"/>
       <div class="text">
         <slot name="text"></slot>
@@ -52,23 +52,24 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.booking-container {
   display: flex;
   align-items: center;
-  border: 1px solid #bbbbbb;
+  border: none;
   justify-content: space-between;
-  width: 100%;
-  border-radius: 12px;
+  border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   padding: 1rem;
-  margin: 2rem auto;
-  max-width: 60rem;
+  background-color: rgba(31, 35, 44, 0.8);
+  opacity: 90%;
+  margin: 20px 60px;
 }
 
 .photo {
-  border-radius: 10px;
+  border-radius: 5px;
   margin-right: 20px;
   height: 80px;
+  opacity: 70%;
 }
 
 .text {
@@ -122,11 +123,15 @@ export default {
     flex-direction: row;
     margin-right: 0;
   }
-  .container {
+  .booking-container {
     flex-direction: column;
   }
   .right-side {
    align-items: center;
+  }
+  .booking-container {
+    margin-left: 10px;
+    margin-right: 10px;
   }
 }
 </style>

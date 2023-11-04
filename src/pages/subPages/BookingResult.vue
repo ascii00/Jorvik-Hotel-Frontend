@@ -1,4 +1,6 @@
 <template>
+  <div class="background">
+  </div>
     <div>
         <div class="content">
             <base-card>
@@ -25,11 +27,10 @@
                     <p class="regards">Jorvik Horel</p>
                 </div>
               <div>
-                <base-button class="back-button" link to="/my-bookings">Go to reservations list</base-button>
+                <base-button class="back-button" link to="/my-bookings" mode="color-two">Go to reservations list</base-button>
               </div>
             </base-card>
         </div>
-
     </div>
 </template>
 
@@ -55,8 +56,21 @@ export default {
 
 <style scoped>
 
-.content {
-    margin: 0 20px;
+.background {
+  position: absolute;
+  width: 100%;
+  min-height: 110vh;
+  background-image: url('https://i.imgur.com/JN5WeBA.jpg');
+  background-size: cover;
+  background-repeat: no-repeat; /* This will prevent your image from repeating */
+  background-position: center; /* This will center your image within the element */
+  z-index: -100;
+}
+
+.card {
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  opacity: 90%;
 }
 
 .text-container {
