@@ -11,8 +11,11 @@
 
       <h1>Active Rooms</h1>
 
-      <base-card v-if="!currentRooms.length">Currently, no active rooms are found. In this section, you will see rooms
-        with reservation periods that include today's date. </base-card>
+      <base-card v-if="!currentRooms.length">
+        <p class="rooms-not-found">Currently, no active rooms are found. In this section, you will see rooms
+        with reservation periods that include today's date.
+        </p>
+      </base-card>
 
       <div v-for="room in currentRooms" :key="room.id">
 
@@ -180,6 +183,10 @@ h2 {
   margin-top: 20px;
   margin-bottom: 40px;
   font-weight: 700;
+}
+
+.rooms-not-found {
+  color: white;
 }
 
 @media (max-width: 1000px) {

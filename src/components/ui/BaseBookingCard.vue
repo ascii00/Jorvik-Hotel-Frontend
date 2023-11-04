@@ -106,7 +106,7 @@ export default {
 }
 
 .container-inactive {
-  background: #dadada;
+  background: rgba(255, 255, 255, 0.2);
   cursor: default;
 }
 
