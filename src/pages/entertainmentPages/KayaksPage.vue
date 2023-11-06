@@ -22,7 +22,7 @@
           <li class="description-list-element">After the trip, please, return the kayak to its place</li>
           <li class="description-list-element">10 euro per hour</li>
         </ul>
-        <base-button v-if="!isMobile" class="reservation-button" mode="color-two" @click="reservationHandler">Reserve kayak</base-button>
+        <base-button class="reservation-button" mode="color-two" @click="reservationHandler">Reserve kayak</base-button>
       </div>
 
     </div>

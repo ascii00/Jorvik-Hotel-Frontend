@@ -5,7 +5,7 @@
     <div v-if="!error">
       <transition name="route" mode="out-in">
         <div :key="transitionKey">
-          <base-card v-if="!isPaymentShown">
+          <base-card v-if="!isPaymentShown" class="content-element">
             <base-spinner v-if="isLoading"></base-spinner>
             <div v-else>
               <div class="text-container">
@@ -304,7 +304,7 @@ export default {
         return;
       }
       this.$router.push({
-        name: 'BookingResult',
+        name: 'BookingEntertainmentResult',
         query: { isNotPayed: 'true' }
       });
     },
@@ -456,6 +456,12 @@ tr:first-child:hover {
 }
 
 @media (max-width: 600px) {
+
+  .content-element {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
   h2 {
     font-size: 17px;
   }

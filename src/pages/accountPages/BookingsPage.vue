@@ -11,7 +11,11 @@
           <div v-if="isBookingsShown">
             <h1>Bookings</h1>
 
-            <base-card v-if="!allBookings.length">No bookings were found.</base-card>
+            <base-card v-if="!allBookings.length">
+              <p class="bookings-not-found">
+                No bookings were found.
+              </p>
+            </base-card>
 
             <div v-for="booking in displayedBookings" :key="booking.id">
               <base-booking-card
@@ -137,7 +141,7 @@ export default {
       paymentDateRoomTypeId: null,
       reservationId: null,
       currentPage: 1,
-      bookingsPerPage: 5,
+      bookingsPerPage: 4,
     };
   },
   methods: {
@@ -395,6 +399,10 @@ h1 {
   color: white;
 }
 
+.bookings-not-found {
+  color: white;
+}
+
 .card {
   max-width: 100%;
 }
@@ -451,8 +459,8 @@ h1 {
 
 @media (max-width: 1000px) {
   .content {
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: 5px;
+    margin-right: 5px;
   }
 
   h1 {

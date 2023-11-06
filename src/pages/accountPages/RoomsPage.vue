@@ -88,11 +88,15 @@ export default {
 </script>
 
 <style scoped>
-body {
+.background {
+  position: absolute;
+  width: 100%;
+  min-height: 115vh;
   background-image: url('https://i.imgur.com/HxsgirU.jpg');
-  background-repeat: repeat;
-  margin: 0;
-  padding: 0;
+  background-size: cover;
+  background-repeat: repeat; /* This will prevent your image from repeating */
+  background-position: center; /* This will center your image within the element */
+  z-index: -10;
 }
 
 
@@ -183,6 +187,12 @@ h2 {
 
 .rooms-not-found {
   color: white;
+}
+
+@media (max-width: 1100px) {
+  .background {
+    display: none;
+  }
 }
 
 @media (max-width: 1000px) {

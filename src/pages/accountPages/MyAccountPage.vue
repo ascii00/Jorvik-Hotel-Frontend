@@ -499,9 +499,15 @@ p {
   font-size: 14px;
 }
 
+@media (max-width: 1100px) {
+  .background {
+    display: none;
+  }
+}
+
 @media (max-width: 1000px) {
   .content {
-    margin: 110px 10px 10px;
+    margin: 110px 5px 5px;
   }
 
   .profile-title {

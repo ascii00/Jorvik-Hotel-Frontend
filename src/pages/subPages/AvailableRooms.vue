@@ -352,7 +352,7 @@ export default {
   position: absolute;
   width: 100%;
   min-height: 115vh;
-  background-image: url('https://i.imgur.com/JN5WeBA.jpg');
+  background-image: url('https://i.imgur.com/HxsgirU.jpg');
   background-size: cover;
   background-repeat: no-repeat; /* This will prevent your image from repeating */
   background-position: center; /* This will center your image within the element */
@@ -459,6 +459,12 @@ b {
 .route-leave-from {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (max-width: 1100px) {
+  .background {
+    display: none;
+  }
 }
 
 @media (max-width: 1000px) {

@@ -1,7 +1,7 @@
 <template>
+  <div class="background">
+  </div>
   <div>
-    <div class="background">
-    </div>
   <div>
     <div class="content">
       <base-card>
@@ -57,16 +57,18 @@ export default {
 .background {
   position: absolute;
   width: 100%;
-  min-height: 100vh;
+  min-height: 110vh;
   background-image: url('https://i.imgur.com/JN5WeBA.jpg');
   background-size: cover;
   background-repeat: no-repeat; /* This will prevent your image from repeating */
   background-position: center; /* This will center your image within the element */
-  z-index: -10;
+  z-index: -100;
 }
 
-.content {
-  margin: 0 20px;
+.card {
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  opacity: 90%;
 }
 
 .text-container {
@@ -102,6 +104,11 @@ p {
 }
 
 @media (max-width: 600px) {
+  .content {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
   h2 {
     font-size: 17px;
   }

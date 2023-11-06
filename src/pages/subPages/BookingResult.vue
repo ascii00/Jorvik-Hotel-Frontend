@@ -106,6 +106,11 @@ p {
 }
 
 @media (max-width: 600px) {
+  .content {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
   h2 {
     font-size: 17px;
   }
