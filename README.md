@@ -1,9 +1,5 @@
 # Jorvik Hotel Frontend
 
-## Preview
-
-Preview available at: https://jorvik.world/
-
 ## Description
 
 This repository contains the frontend of the Jorvik Hotel project. 
